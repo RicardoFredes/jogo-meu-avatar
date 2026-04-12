@@ -1,0 +1,24 @@
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Longo cacheado: volume + ondas -->
+  <path d="M205 185 C235 172, 365 172, 395 185
+    L400 540 C400 568, 380 582, 355 585
+    L245 585 C220 582, 200 568, 200 540 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+  <!-- Ondas/cachos nas laterais -->
+  <path d="M180 225 C165 258, 148 310, 145 365
+    C142 415, 150 465, 162 505
+    C170 530, 185 540, 198 535
+    L202 310 C208 262, 218 235, 228 215 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+  <circle cx="155" cy="520" r="18" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <circle cx="175" cy="540" r="15" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <path d="M420 225 C435 258, 452 310, 455 365
+    C458 415, 450 465, 438 505
+    C430 530, 415 540, 402 535
+    L398 310 C392 262, 382 235, 372 215 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+  <circle cx="445" cy="520" r="18" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <circle cx="425" cy="540" r="15" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+
+</svg>

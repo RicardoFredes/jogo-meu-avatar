@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 320">
+  <!-- Long Sleeve Shirt: sleeves follow arms to wrists (~y=195) -->
+  <!-- Main body + long sleeves as one shape -->
+  <path d="
+    M 70,98
+    Q 80,92 90,92
+    Q 100,92 110,98
+    L 124,118
+    L 148,195
+    Q 150,200 146,201
+    L 138,202
+    Q 135,202 134,198
+    L 120,138
+    L 125,174
+    Q 108,180 90,180
+    Q 72,180 55,174
+    L 60,138
+    L 46,198
+    Q 45,202 42,202
+    L 34,201
+    Q 30,200 32,195
+    L 56,118
+    Z
+  " fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Neckline -->
+  <path d="M 70,98 Q 80,92 90,92 Q 100,92 110,98" fill="none" stroke="#CC00CC" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Left cuff -->
+  <path d="M 32,195 Q 30,200 34,201 L 42,202 Q 45,202 46,198" fill="none" stroke="#CC00CC" stroke-width="1" opacity="0.6"/>
+  <!-- Right cuff -->
+  <path d="M 148,195 Q 150,200 146,201 L 138,202 Q 135,202 134,198" fill="none" stroke="#CC00CC" stroke-width="1" opacity="0.6"/>
+  <!-- Bottom hem -->
+  <path d="M 55,174 Q 72,180 90,180 Q 108,180 125,174" fill="none" stroke="#CC00CC" stroke-width="1" stroke-linecap="round"/>
+</svg>

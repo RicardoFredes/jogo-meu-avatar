@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="222 228 158 98" fill="none">
+  <!-- Left eye white - almond -->
+  <path d="M236 287 C238 270 251 260 265 260 C279 260 292 270 294 287 C292 304 279 314 265 314 C251 314 238 304 236 287Z" fill="white" stroke="#B29797" stroke-width="4"/>
+  <!-- Left iris -->
+  <ellipse cx="270" cy="289" rx="15" ry="19" fill="#1A1A1A"/>
+  <!-- Left lashes -->
+  <path d="M247 271 Q246 261 242 256" stroke="#3D2B2B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M258 264 Q258 253 255 248" stroke="#3D2B2B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M270 262 Q273 252 278 249" stroke="#3D2B2B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M282 266 Q287 258 292 256" stroke="#3D2B2B" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <!-- Right eye white - almond -->
+  <path d="M308 287 C310 270 323 260 337 260 C351 260 364 270 366 287 C364 304 351 314 337 314 C323 314 310 304 308 287Z" fill="white" stroke="#B29797" stroke-width="4"/>
+  <!-- Right iris -->
+  <ellipse cx="342" cy="289" rx="15" ry="19" fill="#1A1A1A"/>
+  <!-- Right lashes -->
+  <path d="M320 266 Q315 258 310 256" stroke="#3D2B2B" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M332 262 Q329 252 324 249" stroke="#3D2B2B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M344 264 Q344 253 347 248" stroke="#3D2B2B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M355 271 Q356 261 360 256" stroke="#3D2B2B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+</svg>

@@ -1,0 +1,24 @@
+{
+  "version": "1.0",
+  "category": "extras",
+  "type": "body-part",
+  "label": "Extras",
+  "anchor": "head",
+  "zIndex": 75,
+  "colorable": false,
+  "items": [
+    {
+      "id": "extra-none",
+      "name": "Nenhum",
+      "asset": "assets/faces/extras/extra-none.png",
+      "size": {
+        "width": 10,
+        "height": 10
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ]
+}

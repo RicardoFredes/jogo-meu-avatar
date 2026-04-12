@@ -1,0 +1,77 @@
+{
+  "version": "1.0",
+  "category": "hair-back",
+  "type": "body-part",
+  "label": "Cabelo",
+  "anchor": "head",
+  "zIndex": 10,
+  "colorable": true,
+  "colorPalette": "hair-colors",
+  "items": [
+    {
+      "id": "longo",
+      "name": "Longo",
+      "asset": "assets/hair/back/longo.svg",
+      "size": {
+        "width": 400,
+        "height": 500
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
+    },
+    {
+      "id": "medio",
+      "name": "Medio",
+      "asset": "assets/hair/back/medio.svg",
+      "size": {
+        "width": 400,
+        "height": 500
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
+    },
+    {
+      "id": "curto",
+      "name": "Curto",
+      "asset": "assets/hair/back/curto.svg",
+      "size": {
+        "width": 400,
+        "height": 500
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
+    },
+    {
+      "id": "calvo",
+      "name": "Calvo",
+      "asset": "assets/hair/back/calvo.svg",
+      "size": {
+        "width": 400,
+        "height": 500
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
+    },
+    {
+      "id": "careca",
+      "name": "Careca",
+      "asset": "assets/hair/back/careca.svg",
+      "size": {
+        "width": 10,
+        "height": 10
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ]
+}

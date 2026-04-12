@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
+
+  <!-- Golden crown - NOT colorizable -->
+  <rect x="240" y="198" width="120" height="22" rx="4" fill="#FFD700" stroke="#B8860B" stroke-width="4"/>
+  <polygon points="240,198 246,182 262,194 278,174 294,194 300,168 306,194 322,174 338,194 354,182 360,198"
+    fill="#FFD700" stroke="#B8860B" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Gems -->
+  <circle cx="278" cy="183" r="6" fill="#E74C3C" stroke="#B8860B" stroke-width="1.5"/>
+  <circle cx="300" cy="177" r="7" fill="#E74C3C" stroke="#B8860B" stroke-width="1.5"/>
+  <circle cx="322" cy="183" r="6" fill="#E74C3C" stroke="#B8860B" stroke-width="1.5"/>
+  <!-- Band dots -->
+  <circle cx="270" cy="209" r="3" fill="#B8860B"/>
+  <circle cx="300" cy="209" r="3" fill="#B8860B"/>
+  <circle cx="330" cy="209" r="3" fill="#B8860B"/>
+
+</svg>

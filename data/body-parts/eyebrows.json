@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "category": "eyebrows",
+  "type": "body-part",
+  "label": "Sobrancelhas",
+  "anchor": "eyeLine",
+  "zIndex": 71,
+  "colorable": false,
+  "items": []
+}

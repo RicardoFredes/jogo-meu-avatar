@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
+  <!-- Left eye white - big -->
+  <circle cx="265" cy="285" r="34" fill="white" stroke="#B29797" stroke-width="4"/>
+  <!-- Left iris -->
+  <ellipse cx="270" cy="288" rx="20" ry="25" fill="#FF00FF"/>
+  <!-- Left iris outline -->
+  <ellipse cx="270" cy="288" rx="20" ry="25" fill="none" stroke="#CC00CC" stroke-width="1.5"/>
+  <!-- Left shine -->
+  <circle cx="278" cy="278" r="5" fill="white"/>
+  <!-- Left lashes - dramatic -->
+  <path d="M243 265 Q240 253 235 247" stroke="#3D2B2B" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M253 257 Q251 244 248 239" stroke="#3D2B2B" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M265 254 Q266 241 264 236" stroke="#3D2B2B" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M277 256 Q280 244 285 240" stroke="#3D2B2B" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M287 263 Q292 254 297 251" stroke="#3D2B2B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Right eye white - big -->
+  <circle cx="337" cy="285" r="34" fill="white" stroke="#B29797" stroke-width="4"/>
+  <!-- Right iris -->
+  <ellipse cx="342" cy="288" rx="20" ry="25" fill="#FF00FF"/>
+  <!-- Right iris outline -->
+  <ellipse cx="342" cy="288" rx="20" ry="25" fill="none" stroke="#CC00CC" stroke-width="1.5"/>
+  <!-- Right shine -->
+  <circle cx="350" cy="278" r="5" fill="white"/>
+  <!-- Right lashes - dramatic -->
+  <path d="M315 263 Q310 254 305 251" stroke="#3D2B2B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M325 256 Q322 244 317 240" stroke="#3D2B2B" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M337 254 Q336 241 338 236" stroke="#3D2B2B" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M349 257 Q351 244 354 239" stroke="#3D2B2B" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M359 265 Q362 253 367 247" stroke="#3D2B2B" stroke-width="3" stroke-linecap="round" fill="none"/>
+</svg>

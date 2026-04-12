@@ -1,0 +1,12 @@
+<svg viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <path d="M85 198 C82 160, 90 110, 120 88 C150 72, 200 65, 250 72 C300 82, 318 110, 318 160 L315 198 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <!-- Spikes over the cap -->
+  <path d="M108 185 L92 135 L128 178" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <path d="M142 168 L128 108 L162 160" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <path d="M178 158 L170 92 L198 152" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <path d="M212 160 L222 88 L235 155" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <path d="M252 168 L268 108 L272 165" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <path d="M285 182 L305 132 L298 180" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+
+</svg>

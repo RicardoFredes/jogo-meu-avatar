@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "category": "face-acc",
+  "type": "accessory",
+  "slotId": "face-acc",
+  "label": "Oculos",
+  "zIndex": 85,
+  "anchor": "eyeLine",
+  "items": [
+    {
+      "id": "glasses-round",
+      "name": "Oculos",
+      "asset": "assets/accessories/face/glasses-round-v2.svg",
+      "thumbnail": "assets/accessories/face/thumbs/thumb-glasses-round-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 113
+      }
+    },
+    {
+      "id": "glasses-star",
+      "name": "Oculos Estrela",
+      "asset": "assets/accessories/face/glasses-star-v2.svg",
+      "thumbnail": "assets/accessories/face/thumbs/thumb-glasses-star-v2.svg",
+      "colorable": true,
+      "colorPalette": "clothing-colors",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 113
+      }
+    },
+    {
+      "id": "sunglasses",
+      "name": "Oculos de Sol",
+      "asset": "assets/accessories/face/sunglasses-v2.svg",
+      "thumbnail": "assets/accessories/face/thumbs/thumb-sunglasses-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 113
+      }
+    }
+  ]
+}

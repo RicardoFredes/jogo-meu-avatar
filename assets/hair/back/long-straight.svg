@@ -1,0 +1,10 @@
+<svg viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Left curtain -->
+  <path d="M90 140 C80 170, 68 220, 65 280 L62 430 C62 448, 75 455, 88 452 L105 448 L108 260 C112 210, 120 170, 132 140 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <!-- Right curtain -->
+  <path d="M310 140 C320 170, 332 220, 335 280 L338 430 C338 448, 325 455, 312 452 L295 448 L292 260 C288 210, 280 170, 268 140 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <!-- Center back mass -->
+  <path d="M132 105 C160 95, 240 95, 268 105 L270 420 C270 440, 252 450, 235 450 L165 450 C148 450, 130 440, 130 420 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+
+</svg>

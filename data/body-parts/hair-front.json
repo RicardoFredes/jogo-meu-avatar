@@ -1,0 +1,77 @@
+{
+  "version": "1.0",
+  "category": "hair-front",
+  "type": "body-part",
+  "label": "Franja",
+  "anchor": "head",
+  "zIndex": 80,
+  "colorable": true,
+  "colorPalette": "hair-colors",
+  "items": [
+    {
+      "id": "nada",
+      "name": "Sem Franja",
+      "asset": "assets/hair/front/nada.svg",
+      "size": {
+        "width": 400,
+        "height": 500
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
+    },
+    {
+      "id": "repartido-meio",
+      "name": "Repartido Meio",
+      "asset": "assets/hair/front/repartido-meio.svg",
+      "size": {
+        "width": 400,
+        "height": 500
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
+    },
+    {
+      "id": "repartido-lado",
+      "name": "Repartido Lado",
+      "asset": "assets/hair/front/repartido-lado.svg",
+      "size": {
+        "width": 400,
+        "height": 500
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
+    },
+    {
+      "id": "moicano",
+      "name": "Moicano",
+      "asset": "assets/hair/front/moicano.svg",
+      "size": {
+        "width": 400,
+        "height": 500
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
+    },
+    {
+      "id": "franjinha",
+      "name": "Franjinha",
+      "asset": "assets/hair/front/franjinha.svg",
+      "size": {
+        "width": 400,
+        "height": 500
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
+    }
+  ]
+}

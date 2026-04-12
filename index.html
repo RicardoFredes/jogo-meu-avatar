@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Lauren Fashion - Crie, Vista e Brilhe!</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Open Props (design tokens) -->
+  <link rel="stylesheet" href="https://unpkg.com/open-props">
+
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+  <!-- App CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="screen active">
+    <div class="loading-content">
+      <h1 class="logo animate__animated animate__pulse animate__infinite">Lauren Fashion</h1>
+      <p class="loading-text">Carregando...</p>
+      <div class="loading-bar"><div class="loading-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Home Screen -->
+  <div id="home-screen" class="screen">
+    <header class="home-header">
+      <h1 class="logo">Lauren Fashion</h1>
+      <p class="subtitle">Crie, Vista e Brilhe!</p>
+      <button id="btn-debug-clear" class="btn btn-back" style="font-size:0.7rem;opacity:0.5" title="Limpar dados salvos">Reset</button>
+    </header>
+    <main class="home-main">
+      <button id="btn-new-character" class="btn btn-primary btn-large">
+        <span class="btn-icon">+</span>
+        Nova Personagem
+      </button>
+      <section class="characters-section">
+        <h2 class="section-title">Minhas Criacoes</h2>
+        <div id="characters-grid" class="characters-grid"></div>
+        <p id="empty-state" class="empty-state hidden">Crie sua primeira personagem!</p>
+      </section>
+    </main>
+  </div>
+
+  <!-- Creator Screen -->
+  <div id="creator-screen" class="screen">
+    <header class="creator-header">
+      <button class="btn btn-back" id="btn-creator-back">← Voltar</button>
+      <h2 class="step-title" id="step-title">Quem Voce Vai Criar?</h2>
+      <span class="step-indicator" id="step-indicator">1/8</span>
+    </header>
+    <div class="creator-body">
+      <div class="preview-panel">
+        <div id="creator-preview" class="character-preview"></div>
+      </div>
+      <div class="options-panel" id="options-panel">
+        <!-- Dynamically generated step options -->
+      </div>
+    </div>
+    <footer class="creator-footer">
+      <button class="btn btn-secondary" id="btn-prev-step" disabled>← Voltar</button>
+      <button class="btn btn-primary" id="btn-next-step">Proximo →</button>
+    </footer>
+  </div>
+
+  <!-- Done Screen -->
+  <div id="done-screen" class="screen">
+    <div class="done-content">
+      <h2 class="done-title animate__animated animate__tada">Personagem Pronto!</h2>
+      <div id="done-preview" class="character-preview"></div>
+      <p class="done-message" id="done-message">Sua personagem esta pronta para novas aventuras!</p>
+      <div class="done-actions">
+        <button class="btn btn-secondary" id="btn-go-home">Voltar p/ Galeria</button>
+        <button class="btn btn-primary" id="btn-go-wardrobe">Vestir!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wardrobe Screen -->
+  <div id="wardrobe-screen" class="screen">
+    <header class="wardrobe-header">
+      <button class="btn btn-back" id="btn-wardrobe-back">← Voltar</button>
+      <h2 class="wardrobe-title">Guarda-Roupa</h2>
+      <button class="btn btn-accent" id="btn-my-looks">Meus Looks</button>
+    </header>
+    <div class="wardrobe-body">
+      <nav class="category-tabs" id="category-tabs">
+        <!-- Dynamic category tabs -->
+      </nav>
+      <div class="items-grid-container">
+        <div class="color-bar hidden" id="color-bar">
+          <span class="color-bar-label">Cor:</span>
+          <div class="color-options" id="color-options"></div>
+        </div>
+        <div class="items-grid" id="items-grid">
+          <!-- Dynamic item thumbnails (drag sources) -->
+        </div>
+        <p class="drag-hint" id="drag-hint">Arraste as roupas para vestir!</p>
+      </div>
+      <div class="wardrobe-preview">
+        <div id="wardrobe-character" class="character-preview drop-zone"></div>
+      </div>
+    </div>
+    <footer class="wardrobe-footer">
+      <button class="btn btn-danger" id="btn-clear-outfit">Tirar Tudo</button>
+      <button class="btn btn-primary" id="btn-save-look">Salvar Look</button>
+    </footer>
+
+    <!-- Looks Sidebar -->
+    <div class="looks-sidebar hidden" id="looks-sidebar">
+      <div class="looks-sidebar-header">
+        <h3>Meus Looks</h3>
+        <button class="btn btn-close" id="btn-close-looks">X</button>
+      </div>
+      <div class="looks-grid" id="looks-grid"></div>
+    </div>
+  </div>
+
+  <!-- Confirm Dialog -->
+  <div class="dialog-overlay hidden" id="dialog-overlay">
+    <div class="dialog animate__animated animate__bounceIn">
+      <p class="dialog-message" id="dialog-message"></p>
+      <div class="dialog-actions">
+        <button class="btn btn-secondary" id="dialog-cancel">Nao</button>
+        <button class="btn btn-danger" id="dialog-confirm">Sim</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Name Input Dialog -->
+  <div class="dialog-overlay hidden" id="name-dialog-overlay">
+    <div class="dialog animate__animated animate__bounceIn">
+      <p class="dialog-message">Dê um nome para este look:</p>
+      <input type="text" id="look-name-input" class="input-name" placeholder="Ex: Princesa" maxlength="20">
+      <div class="dialog-actions">
+        <button class="btn btn-secondary" id="name-dialog-cancel">Cancelar</button>
+        <button class="btn btn-primary" id="name-dialog-confirm">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Konva.js -->
+  <script src="https://unpkg.com/konva@9/konva.min.js"></script>
+  <!-- interact.js -->
+  <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
+  <!-- canvas-confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- App modules -->
+  <script src="js/storage.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/config-loader.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/character-creator.js"></script>
+  <script src="js/wardrobe.js"></script>
+  <script src="js/drag-drop.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

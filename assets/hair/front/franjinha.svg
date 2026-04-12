@@ -1,0 +1,19 @@
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Franjinha: cap solido + franja reta com 5 mechas -->
+  <!-- Cap solido cobrindo topo da cabeca -->
+  <path d="M180 238
+    C178 210, 185 175, 210 160
+    C240 145, 360 145, 390 160
+    C415 175, 422 210, 420 238 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+  <!-- 5 mechas da franja (pontas retas/anguladas) -->
+  <path d="M182 232
+    L186 240 L220 235 L222 225
+    L258 238 L295 238 L298 222
+    L335 238 L372 235 L378 225
+    L412 238 L418 232
+    L420 238 L180 238 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+
+</svg>

@@ -1,0 +1,72 @@
+{
+  "version": "1.0",
+  "category": "bottoms",
+  "type": "clothing",
+  "slotId": "bottom",
+  "label": "Calcas",
+  "zIndex": 25,
+  "anchor": "waist",
+  "colorable": true,
+  "colorPalette": "clothing-colors",
+  "conflicts": [
+    "full-body"
+  ],
+  "items": [
+    {
+      "id": "pants",
+      "name": "Calca",
+      "asset": "assets/clothing/bottoms/pants-v2.svg",
+      "thumbnail": "assets/clothing/bottoms/thumbs/thumb-pants-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -165
+      }
+    },
+    {
+      "id": "shorts",
+      "name": "Shorts",
+      "asset": "assets/clothing/bottoms/shorts-v2.svg",
+      "thumbnail": "assets/clothing/bottoms/thumbs/thumb-shorts-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -165
+      }
+    },
+    {
+      "id": "skirt",
+      "name": "Saia",
+      "asset": "assets/clothing/bottoms/skirt-v2.svg",
+      "thumbnail": "assets/clothing/bottoms/thumbs/thumb-skirt-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -165
+      }
+    },
+    {
+      "id": "skirt-long",
+      "name": "Saia Longa",
+      "asset": "assets/clothing/bottoms/skirt-long-v2.svg",
+      "thumbnail": "assets/clothing/bottoms/thumbs/thumb-skirt-long-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -165
+      }
+    }
+  ]
+}

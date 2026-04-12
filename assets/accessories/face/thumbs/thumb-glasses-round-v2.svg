@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="200 262 200 55" fill="none">
+
+  <!-- Round glasses - fixed dark color -->
+  <g fill="none" stroke="#333333" stroke-width="5" stroke-linecap="round">
+    <circle cx="265" cy="287" r="24" />
+    <circle cx="337" cy="287" r="24" />
+    <path d="M289 283 Q301 275 313 283"/>
+    <path d="M241 283 L218 278 Q210 277 208 282"/>
+    <path d="M361 283 L384 278 Q392 277 394 282"/>
+  </g>
+  <circle cx="255" cy="278" r="4" fill="white" opacity="0.3"/>
+  <circle cx="327" cy="278" r="4" fill="white" opacity="0.3"/>
+
+</svg>

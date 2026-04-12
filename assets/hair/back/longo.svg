@@ -1,0 +1,22 @@
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Longo: volume atras da cabeca, cai ate y=600 -->
+  <!-- Massa central atras -->
+  <path d="M210 185 C240 175, 360 175, 390 185
+    L395 560 C395 585, 375 598, 350 600
+    L250 600 C225 598, 205 585, 205 560 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+  <!-- Mecha esquerda caindo -->
+  <path d="M185 220 C172 245, 162 290, 158 340
+    L155 520 C155 545, 168 555, 182 552
+    L195 548 C200 546, 202 538, 202 528
+    L205 300 C208 260, 215 235, 222 215 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+  <!-- Mecha direita caindo -->
+  <path d="M415 220 C428 245, 438 290, 442 340
+    L445 520 C445 545, 432 555, 418 552
+    L405 548 C400 546, 398 538, 398 528
+    L395 300 C392 260, 385 235, 378 215 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+
+</svg>

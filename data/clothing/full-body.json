@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "category": "full-body",
+  "type": "clothing",
+  "slotId": "full-body",
+  "label": "Vestidos",
+  "zIndex": 28,
+  "anchor": "shoulders",
+  "colorable": true,
+  "colorPalette": "clothing-colors",
+  "conflicts": ["top", "bottom"],
+  "items": [
+    {
+      "id": "dress-polkadot",
+      "name": "Vestido",
+      "asset": "assets/clothing/full-body/dress-polkadot.svg",
+      "size": { "width": 600, "height": 800 },
+      "offsetByShape": {
+        "child": { "x": 0, "y": -20 },
+        "adult": { "x": 0, "y": -17 }
+      },
+      "offset": { "x": 0, "y": -20 }
+    }
+  ]
+}

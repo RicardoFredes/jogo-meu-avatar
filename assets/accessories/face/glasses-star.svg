@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 320">
+  <!-- Star-shaped Fun Glasses - colorizable #FF00FF -->
+  <g>
+    <!-- Left star lens -->
+    <polygon points="78,35 80.5,41 87,42 82,47 83.5,54 78,50 72.5,54 74,47 69,42 75.5,41" fill="#FF00FF" fill-opacity="0.3" stroke="#FF00FF" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Right star lens -->
+    <polygon points="102,35 104.5,41 111,42 106,47 107.5,54 102,50 96.5,54 98,47 93,42 99.5,41" fill="#FF00FF" fill-opacity="0.3" stroke="#FF00FF" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Bridge -->
+    <path d="M87,44 Q90,40 93,44" fill="none" stroke="#FF00FF" stroke-width="2" stroke-linecap="round"/>
+    <!-- Left temple arm -->
+    <path d="M69,44 L56,42 Q50,41 48,44" fill="none" stroke="#FF00FF" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- Right temple arm -->
+    <path d="M111,44 L124,42 Q130,41 132,44" fill="none" stroke="#FF00FF" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- Sparkle accents -->
+    <circle cx="78" cy="44" r="1" fill="#FFFFFF" opacity="0.5"/>
+    <circle cx="102" cy="44" r="1" fill="#FFFFFF" opacity="0.5"/>
+  </g>
+</svg>

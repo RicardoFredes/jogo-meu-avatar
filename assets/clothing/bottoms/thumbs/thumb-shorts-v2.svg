@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="222 540 156 95" fill="none">
+
+  <!-- Shorts -->
+  <rect x="238" y="546" width="124" height="14" rx="5" fill="#FF00FF" stroke="#CC00CC" stroke-width="5"/>
+  <!-- Left leg -->
+  <path d="M238 560 L232 618 Q232 624 238 624 L286 624 Q292 624 290 618 L288 560 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
+  <!-- Right leg -->
+  <path d="M312 560 L310 618 Q308 624 314 624 L362 624 Q368 624 368 618 L362 560 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
+  <!-- Crotch bridge -->
+  <path d="M288 560 L288 604 Q290 616 300 616 Q310 616 312 604 L312 560"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
+
+</svg>

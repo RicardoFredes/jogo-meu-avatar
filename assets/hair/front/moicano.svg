@@ -1,0 +1,14 @@
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Moicano: cap + espinhos centrais pra cima -->
+  <path d="M180 238
+    C178 210, 185 175, 210 160
+    C240 145, 360 145, 390 160
+    C415 175, 422 210, 420 238 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+  <!-- Espinhos centrais -->
+  <path d="M255 195 L245 115 L275 175 L268 90 L300 165
+    L332 90 L325 175 L355 115 L345 195"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+
+</svg>

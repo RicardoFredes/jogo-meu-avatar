@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="225 250 152 72" fill="none">
+  <!-- Left eye white - narrow -->
+  <ellipse cx="265" cy="287" rx="29" ry="17" fill="white" stroke="#B29797" stroke-width="4"/>
+  <!-- Left iris -->
+  <ellipse cx="270" cy="288" rx="13" ry="14" fill="#1A1A1A"/>
+  <!-- Right eye white - narrow -->
+  <ellipse cx="337" cy="287" rx="29" ry="17" fill="white" stroke="#B29797" stroke-width="4"/>
+  <!-- Right iris -->
+  <ellipse cx="342" cy="288" rx="13" ry="14" fill="#1A1A1A"/>
+</svg>

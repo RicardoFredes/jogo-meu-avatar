@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
+
+  <!-- Large cute bow on right side - colorizable -->
+  <g fill="#FF00FF">
+    <!-- Left loop -->
+    <path d="M340 210 Q310 188 300 195 Q290 204 298 218 Q306 232 330 228 Q338 224 340 210 Z"
+      stroke="#CC00CC" stroke-width="4" stroke-linejoin="round"/>
+    <!-- Right loop -->
+    <path d="M340 210 Q370 188 380 195 Q390 204 382 218 Q374 232 350 228 Q342 224 340 210 Z"
+      stroke="#CC00CC" stroke-width="4" stroke-linejoin="round"/>
+    <!-- Center knot -->
+    <ellipse cx="340" cy="210" rx="10" ry="12" fill="#CC00CC" stroke="#CC00CC" stroke-width="3"/>
+    <!-- Ribbon tails -->
+    <path d="M334 220 Q322 242 316 256" stroke="#CC00CC" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M346 220 Q358 242 364 256" stroke="#CC00CC" stroke-width="4" stroke-linecap="round" fill="none"/>
+  </g>
+
+</svg>

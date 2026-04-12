@@ -1,0 +1,84 @@
+{
+  "version": "1.0",
+  "category": "eyes",
+  "type": "body-part",
+  "label": "Olhos",
+  "anchor": "eyeLine",
+  "zIndex": 70,
+  "colorable": true,
+  "colorPalette": "eye-colors",
+  "items": [
+    {
+      "id": "eyes-round",
+      "name": "Redondos",
+      "asset": "assets/faces/eyes/eyes-round-v2.svg",
+      "thumbnail": "assets/faces/eyes/thumbs/thumb-eyes-round-v2.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 113 }
+    },
+    {
+      "id": "eyes-almond",
+      "name": "Amendoa",
+      "asset": "assets/faces/eyes/eyes-almond.svg",
+      "thumbnail": "assets/faces/eyes/thumbs/thumb-eyes-almond.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 113 }
+    },
+    {
+      "id": "eyes-big",
+      "name": "Grandes",
+      "asset": "assets/faces/eyes/eyes-big.svg",
+      "thumbnail": "assets/faces/eyes/thumbs/thumb-eyes-big.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 113 }
+    },
+    {
+      "id": "eyes-cat",
+      "name": "Gatinho",
+      "asset": "assets/faces/eyes/eyes-cat.svg",
+      "thumbnail": "assets/faces/eyes/thumbs/thumb-eyes-cat.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 113 }
+    },
+    {
+      "id": "eyes-droopy",
+      "name": "Doces",
+      "asset": "assets/faces/eyes/eyes-droopy.svg",
+      "thumbnail": "assets/faces/eyes/thumbs/thumb-eyes-droopy.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 113 }
+    },
+    {
+      "id": "eyes-narrow",
+      "name": "Finos",
+      "asset": "assets/faces/eyes/eyes-narrow.svg",
+      "thumbnail": "assets/faces/eyes/thumbs/thumb-eyes-narrow.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 113 }
+    },
+    {
+      "id": "eyes-round-lashes",
+      "name": "Redondos c/ Cilios",
+      "asset": "assets/faces/eyes/eyes-round-lashes.svg",
+      "thumbnail": "assets/faces/eyes/thumbs/thumb-eyes-round-lashes.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 113 }
+    },
+    {
+      "id": "eyes-almond-lashes",
+      "name": "Amendoa c/ Cilios",
+      "asset": "assets/faces/eyes/eyes-almond-lashes.svg",
+      "thumbnail": "assets/faces/eyes/thumbs/thumb-eyes-almond-lashes.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 113 }
+    },
+    {
+      "id": "eyes-big-lashes",
+      "name": "Grandes c/ Cilios",
+      "asset": "assets/faces/eyes/eyes-big-lashes.svg",
+      "thumbnail": "assets/faces/eyes/thumbs/thumb-eyes-big-lashes.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 113 }
+    }
+  ]
+}

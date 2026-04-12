@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 320">
+  <!-- Big Cute Bow on right side of head - colorizable #FF00FF -->
+  <g fill="#FF00FF">
+    <!-- Left loop -->
+    <path d="M120,20 Q100,4 92,8 Q84,14 88,24 Q92,34 110,32 Q118,30 120,20 Z" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Right loop -->
+    <path d="M120,20 Q140,4 148,8 Q156,14 152,24 Q148,34 130,32 Q122,30 120,20 Z" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Center knot -->
+    <ellipse cx="120" cy="20" rx="6" ry="7" fill="#DD00DD" stroke="#CC00CC" stroke-width="1.5"/>
+    <!-- Left trailing ribbon -->
+    <path d="M116,26 Q108,42 102,52 Q100,56 104,52 L116,40" stroke="#CC00CC" stroke-width="1.2" stroke-linejoin="round"/>
+    <!-- Right trailing ribbon -->
+    <path d="M124,26 Q132,42 138,52 Q140,56 136,52 L124,40" stroke="#CC00CC" stroke-width="1.2" stroke-linejoin="round"/>
+    <!-- Shine highlights -->
+    <ellipse cx="102" cy="14" rx="4" ry="2" fill="#FFFFFF" opacity="0.3" transform="rotate(-20 102 14)"/>
+    <ellipse cx="140" cy="14" rx="4" ry="2" fill="#FFFFFF" opacity="0.3" transform="rotate(20 140 14)"/>
+  </g>
+</svg>

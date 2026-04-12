@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "category": "facial-hair",
+  "type": "body-part",
+  "label": "Barba",
+  "anchor": "mouth",
+  "zIndex": 65,
+  "colorable": false,
+  "items": []
+}

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DEV MODE - Lauren Fashion</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dev-mode.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="dev-header">
+    <h1>DEV MODE <span class="accent">Lauren Fashion</span></h1>
+    <div class="header-actions">
+      <button id="btn-defect-report" class="dev-btn dev-btn-warn">Defeitos</button>
+      <button id="btn-copy-json" class="dev-btn">Copy JSON</button>
+      <button id="btn-download-json" class="dev-btn dev-btn-primary">Download JSONs</button>
+    </div>
+  </header>
+
+  <div class="dev-layout">
+    <!-- Left Panel: Selectors + Layer List -->
+    <aside class="panel panel-left">
+      <section class="panel-section">
+        <h3 class="panel-title">Corpo</h3>
+        <select id="sel-body-shape" class="dev-select"></select>
+      </section>
+
+      <section class="panel-section">
+        <h3 class="panel-title">Tom de Pele</h3>
+        <select id="sel-skin" class="dev-select">
+          <option value="white">White Label (sem cor)</option>
+        </select>
+      </section>
+
+      <section class="panel-section">
+        <h3 class="panel-title">Categoria</h3>
+        <div class="select-row">
+          <select id="sel-category" class="dev-select"></select>
+          <button id="btn-sel-category" class="dev-btn dev-btn-sel" title="Selecionar camadas desta categoria">Sel</button>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <h3 class="panel-title">Item</h3>
+        <div class="select-row">
+          <select id="sel-item" class="dev-select"></select>
+          <button id="btn-sel-item" class="dev-btn dev-btn-sel" title="Selecionar camada deste item">Sel</button>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <h3 class="panel-title">Cor</h3>
+        <select id="sel-color" class="dev-select"></select>
+      </section>
+
+      <section class="panel-section flex-grow">
+        <h3 class="panel-title">
+          Camadas <span class="badge" id="layer-count">0</span>
+          <button id="btn-clear-sel" class="dev-btn dev-btn-clear" title="Limpar selecao">Limpar</button>
+        </h3>
+        <p class="hint">Click = selecionar | Shift+Click = multi</p>
+        <div id="layer-list" class="layer-list"></div>
+      </section>
+    </aside>
+
+    <!-- Center: Canvas -->
+    <main class="panel panel-center">
+      <div class="canvas-container">
+        <div id="dev-canvas" class="canvas-area"></div>
+      </div>
+      <div class="canvas-footer">
+        <span id="canvas-info">600 x 800</span>
+        <div class="zoom-control">
+          <label>Zoom:</label>
+          <button class="dev-btn zoom-btn" data-zoom="25">25%</button>
+          <button class="dev-btn zoom-btn" data-zoom="50">50%</button>
+          <button class="dev-btn zoom-btn" data-zoom="75">75%</button>
+          <button class="dev-btn zoom-btn active" data-zoom="100">100%</button>
+          <button class="dev-btn zoom-btn" data-zoom="150">150%</button>
+          <button class="dev-btn zoom-btn" data-zoom="200">200%</button>
+          <input type="number" id="zoom-custom" class="dev-input zoom-input" value="100" min="10" max="400" step="10">
+          <span>%</span>
+        </div>
+        <label class="checkbox-label">
+          <input type="checkbox" id="chk-show-anchors"> Anchors
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="chk-show-grid" checked> Grid
+        </label>
+      </div>
+    </main>
+
+    <!-- Right Panel: Properties -->
+    <aside class="panel panel-right">
+      <section class="panel-section">
+        <h3 class="panel-title">Propriedades</h3>
+        <div id="props-empty" class="props-empty">Selecione uma camada</div>
+        <div id="props-form" class="props-form hidden">
+          <div class="prop-group">
+            <label>Categoria</label>
+            <span id="prop-category" class="prop-value">-</span>
+          </div>
+          <div class="prop-group">
+            <label>Item</label>
+            <span id="prop-item" class="prop-value">-</span>
+          </div>
+          <div class="prop-group">
+            <label>Tipo</label>
+            <span id="prop-type" class="prop-value">-</span>
+          </div>
+          <div class="prop-group">
+            <label>Anchor</label>
+            <span id="prop-anchor" class="prop-value">-</span>
+          </div>
+
+          <hr class="prop-divider">
+          <h4 class="prop-subtitle">Posicao (offset)</h4>
+          <div class="prop-row">
+            <div class="prop-field">
+              <label>X</label>
+              <input type="number" id="prop-offset-x" class="dev-input" value="0">
+            </div>
+            <div class="prop-field">
+              <label>Y</label>
+              <input type="number" id="prop-offset-y" class="dev-input" value="0">
+            </div>
+          </div>
+
+          <h4 class="prop-subtitle">Tamanho</h4>
+          <div class="prop-row">
+            <div class="prop-field">
+              <label>W</label>
+              <input type="number" id="prop-width" class="dev-input" value="0" min="1">
+            </div>
+            <div class="prop-field">
+              <label>H</label>
+              <input type="number" id="prop-height" class="dev-input" value="0" min="1">
+            </div>
+          </div>
+
+          <h4 class="prop-subtitle">Escala</h4>
+          <div class="prop-row">
+            <div class="prop-field">
+              <label>Scale</label>
+              <input type="number" id="prop-scale" class="dev-input" value="1" min="0.1" step="0.1">
+            </div>
+          </div>
+
+          <h4 class="prop-subtitle">Camada</h4>
+          <div class="prop-row">
+            <div class="prop-field">
+              <label>zIndex</label>
+              <input type="number" id="prop-zindex" class="dev-input" value="0">
+            </div>
+          </div>
+
+          <hr class="prop-divider">
+          <h4 class="prop-subtitle">Recorte (Crop) <span class="hint-inline">% da imagem original</span></h4>
+          <div class="prop-row">
+            <div class="prop-field">
+              <label>X%</label>
+              <input type="number" id="prop-crop-x" class="dev-input" value="0" min="0" max="100" step="1">
+            </div>
+            <div class="prop-field">
+              <label>Y%</label>
+              <input type="number" id="prop-crop-y" class="dev-input" value="0" min="0" max="100" step="1">
+            </div>
+          </div>
+          <div class="prop-row">
+            <div class="prop-field">
+              <label>W%</label>
+              <input type="number" id="prop-crop-w" class="dev-input" value="100" min="1" max="100" step="1">
+            </div>
+            <div class="prop-field">
+              <label>H%</label>
+              <input type="number" id="prop-crop-h" class="dev-input" value="100" min="1" max="100" step="1">
+            </div>
+          </div>
+          <button id="btn-reset-crop" class="dev-btn" style="width:100%;margin-top:4px">Reset Crop</button>
+
+          <hr class="prop-divider">
+          <h4 class="prop-subtitle">Notas / Defeitos</h4>
+          <div class="prop-group">
+            <label class="checkbox-label defect-label">
+              <input type="checkbox" id="chk-defect"> Tem defeito
+            </label>
+          </div>
+          <div class="prop-group">
+            <textarea id="prop-notes" class="dev-textarea" rows="3" placeholder="Descreva o que precisa corrigir..."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <h3 class="panel-title">Anchors</h3>
+        <div id="anchor-list" class="anchor-list"></div>
+      </section>
+    </aside>
+  </div>
+
+  <!-- Defect Report Modal -->
+  <div id="report-overlay" class="report-overlay hidden">
+    <div class="report-panel">
+      <h2>Relatorio de Defeitos</h2>
+      <div id="report-content"></div>
+      <div class="report-actions">
+        <button id="btn-report-copy" class="dev-btn">Copiar</button>
+        <button id="btn-report-download" class="dev-btn">Download .md</button>
+        <button id="btn-report-close" class="dev-btn dev-btn-primary">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- Scripts: same modules as game -->
+  <script src="https://unpkg.com/konva@9/konva.min.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/config-loader.js"></script>
+  <script src="js/renderer.js"></script>
+  <!-- Dev mode -->
+  <script src="js/dev-mode.js"></script>
+</body>
+</html>

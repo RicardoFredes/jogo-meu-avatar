@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "category": "noses",
+  "type": "body-part",
+  "label": "Nariz",
+  "anchor": "nose",
+  "zIndex": 72,
+  "colorable": false,
+  "skinTint": true,
+  "items": [
+    {
+      "id": "nose-small",
+      "name": "Redondo",
+      "asset": "assets/faces/noses/nose-round-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": -1,
+        "y": 83
+      }
+    }
+  ]
+}

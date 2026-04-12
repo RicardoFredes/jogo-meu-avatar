@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="206 540 188 112" fill="none">
+
+  <!-- A-line skirt -->
+  <rect x="248" y="546" width="104" height="14" rx="5" fill="#FF00FF" stroke="#CC00CC" stroke-width="5"/>
+  <path d="M250 560 L216 636 Q214 642 220 642 L380 642 Q386 642 384 636 L350 560 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
+  <!-- Pleat lines -->
+  <path d="M278 560 L262 640" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
+  <path d="M300 560 L300 640" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
+  <path d="M322 560 L338 640" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
+
+</svg>

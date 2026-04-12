@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
+
+  <!-- Sunglasses - dark lenses -->
+  <g stroke="#222222" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="237" y="271" width="56" height="36" rx="12" fill="#333333"/>
+    <rect x="309" y="271" width="56" height="36" rx="12" fill="#333333"/>
+    <path d="M293 285 Q301 278 309 285" fill="none"/>
+    <path d="M237 283 L214 278" fill="none"/>
+    <path d="M365 283 L388 278" fill="none"/>
+  </g>
+  <path d="M248 278 Q256 274 264 278" stroke="white" stroke-width="2" opacity="0.2" fill="none"/>
+  <path d="M320 278 Q328 274 336 278" stroke="white" stroke-width="2" opacity="0.2" fill="none"/>
+
+</svg>

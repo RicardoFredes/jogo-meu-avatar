@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 320">
+  <!-- Round Glasses - fixed color #333333 -->
+  <g fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round">
+    <!-- Left lens -->
+    <circle cx="78" cy="46" r="11"/>
+    <!-- Right lens -->
+    <circle cx="102" cy="46" r="11"/>
+    <!-- Bridge between lenses -->
+    <path d="M89,44 Q90,40 91,44"/>
+    <!-- Left temple arm -->
+    <path d="M67,44 L56,42 Q50,41 48,44"/>
+    <!-- Right temple arm -->
+    <path d="M113,44 L124,42 Q130,41 132,44"/>
+    <!-- Nose pads -->
+    <circle cx="85" cy="52" r="1.5" fill="#333333" stroke="none"/>
+    <circle cx="95" cy="52" r="1.5" fill="#333333" stroke="none"/>
+    <!-- Lens shine -->
+    <path d="M72,40 Q74,38 76,40" stroke="#FFFFFF" stroke-width="0.8" opacity="0.4"/>
+    <path d="M96,40 Q98,38 100,40" stroke="#FFFFFF" stroke-width="0.8" opacity="0.4"/>
+  </g>
+</svg>

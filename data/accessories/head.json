@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "category": "head-acc",
+  "type": "accessory",
+  "slotId": "head-acc",
+  "label": "Chapeus",
+  "zIndex": 90,
+  "anchor": "head",
+  "items": [
+    {
+      "id": "crown",
+      "name": "Coroa",
+      "asset": "assets/accessories/head/crown-v2.svg",
+      "thumbnail": "assets/accessories/head/thumbs/thumb-crown-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      }
+    },
+    {
+      "id": "bow",
+      "name": "Laco",
+      "asset": "assets/accessories/head/bow-v2.svg",
+      "thumbnail": "assets/accessories/head/thumbs/thumb-bow-v2.svg",
+      "colorable": true,
+      "colorPalette": "clothing-colors",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      }
+    },
+    {
+      "id": "tiara",
+      "name": "Tiara",
+      "asset": "assets/accessories/head/tiara-v2.svg",
+      "thumbnail": "assets/accessories/head/thumbs/thumb-tiara-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      }
+    }
+  ]
+}

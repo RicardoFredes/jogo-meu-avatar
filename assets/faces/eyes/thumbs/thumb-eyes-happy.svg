@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="225 250 152 72">
+  <!-- Left eye - happy closed arc ^  -->
+  <path d="M12 24 Q22 8 32 24" fill="none" stroke="#2C2C2C" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Right eye - happy closed arc ^ -->
+  <path d="M48 24 Q58 8 68 24" fill="none" stroke="#2C2C2C" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

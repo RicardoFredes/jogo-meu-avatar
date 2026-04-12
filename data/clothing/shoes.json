@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "category": "shoes",
+  "type": "clothing",
+  "slotId": "shoes",
+  "label": "Sapatos",
+  "zIndex": 35,
+  "anchor": "feet",
+  "colorable": true,
+  "colorPalette": "clothing-colors",
+  "items": [
+    {
+      "id": "sneakers",
+      "name": "Tenis",
+      "asset": "assets/clothing/shoes/sneakers-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -300
+      },
+      "thumbnail": "assets/clothing/shoes/thumbs/thumb-sneakers-v2.svg"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 320">
+  <!-- Open Sandals: left at cx=58 cy=302, right at cx=122 cy=302 -->
+  <!-- Left sandal sole -->
+  <ellipse cx="58" cy="306" rx="16" ry="8" fill="#FF00FF" stroke="#CC00CC" stroke-width="1.2"/>
+  <!-- Left front strap -->
+  <path d="M 48,302 Q 58,294 68,302" fill="none" stroke="#CC00CC" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Left ankle strap -->
+  <path d="M 44,308 L 72,308" fill="none" stroke="#CC00CC" stroke-width="2" stroke-linecap="round"/>
+  <!-- Left strap buckle -->
+  <circle cx="72" cy="308" r="1.5" fill="#CC00CC"/>
+
+  <!-- Right sandal sole -->
+  <ellipse cx="122" cy="306" rx="16" ry="8" fill="#FF00FF" stroke="#CC00CC" stroke-width="1.2"/>
+  <!-- Right front strap -->
+  <path d="M 112,302 Q 122,294 132,302" fill="none" stroke="#CC00CC" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Right ankle strap -->
+  <path d="M 108,308 L 136,308" fill="none" stroke="#CC00CC" stroke-width="2" stroke-linecap="round"/>
+  <!-- Right strap buckle -->
+  <circle cx="136" cy="308" r="1.5" fill="#CC00CC"/>
+</svg>

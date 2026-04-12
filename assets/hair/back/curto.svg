@@ -1,0 +1,9 @@
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Curto: so atras da cabeca ate pescoco, y~420 -->
+  <path d="M210 185 C240 178, 360 178, 390 185
+    L400 365 C402 390, 388 408, 365 412
+    L235 412 C212 408, 198 390, 200 365 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+
+</svg>

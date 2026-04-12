@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 320">
+  <!-- Witch/Wizard Hat - colorizable #FF00FF -->
+  <g>
+    <!-- Wide brim -->
+    <ellipse cx="90" cy="12" rx="52" ry="10" fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5"/>
+    <!-- Hat cone -->
+    <path d="M62,8 L84,-32 Q86,-38 90,-38 L92,-36 Q94,-36 94,-32 L118,8 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Droopy curved tip -->
+    <path d="M90,-38 Q92,-36 94,-36 Q102,-34 108,-26 Q112,-22 108,-22" fill="#FF00FF" stroke="#CC00CC" stroke-width="1.2" stroke-linejoin="round"/>
+    <!-- Hat band -->
+    <path d="M64,6 Q90,0 116,6" fill="none" stroke="#CC00CC" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- Buckle -->
+    <rect x="82" y="1" width="16" height="10" rx="2" fill="#CC00CC" stroke="#990099" stroke-width="0.8"/>
+    <rect x="86" y="3" width="8" height="6" rx="1" fill="#FF00FF"/>
+    <!-- Star accent on tip -->
+    <polygon points="108,-26 109,-24 111,-24 110,-22 110,-20 108,-21 106,-20 106,-22 105,-24 107,-24" fill="#FFFFFF" opacity="0.5"/>
+    <!-- Subtle wrinkle lines on cone -->
+    <path d="M72,4 Q80,-12 86,-28" fill="none" stroke="#CC00CC" stroke-width="0.5" opacity="0.3"/>
+    <path d="M108,4 Q100,-12 94,-28" fill="none" stroke="#CC00CC" stroke-width="0.5" opacity="0.3"/>
+  </g>
+</svg>

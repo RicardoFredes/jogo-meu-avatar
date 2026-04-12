@@ -1,0 +1,48 @@
+<svg width="600" height="800" viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Polka dot pattern masked to dress shape - #FF00FF colorizable -->
+  <mask id="dress-mask" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="158" y="393" width="286" height="261">
+    <path d="M272 402C272 417.464 284.536 430 300 430C315.464 430 328 417.464 328 402V398.035C333.584 398.238 338.978 399.383 343.999 401.34L345.104 401.786L347.377 402.736L347.551 405.195C351.003 454.117 370.28 493.866 395.387 510.5L396.595 511.301L438.087 650H164.159L202.537 511.839L203.825 511.014C229.471 494.595 249.204 454.136 252.512 404.271L252.687 401.637L255.178 400.762C260.289 398.967 265.759 398 271.403 398H272V402Z" fill="white"/>
+  </mask>
+  <g mask="url(#dress-mask)">
+    <circle cx="203" cy="441" r="17" fill="#FF00FF"/>
+    <circle cx="267" cy="441" r="17" fill="#FF00FF"/>
+    <circle cx="331" cy="441" r="17" fill="#FF00FF"/>
+    <circle cx="395" cy="441" r="17" fill="#FF00FF"/>
+    <circle cx="459" cy="441" r="17" fill="#FF00FF"/>
+    <circle cx="203" cy="503" r="17" fill="#FF00FF"/>
+    <circle cx="267" cy="503" r="17" fill="#FF00FF"/>
+    <circle cx="331" cy="503" r="17" fill="#FF00FF"/>
+    <circle cx="395" cy="503" r="17" fill="#FF00FF"/>
+    <circle cx="459" cy="503" r="17" fill="#FF00FF"/>
+    <circle cx="203" cy="565" r="17" fill="#FF00FF"/>
+    <circle cx="267" cy="565" r="17" fill="#FF00FF"/>
+    <circle cx="331" cy="565" r="17" fill="#FF00FF"/>
+    <circle cx="395" cy="565" r="17" fill="#FF00FF"/>
+    <circle cx="459" cy="565" r="17" fill="#FF00FF"/>
+    <circle cx="203" cy="627" r="17" fill="#FF00FF"/>
+    <circle cx="267" cy="627" r="17" fill="#FF00FF"/>
+    <circle cx="331" cy="627" r="17" fill="#FF00FF"/>
+    <circle cx="395" cy="627" r="17" fill="#FF00FF"/>
+    <circle cx="459" cy="627" r="17" fill="#FF00FF"/>
+    <circle cx="169" cy="475" r="17" fill="#FF00FF"/>
+    <circle cx="233" cy="475" r="17" fill="#FF00FF"/>
+    <circle cx="297" cy="475" r="17" fill="#FF00FF"/>
+    <circle cx="361" cy="475" r="17" fill="#FF00FF"/>
+    <circle cx="425" cy="475" r="17" fill="#FF00FF"/>
+    <circle cx="169" cy="537" r="17" fill="#FF00FF"/>
+    <circle cx="233" cy="537" r="17" fill="#FF00FF"/>
+    <circle cx="297" cy="537" r="17" fill="#FF00FF"/>
+    <circle cx="361" cy="537" r="17" fill="#FF00FF"/>
+    <circle cx="425" cy="537" r="17" fill="#FF00FF"/>
+    <circle cx="169" cy="599" r="17" fill="#FF00FF"/>
+    <circle cx="233" cy="599" r="17" fill="#FF00FF"/>
+    <circle cx="297" cy="599" r="17" fill="#FF00FF"/>
+    <circle cx="361" cy="599" r="17" fill="#FF00FF"/>
+    <circle cx="425" cy="599" r="17" fill="#FF00FF"/>
+    <circle cx="169" cy="661" r="17" fill="#FF00FF"/>
+    <circle cx="233" cy="661" r="17" fill="#FF00FF"/>
+    <circle cx="297" cy="661" r="17" fill="#FF00FF"/>
+    <circle cx="361" cy="661" r="17" fill="#FF00FF"/>
+    <circle cx="425" cy="661" r="17" fill="#FF00FF"/>
+  </g>
+</svg>

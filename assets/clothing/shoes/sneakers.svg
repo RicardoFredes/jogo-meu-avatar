@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 320">
+  <!-- Sneakers: left at cx=58 cy=302, right at cx=122 cy=302 -->
+  <!-- Left sneaker -->
+  <path d="
+    M 44,296
+    Q 40,292 44,290
+    L 66,288
+    Q 72,288 74,292
+    L 76,298
+    Q 76,304 74,306
+    L 72,308
+    Q 70,312 64,312
+    L 48,312
+    Q 42,312 42,306
+    Z
+  " fill="#FF00FF" stroke="#CC00CC" stroke-width="1.2" stroke-linejoin="round"/>
+  <!-- Left sole -->
+  <path d="M 42,308 Q 42,314 48,314 L 64,314 Q 70,314 72,310" fill="#FFFFFF" stroke="#CC00CC" stroke-width="1"/>
+  <!-- Left laces -->
+  <line x1="56" y1="290" x2="60" y2="294" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>
+  <line x1="60" y1="290" x2="56" y2="294" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>
+  <line x1="60" y1="292" x2="64" y2="296" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>
+  <line x1="64" y1="292" x2="60" y2="296" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>
+  <!-- Left toe cap -->
+  <path d="M 44,298 Q 42,294 46,292 L 52,290" fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.6"/>
+
+  <!-- Right sneaker -->
+  <path d="
+    M 108,296
+    Q 104,292 108,290
+    L 130,288
+    Q 136,288 138,292
+    L 140,298
+    Q 140,304 138,306
+    L 136,308
+    Q 134,312 128,312
+    L 112,312
+    Q 106,312 106,306
+    Z
+  " fill="#FF00FF" stroke="#CC00CC" stroke-width="1.2" stroke-linejoin="round"/>
+  <!-- Right sole -->
+  <path d="M 106,308 Q 106,314 112,314 L 128,314 Q 134,314 136,310" fill="#FFFFFF" stroke="#CC00CC" stroke-width="1"/>
+  <!-- Right laces -->
+  <line x1="120" y1="290" x2="124" y2="294" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>
+  <line x1="124" y1="290" x2="120" y2="294" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>
+  <line x1="124" y1="292" x2="128" y2="296" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>
+  <line x1="128" y1="292" x2="124" y2="296" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>
+  <!-- Right toe cap -->
+  <path d="M 108,298 Q 106,294 110,292 L 116,290" fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.6"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- Chibi Rounded Square Face Shape -->
+
+  <!-- Main rounded square face -->
+  <rect x="8" y="6" width="104" height="108" rx="32" ry="32" fill="#FF00FF"/>
+
+  <!-- Subtle cheek puffs for chibi cuteness -->
+  <ellipse cx="20" cy="72" rx="13" ry="10" fill="#FF00FF"/>
+  <ellipse cx="100" cy="72" rx="13" ry="10" fill="#FF00FF"/>
+
+  <!-- Slightly flatter chin area -->
+  <ellipse cx="60" cy="110" rx="22" ry="8" fill="#FF00FF"/>
+
+  <!-- Ear left -->
+  <ellipse cx="6" cy="56" rx="8" ry="12" fill="#FF00FF"/>
+  <!-- Inner ear detail -->
+  <ellipse cx="7" cy="56" rx="4" ry="7" fill="#FF00FF" stroke="#E600E6" stroke-width="0.6" opacity="0.3"/>
+
+  <!-- Ear right -->
+  <ellipse cx="114" cy="56" rx="8" ry="12" fill="#FF00FF"/>
+  <!-- Inner ear detail -->
+  <ellipse cx="113" cy="56" rx="4" ry="7" fill="#FF00FF" stroke="#E600E6" stroke-width="0.6" opacity="0.3"/>
+</svg>

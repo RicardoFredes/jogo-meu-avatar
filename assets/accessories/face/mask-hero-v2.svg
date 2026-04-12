@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
+  <g transform="translate(301,287) scale(2.5) translate(-90,-46)">
+    <!-- Superhero Eye Mask - colorizable #FF00FF -->
+  <g>
+    <!-- Main mask shape -->
+    <path d="M56,46 Q56,36 66,36 L78,36 Q84,36 86,40 L90,44 L94,40 Q96,36 102,36 L114,36 Q124,36 124,46 L122,50 Q118,56 112,54 L104,50 Q98,46 90,46 Q82,46 76,50 L68,54 Q62,56 58,50 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Left eye hole -->
+    <ellipse cx="78" cy="46" rx="8" ry="5" fill="none" stroke="#CC00CC" stroke-width="1.2"/>
+    <!-- Right eye hole -->
+    <ellipse cx="102" cy="46" rx="8" ry="5" fill="none" stroke="#CC00CC" stroke-width="1.2"/>
+    <!-- Wing tip details at edges -->
+    <path d="M56,46 Q54,42 58,40" fill="none" stroke="#CC00CC" stroke-width="1" opacity="0.5"/>
+    <path d="M124,46 Q126,42 122,40" fill="none" stroke="#CC00CC" stroke-width="1" opacity="0.5"/>
+  </g>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
+  <!-- Left eye white - big -->
+  <circle cx="265" cy="285" r="34" fill="white" stroke="#B29797" stroke-width="4"/>
+  <!-- Left iris -->
+  <ellipse cx="270" cy="288" rx="20" ry="25" fill="#FF00FF"/>
+  <!-- Left iris outline -->
+  <ellipse cx="270" cy="288" rx="20" ry="25" fill="none" stroke="#CC00CC" stroke-width="1.5"/>
+  <!-- Left shine -->
+  <circle cx="278" cy="278" r="5" fill="white"/>
+  <!-- Right eye white - big -->
+  <circle cx="337" cy="285" r="34" fill="white" stroke="#B29797" stroke-width="4"/>
+  <!-- Right iris -->
+  <ellipse cx="342" cy="288" rx="20" ry="25" fill="#FF00FF"/>
+  <!-- Right iris outline -->
+  <ellipse cx="342" cy="288" rx="20" ry="25" fill="none" stroke="#CC00CC" stroke-width="1.5"/>
+  <!-- Right shine -->
+  <circle cx="350" cy="278" r="5" fill="white"/>
+</svg>

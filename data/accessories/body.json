@@ -1,0 +1,57 @@
+{
+  "version": "1.0",
+  "category": "body-acc",
+  "type": "accessory",
+  "slotId": "body-acc",
+  "label": "Extras",
+  "zIndex": 40,
+  "anchor": "shoulders",
+  "items": [
+    {
+      "id": "necklace",
+      "name": "Colar",
+      "asset": "assets/accessories/body/necklace-v2.svg",
+      "thumbnail": "assets/accessories/body/thumbs/thumb-necklace-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -20
+      }
+    },
+    {
+      "id": "bowtie",
+      "name": "Gravata Borboleta",
+      "asset": "assets/accessories/body/bowtie-v2.svg",
+      "thumbnail": "assets/accessories/body/thumbs/thumb-bowtie-v2.svg",
+      "colorable": true,
+      "colorPalette": "clothing-colors",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -20
+      }
+    },
+    {
+      "id": "cape",
+      "name": "Capa",
+      "asset": "assets/accessories/body/cape-v2.svg",
+      "thumbnail": "assets/accessories/body/thumbs/thumb-cape-v2.svg",
+      "colorable": true,
+      "colorPalette": "clothing-colors",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -20
+      }
+    }
+  ]
+}

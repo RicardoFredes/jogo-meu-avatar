@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 320">
+  <!-- Simple A-line Dress: neckline, short sleeves, bodice to y=178, skirt flares to y=255 -->
+  <!-- Bodice -->
+  <path d="M 70,98 L 62,118 L 62,178 L 118,178 L 118,118 L 110,98 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Skirt flare -->
+  <path d="
+    M 62,178
+    L 36,251
+    Q 34,255 38,255
+    L 142,255
+    Q 146,255 144,251
+    L 118,178
+    Z
+  " fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Left short sleeve (puffy) -->
+  <path d="M 70,98 L 50,104 Q 38,108 40,122 Q 42,132 54,128 L 62,118" fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Right short sleeve (puffy) -->
+  <path d="M 110,98 L 130,104 Q 142,108 140,122 Q 138,132 126,128 L 118,118" fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Round neckline -->
+  <path d="M 70,98 Q 80,92 90,92 Q 100,92 110,98" fill="none" stroke="#CC00CC" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Waist seam -->
+  <path d="M 62,178 Q 90,174 118,178" fill="none" stroke="#CC00CC" stroke-width="1" opacity="0.5"/>
+  <!-- Skirt fold lines -->
+  <path d="M 76,180 L 54,253" stroke="#CC00CC" stroke-width="0.6" opacity="0.25"/>
+  <path d="M 90,178 L 90,253" stroke="#CC00CC" stroke-width="0.6" opacity="0.25"/>
+  <path d="M 104,180 L 126,253" stroke="#CC00CC" stroke-width="0.6" opacity="0.25"/>
+</svg>

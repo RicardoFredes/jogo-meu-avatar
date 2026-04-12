@@ -1,0 +1,105 @@
+{
+  "version": "1.0",
+  "category": "patterns",
+  "type": "clothing",
+  "slotId": "pattern",
+  "label": "Padronagem",
+  "zIndex": 29,
+  "anchor": "shoulders",
+  "colorable": true,
+  "colorPalette": "clothing-colors",
+  "items": [
+    {
+      "id": "pattern-polkadot",
+      "name": "Bolinhas",
+      "asset": "assets/clothing/patterns/pattern-polkadot.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -20
+      },
+      "offsetByShape": {
+        "child": {
+          "x": 0,
+          "y": -20
+        },
+        "adult": {
+          "x": 0,
+          "y": -17
+        }
+      }
+    },
+    {
+      "id": "pattern-stripes",
+      "name": "Listras",
+      "asset": "assets/clothing/patterns/pattern-stripes.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -20
+      },
+      "offsetByShape": {
+        "child": {
+          "x": 0,
+          "y": -20
+        },
+        "adult": {
+          "x": 0,
+          "y": -17
+        }
+      }
+    },
+    {
+      "id": "pattern-hearts",
+      "name": "Coracoes",
+      "asset": "assets/clothing/patterns/pattern-hearts.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -20
+      },
+      "offsetByShape": {
+        "child": {
+          "x": 0,
+          "y": -20
+        },
+        "adult": {
+          "x": 0,
+          "y": -17
+        }
+      }
+    },
+    {
+      "id": "pattern-stars",
+      "name": "Estrelas",
+      "asset": "assets/clothing/patterns/pattern-stars.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -20
+      },
+      "offsetByShape": {
+        "child": {
+          "x": 0,
+          "y": -20
+        },
+        "adult": {
+          "x": 0,
+          "y": -17
+        }
+      }
+    }
+  ]
+}

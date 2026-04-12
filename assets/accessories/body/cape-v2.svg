@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
+
+  <!-- Cape - colorizable, renders at body-acc zIndex 40 -->
+  <path d="M252 410 Q240 414 232 424 L190 560 Q180 600 200 640 L220 660
+    Q234 668 250 660 L268 640 Q280 600 260 540 L252 410 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M348 410 Q360 414 368 424 L410 560 Q420 600 400 640 L380 660
+    Q366 668 350 660 L332 640 Q320 600 340 540 L348 410 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
+  <!-- Center back -->
+  <path d="M252 410 Q268 406 300 406 Q332 406 348 410 L348 540 Q340 600 332 640
+    Q316 660 300 665 Q284 660 268 640 Q260 600 252 540 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="3" opacity="0.6"/>
+  <!-- Flow lines -->
+  <path d="M272 450 Q276 530 268 610" stroke="#CC00CC" stroke-width="2" opacity="0.3" fill="none"/>
+  <path d="M300 430 Q300 530 300 630" stroke="#CC00CC" stroke-width="2" opacity="0.3" fill="none"/>
+  <path d="M328 450 Q324 530 332 610" stroke="#CC00CC" stroke-width="2" opacity="0.3" fill="none"/>
+
+</svg>

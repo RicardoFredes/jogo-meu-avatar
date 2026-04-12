@@ -1,0 +1,20 @@
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Repartido pro lado: cap + risca lateral esquerda + mechas pro lado direito -->
+  <path d="M180 240
+    C178 210, 185 175, 210 160
+    C240 145, 360 145, 390 160
+    C415 175, 422 210, 420 240 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+  <!-- Risca lateral esquerda -->
+  <line x1="225" y1="155" x2="220" y2="240" stroke="#CC00CC" stroke-width="3" opacity="0.5"/>
+  <!-- Grande mecha caindo pra direita -->
+  <path d="M182 235
+    C195 225, 240 210, 310 208
+    C370 210, 408 222, 418 235
+    L415 242
+    C400 232, 365 220, 305 218
+    C245 220, 200 232, 185 242 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+
+</svg>

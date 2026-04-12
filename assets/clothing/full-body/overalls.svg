@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 320">
+  <!-- Overalls: straps from shoulders, bib at chest, pants to y=265 -->
+  <!-- Left strap -->
+  <path d="
+    M 72,120
+    L 68,110
+    Q 67,106 70,106
+    L 78,106
+    Q 81,106 80,110
+    L 78,120
+  " fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Right strap -->
+  <path d="
+    M 102,120
+    L 100,110
+    Q 99,106 102,106
+    L 110,106
+    Q 113,106 112,110
+    L 108,120
+  " fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Strap buttons -->
+  <circle cx="74" cy="122" r="2.5" fill="#CC00CC"/>
+  <circle cx="106" cy="122" r="2.5" fill="#CC00CC"/>
+  <!-- Bib (chest area) -->
+  <path d="M 70,120 L 70,155 L 110,155 L 110,120 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Front pocket on bib -->
+  <rect x="80" y="130" width="20" height="16" rx="4" ry="4" fill="none" stroke="#CC00CC" stroke-width="1.2"/>
+  <!-- Waistband -->
+  <rect x="50" y="178" width="80" height="8" rx="3" ry="3" fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5"/>
+  <!-- Side panels connecting bib to waistband -->
+  <path d="M 70,140 L 50,178" fill="none" stroke="#CC00CC" stroke-width="1.5"/>
+  <path d="M 110,140 L 130,178" fill="none" stroke="#CC00CC" stroke-width="1.5"/>
+  <path d="M 70,155 L 50,182 L 130,182 L 110,155" fill="#FF00FF" stroke="none"/>
+  <path d="M 70,155 L 50,180" stroke="#CC00CC" stroke-width="1.5" fill="none"/>
+  <path d="M 110,155 L 130,180" stroke="#CC00CC" stroke-width="1.5" fill="none"/>
+  <!-- Left leg -->
+  <path d="
+    M 50,186
+    L 48,261
+    Q 48,265 52,265
+    L 74,265
+    Q 78,265 78,261
+    L 78,186
+    Z
+  " fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Right leg -->
+  <path d="
+    M 102,186
+    L 102,261
+    Q 102,265 106,265
+    L 128,265
+    Q 132,265 132,261
+    L 130,186
+    Z
+  " fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Crotch bridge -->
+  <path d="M 78,186 L 78,220 Q 80,228 90,228 Q 100,228 102,220 L 102,186" fill="#FF00FF" stroke="#CC00CC" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Center seam -->
+  <path d="M 90,186 L 88,218 M 90,186 L 92,218" stroke="#CC00CC" stroke-width="0.8" opacity="0.4"/>
+  <!-- Side seam lines -->
+  <line x1="70" y1="128" x2="70" y2="155" stroke="#CC00CC" stroke-width="0.6" opacity="0.3"/>
+  <line x1="110" y1="128" x2="110" y2="155" stroke="#CC00CC" stroke-width="0.6" opacity="0.3"/>
+</svg>

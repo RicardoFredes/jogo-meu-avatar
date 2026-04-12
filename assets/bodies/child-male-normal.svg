@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <!-- Chibi Body: Male Normal (no head) - Grayscale for tinting -->
+  <!-- Slightly wider shoulders than female -->
+
+  <!-- BACK ARMS -->
+  <g opacity="0.9">
+    <path d="M106,146 C96,150 86,168 82,186 C80,194 80,202 82,208"
+      fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round"/>
+    <circle cx="82" cy="212" r="14" fill="#FFFFFF"/>
+    <circle cx="76" cy="206" r="6" fill="#FFFFFF"/>
+  </g>
+  <g opacity="0.9">
+    <path d="M194,146 C204,150 214,168 218,186 C220,194 220,202 218,208"
+      fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round"/>
+    <circle cx="218" cy="212" r="14" fill="#FFFFFF"/>
+    <circle cx="224" cy="206" r="6" fill="#FFFFFF"/>
+  </g>
+
+  <!-- NECK -->
+  <rect x="134" y="118" width="32" height="20" rx="10" fill="#FFFFFF"/>
+
+  <!-- TORSO (slightly wider shoulders, straighter) -->
+  <path d="M114,136 C108,140 104,152 102,164 C100,176 102,190 106,200
+    C110,208 120,214 132,216 L168,216 C180,214 190,208 194,200
+    C198,190 200,176 198,164 C196,152 192,140 186,136 Z" fill="#FFFFFF"/>
+  <!-- Side shading -->
+  <path d="M114,136 C108,140 104,152 102,164" fill="none" stroke="#E0E0E0" stroke-width="6" opacity="0.3"/>
+  <path d="M186,136 C192,140 196,152 198,164" fill="none" stroke="#E0E0E0" stroke-width="6" opacity="0.3"/>
+
+  <!-- HIPS -->
+  <path d="M132,214 C122,216 114,222 112,230 L112,236 L188,236 L188,230
+    C186,222 178,216 168,214 Z" fill="#FFFFFF"/>
+
+  <!-- LEGS -->
+  <path d="M122,234 C118,248 116,262 116,274 C116,280 118,286 120,290"
+    fill="none" stroke="#FFFFFF" stroke-width="28" stroke-linecap="round"/>
+  <path d="M178,234 C182,248 184,262 184,274 C184,280 182,286 180,290"
+    fill="none" stroke="#FFFFFF" stroke-width="28" stroke-linecap="round"/>
+
+  <!-- FEET -->
+  <ellipse cx="118" cy="294" rx="19" ry="9" fill="#FFFFFF"/>
+  <ellipse cx="182" cy="294" rx="19" ry="9" fill="#FFFFFF"/>
+</svg>

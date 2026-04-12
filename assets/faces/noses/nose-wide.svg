@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20">
+  <!-- Wider, flatter nose -->
+  <ellipse cx="15" cy="11" rx="5" ry="3" fill="#E8A090"/>
+</svg>

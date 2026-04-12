@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 25">
+  <!-- Open smile -->
+  <path d="M10 10 Q20 22 30 10" fill="#E74C6F" stroke="#E74C6F" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Teeth area -->
+  <path d="M13 10 Q20 12 27 10" fill="#FFFFFF"/>
+  <!-- Inner mouth -->
+  <path d="M13 12 Q20 20 27 12" fill="#B03050"/>
+  <!-- Small tongue -->
+  <ellipse cx="20" cy="19" rx="4" ry="4" fill="#FF7B9C"/>
+</svg>

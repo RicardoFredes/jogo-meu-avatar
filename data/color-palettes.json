@@ -1,0 +1,54 @@
+{
+  "version": "1.0",
+  "palettes": {
+    "skin-tones": [
+      { "id": "skin-1", "name": "Clara", "hex": "#FCDEC0" },
+      { "id": "skin-2", "name": "Pessego", "hex": "#F0C8A0" },
+      { "id": "skin-3", "name": "Mel", "hex": "#D2946B" },
+      { "id": "skin-4", "name": "Canela", "hex": "#B07040" },
+      { "id": "skin-5", "name": "Chocolate", "hex": "#8B5E3C" },
+      { "id": "skin-6", "name": "Cafe", "hex": "#6B4226" },
+      { "id": "skin-7", "name": "Escura", "hex": "#4A2912" },
+      { "id": "skin-8", "name": "Rosa Fantasia", "hex": "#FFB6C1" },
+      { "id": "skin-9", "name": "Azul Fantasia", "hex": "#87CEEB" },
+      { "id": "skin-10", "name": "Verde Fantasia", "hex": "#90EE90" }
+    ],
+    "eye-colors": [
+      { "id": "brown", "name": "Castanho", "hex": "#8B4513" },
+      { "id": "blue", "name": "Azul", "hex": "#4169E1" },
+      { "id": "green", "name": "Verde", "hex": "#228B22" },
+      { "id": "black", "name": "Preto", "hex": "#1A1A1A" },
+      { "id": "honey", "name": "Mel", "hex": "#DAA520" },
+      { "id": "gray", "name": "Cinza", "hex": "#708090" },
+      { "id": "violet", "name": "Violeta", "hex": "#8A2BE2" },
+      { "id": "red", "name": "Vermelho", "hex": "#DC143C" }
+    ],
+    "hair-colors": [
+      { "id": "black", "name": "Preto", "hex": "#1A1A1A" },
+      { "id": "dark-brown", "name": "Castanho Escuro", "hex": "#3B2314" },
+      { "id": "brown", "name": "Castanho", "hex": "#8B4513" },
+      { "id": "light-brown", "name": "Castanho Claro", "hex": "#C49A6C" },
+      { "id": "blonde", "name": "Loiro", "hex": "#F0D58C" },
+      { "id": "ginger", "name": "Ruivo", "hex": "#B7472A" },
+      { "id": "gray", "name": "Grisalho", "hex": "#A9A9A9" },
+      { "id": "white", "name": "Branco", "hex": "#F5F5F5" },
+      { "id": "pink", "name": "Rosa", "hex": "#FF69B4" },
+      { "id": "blue", "name": "Azul", "hex": "#4169E1" },
+      { "id": "purple", "name": "Roxo", "hex": "#9370DB" },
+      { "id": "green", "name": "Verde", "hex": "#32CD32" }
+    ],
+    "clothing-colors": [
+      { "id": "white", "name": "Branco", "hex": "#FFFFFF" },
+      { "id": "black", "name": "Preto", "hex": "#222222" },
+      { "id": "red", "name": "Vermelho", "hex": "#E74C3C" },
+      { "id": "blue", "name": "Azul", "hex": "#3498DB" },
+      { "id": "navy", "name": "Marinho", "hex": "#2C3E50" },
+      { "id": "green", "name": "Verde", "hex": "#2ECC71" },
+      { "id": "yellow", "name": "Amarelo", "hex": "#F1C40F" },
+      { "id": "pink", "name": "Rosa", "hex": "#E91E90" },
+      { "id": "purple", "name": "Roxo", "hex": "#9B59B6" },
+      { "id": "orange", "name": "Laranja", "hex": "#E67E22" },
+      { "id": "lilac", "name": "Lilas", "hex": "#C8A2C8" }
+    ]
+  }
+}

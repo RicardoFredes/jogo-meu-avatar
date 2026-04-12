@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "category": "mouths",
+  "type": "body-part",
+  "label": "Boca",
+  "anchor": "mouth",
+  "zIndex": 73,
+  "colorable": false,
+  "skinTint": true,
+  "items": [
+    {
+      "id": "mouth-smile",
+      "name": "Sorriso",
+      "asset": "assets/faces/mouths/mouth-smile-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
+    }
+  ]
+}

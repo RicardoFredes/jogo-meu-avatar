@@ -1,0 +1,72 @@
+{
+  "version": "1.0",
+  "category": "tops",
+  "type": "clothing",
+  "slotId": "top",
+  "label": "Blusas",
+  "zIndex": 30,
+  "anchor": "shoulders",
+  "colorable": true,
+  "colorPalette": "clothing-colors",
+  "conflicts": [
+    "full-body"
+  ],
+  "items": [
+    {
+      "id": "tshirt",
+      "name": "Camiseta",
+      "asset": "assets/clothing/tops/tshirt-v2.svg",
+      "thumbnail": "assets/clothing/tops/thumbs/thumb-tshirt-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -20
+      }
+    },
+    {
+      "id": "tanktop",
+      "name": "Regata",
+      "asset": "assets/clothing/tops/tanktop-v2.svg",
+      "thumbnail": "assets/clothing/tops/thumbs/thumb-tanktop-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -20
+      }
+    },
+    {
+      "id": "blouse",
+      "name": "Blusa",
+      "asset": "assets/clothing/tops/blouse-v2.svg",
+      "thumbnail": "assets/clothing/tops/thumbs/thumb-blouse-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -20
+      }
+    },
+    {
+      "id": "hoodie",
+      "name": "Moletom",
+      "asset": "assets/clothing/tops/hoodie-v2.svg",
+      "thumbnail": "assets/clothing/tops/thumbs/thumb-hoodie-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -20
+      }
+    }
+  ]
+}

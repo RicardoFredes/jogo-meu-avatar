@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "type": "body-shapes",
+  "shapes": [
+    {
+      "id": "child",
+      "label": "Crianca",
+      "size": "child",
+      "body": "assets/bodies/child-female-normal.svg",
+      "neck": "assets/bodies/child-neck.svg",
+      "dimensions": { "width": 600, "height": 800 },
+      "anchors": {
+        "head": { "x": 300, "y": 290, "radius": 105 },
+        "eyeLine": { "x": 300, "y": 287 },
+        "nose": { "x": 301, "y": 317 },
+        "mouth": { "x": 300, "y": 350 },
+        "hairTop": { "x": 300, "y": 186 },
+        "shoulders": { "x": 300, "y": 420 },
+        "torsoCenter": { "x": 300, "y": 500 },
+        "waist": { "x": 300, "y": 565 },
+        "hips": { "x": 300, "y": 600 },
+        "feet": { "x": 300, "y": 700 }
+      }
+    },
+    {
+      "id": "adult",
+      "label": "Adulto",
+      "size": "adult",
+      "body": "assets/bodies/adult-female-normal.svg",
+      "neck": "assets/bodies/adult-neck.svg",
+      "dimensions": { "width": 600, "height": 800 },
+      "anchors": {
+        "head": { "x": 300, "y": 180, "radius": 105 },
+        "eyeLine": { "x": 300, "y": 177 },
+        "nose": { "x": 301, "y": 207 },
+        "mouth": { "x": 300, "y": 240 },
+        "hairTop": { "x": 300, "y": 76 },
+        "shoulders": { "x": 300, "y": 310 },
+        "torsoCenter": { "x": 300, "y": 400 },
+        "waist": { "x": 300, "y": 485 },
+        "hips": { "x": 300, "y": 520 },
+        "feet": { "x": 300, "y": 700 }
+      }
+    }
+  ]
+}

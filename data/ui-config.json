@@ -1,0 +1,24 @@
+{
+  "version": "1.0",
+  "gameName": "Lauren Fashion",
+  "subtitle": "Crie, Vista e Brilhe!",
+  "creationSteps": [
+    { "id": "basics", "label": "Quem Voce Vai Criar?", "fields": ["name", "bodyType"] },
+    { "id": "skin", "label": "Cor da Pele", "dataSource": "skin-tones" },
+    { "id": "face", "label": "Rostinho", "dataSource": "face-shapes" },
+    { "id": "eyes", "label": "Olhinhos", "dataSources": ["eyes", "eyebrows"] },
+    { "id": "nose-mouth", "label": "Nariz e Boquinha", "dataSources": ["noses", "mouths"] },
+    { "id": "hair", "label": "Cabelo", "dataSources": ["hair-back", "hair-front"] },
+    { "id": "extras", "label": "Detalhes Especiais", "dataSource": "extras" },
+    { "id": "review", "label": "Ficou Lindo!", "type": "review" }
+  ],
+  "wardrobeCategories": [
+    { "categories": ["full-body", "patterns"], "label": "Vestidos", "icon": "\ud83d\udc57" },
+    { "category": "tops", "label": "Blusas", "icon": "\ud83d\udc5a" },
+    { "category": "bottoms", "label": "Calcas", "icon": "\ud83d\udc56" },
+    { "category": "shoes", "label": "Sapatos", "icon": "\ud83d\udc5f" },
+    { "category": "head-acc", "label": "Chapeus", "icon": "\ud83d\udc51" },
+    { "category": "face-acc", "label": "Oculos", "icon": "\ud83d\udc53" },
+    { "category": "body-acc", "label": "Extras", "icon": "\ud83e\udd8b" }
+  ]
+}

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 320">
+  <!-- Short Boots: left cx=58 y=282-310, right cx=122 -->
+  <!-- Left boot -->
+  <path d="
+    M 46,282
+    Q 46,280 50,280
+    L 68,280
+    Q 72,280 72,282
+    L 72,302
+    L 74,306
+    Q 76,312 72,314
+    L 48,314
+    Q 42,314 42,308
+    L 42,306
+    L 46,302
+    Z
+  " fill="#FF00FF" stroke="#CC00CC" stroke-width="1.2" stroke-linejoin="round"/>
+  <!-- Left boot sole -->
+  <path d="M 42,310 Q 42,316 48,316 L 72,316 Q 76,316 74,312" fill="#CC00CC" stroke="#CC00CC" stroke-width="1"/>
+  <!-- Left boot top cuff -->
+  <path d="M 46,284 L 72,284" stroke="#CC00CC" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <!-- Left boot strap -->
+  <rect x="48" y="294" width="22" height="3" rx="1" fill="#CC00CC" opacity="0.5"/>
+
+  <!-- Right boot -->
+  <path d="
+    M 110,282
+    Q 110,280 114,280
+    L 132,280
+    Q 136,280 136,282
+    L 136,302
+    L 138,306
+    Q 140,312 136,314
+    L 112,314
+    Q 106,314 106,308
+    L 106,306
+    L 110,302
+    Z
+  " fill="#FF00FF" stroke="#CC00CC" stroke-width="1.2" stroke-linejoin="round"/>
+  <!-- Right boot sole -->
+  <path d="M 106,310 Q 106,316 112,316 L 136,316 Q 140,316 138,312" fill="#CC00CC" stroke="#CC00CC" stroke-width="1"/>
+  <!-- Right boot top cuff -->
+  <path d="M 110,284 L 136,284" stroke="#CC00CC" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <!-- Right boot strap -->
+  <rect x="112" y="294" width="22" height="3" rx="1" fill="#CC00CC" opacity="0.5"/>
+</svg>

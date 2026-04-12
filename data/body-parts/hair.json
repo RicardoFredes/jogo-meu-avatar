@@ -1,0 +1,479 @@
+{
+  "version": "1.0",
+  "category": "hair",
+  "type": "body-part",
+  "label": "Cabelo",
+  "colorable": true,
+  "colorPalette": "hair-colors",
+  "items": [
+    {
+      "id": "long-straight",
+      "name": "Longo Liso",
+      "tags": [
+        "girl"
+      ],
+      "assets": {
+        "back": "assets/hair/back/long-straight.svg",
+        "front": "assets/hair/front/long-straight.svg"
+      },
+      "layers": [
+        {
+          "asset": "back",
+          "anchor": "head",
+          "zIndex": 10,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        },
+        {
+          "asset": "front",
+          "anchor": "head",
+          "zIndex": 80,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "long-curly",
+      "name": "Longo Cacheado",
+      "tags": [
+        "girl"
+      ],
+      "assets": {
+        "back": "assets/hair/back/long-curly.svg",
+        "front": "assets/hair/front/long-curly.svg"
+      },
+      "layers": [
+        {
+          "asset": "back",
+          "anchor": "head",
+          "zIndex": 10,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        },
+        {
+          "asset": "front",
+          "anchor": "head",
+          "zIndex": 80,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-bob",
+      "name": "Chanel",
+      "tags": [
+        "girl"
+      ],
+      "assets": {
+        "back": "assets/hair/back/short-bob.svg",
+        "front": "assets/hair/front/short-bob.svg"
+      },
+      "layers": [
+        {
+          "asset": "back",
+          "anchor": "head",
+          "zIndex": 10,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        },
+        {
+          "asset": "front",
+          "anchor": "head",
+          "zIndex": 80,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "pigtails",
+      "name": "Maria Chiquinha",
+      "tags": [
+        "girl"
+      ],
+      "assets": {
+        "back": "assets/hair/back/pigtails.svg",
+        "front": "assets/hair/front/pigtails.svg"
+      },
+      "layers": [
+        {
+          "asset": "back",
+          "anchor": "head",
+          "zIndex": 10,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        },
+        {
+          "asset": "front",
+          "anchor": "head",
+          "zIndex": 80,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "ponytail",
+      "name": "Rabo de Cavalo",
+      "tags": [
+        "girl"
+      ],
+      "assets": {
+        "back": "assets/hair/back/ponytail.svg",
+        "front": "assets/hair/front/ponytail.svg"
+      },
+      "layers": [
+        {
+          "asset": "back",
+          "anchor": "head",
+          "zIndex": 10,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        },
+        {
+          "asset": "front",
+          "anchor": "head",
+          "zIndex": 80,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "buns",
+      "name": "Coques",
+      "tags": [
+        "girl"
+      ],
+      "assets": {
+        "back": "assets/hair/back/buns.svg",
+        "front": "assets/hair/front/buns.svg"
+      },
+      "layers": [
+        {
+          "asset": "back",
+          "anchor": "head",
+          "zIndex": 10,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        },
+        {
+          "asset": "front",
+          "anchor": "head",
+          "zIndex": 80,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-messy",
+      "name": "Bagunçado",
+      "tags": [
+        "boy"
+      ],
+      "assets": {
+        "back": "assets/hair/back/short-messy.svg",
+        "front": "assets/hair/front/short-messy.svg"
+      },
+      "layers": [
+        {
+          "asset": "back",
+          "anchor": "head",
+          "zIndex": 10,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        },
+        {
+          "asset": "front",
+          "anchor": "head",
+          "zIndex": 80,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "side-part",
+      "name": "Repartido",
+      "tags": [
+        "boy"
+      ],
+      "assets": {
+        "back": "assets/hair/back/side-part.svg",
+        "front": "assets/hair/front/side-part.svg"
+      },
+      "layers": [
+        {
+          "asset": "back",
+          "anchor": "head",
+          "zIndex": 10,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        },
+        {
+          "asset": "front",
+          "anchor": "head",
+          "zIndex": 80,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "buzz-cut",
+      "name": "Raspado",
+      "tags": [
+        "boy"
+      ],
+      "assets": {
+        "back": "assets/hair/back/buzz-cut.svg",
+        "front": "assets/hair/front/buzz-cut.svg"
+      },
+      "layers": [
+        {
+          "asset": "back",
+          "anchor": "head",
+          "zIndex": 10,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        },
+        {
+          "asset": "front",
+          "anchor": "head",
+          "zIndex": 80,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "faux-hawk",
+      "name": "Moicano",
+      "tags": [
+        "boy"
+      ],
+      "assets": {
+        "back": "assets/hair/back/faux-hawk.svg",
+        "front": "assets/hair/front/faux-hawk.svg"
+      },
+      "layers": [
+        {
+          "asset": "back",
+          "anchor": "head",
+          "zIndex": 10,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        },
+        {
+          "asset": "front",
+          "anchor": "head",
+          "zIndex": 80,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "curly-short",
+      "name": "Cacheado Curto",
+      "tags": [
+        "boy"
+      ],
+      "assets": {
+        "back": "assets/hair/back/curly-short.svg",
+        "front": "assets/hair/front/curly-short.svg"
+      },
+      "layers": [
+        {
+          "asset": "back",
+          "anchor": "head",
+          "zIndex": 10,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        },
+        {
+          "asset": "front",
+          "anchor": "head",
+          "zIndex": 80,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "bald",
+      "name": "Carequinha",
+      "tags": [
+        "boy",
+        "girl"
+      ],
+      "assets": {
+        "back": "assets/hair/back/bald.svg",
+        "front": "assets/hair/front/bald.svg"
+      },
+      "layers": [
+        {
+          "asset": "back",
+          "anchor": "head",
+          "zIndex": 10,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        },
+        {
+          "asset": "front",
+          "anchor": "head",
+          "zIndex": 80,
+          "size": {
+            "width": 400,
+            "height": 500
+          },
+          "offset": {
+            "x": 0,
+            "y": 50
+          }
+        }
+      ]
+    }
+  ]
+}

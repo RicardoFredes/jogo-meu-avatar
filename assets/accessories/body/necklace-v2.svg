@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
+
+  <!-- Gold bead necklace - NOT colorizable -->
+  <path d="M254 388 Q266 400 278 408 Q290 414 300 418 Q310 414 322 408 Q334 400 346 388"
+    fill="none" stroke="#B8860B" stroke-width="3"/>
+  <circle cx="258" cy="390" r="6" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="270" cy="398" r="6" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="282" cy="406" r="6" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="300" cy="418" r="8" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="318" cy="406" r="6" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="330" cy="398" r="6" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="342" cy="390" r="6" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <!-- Pendant -->
+  <path d="M294 424 L300 440 L306 424 Z" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="300" cy="432" r="4" fill="#E74C3C" stroke="#B8860B" stroke-width="1"/>
+
+</svg>
