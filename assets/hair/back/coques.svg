@@ -1,0 +1,10 @@
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Coques: dome + two buns on top -->
+  <circle cx="300" cy="260" r="130" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <!-- Left bun -->
+  <circle cx="235" cy="148" r="42" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <!-- Right bun -->
+  <circle cx="365" cy="148" r="42" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+
+</svg>

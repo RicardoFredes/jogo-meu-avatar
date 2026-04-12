@@ -1,21 +1,6 @@
 <svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- Curto: short hair, just around head contour -->
-  <path d="M190 200 C195 170, 232 152, 300 150 C368 152, 405 170, 410 200 L410 210 L190 210 Z"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
-  <!-- Left side short -->
-  <path d="M190 205
-    C182 218, 175 248, 172 280
-    C170 310, 174 338, 184 355
-    C192 368, 202 365, 206 350
-    L205 290 C206 262, 208 240, 214 225 Z"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
-  <!-- Right side short -->
-  <path d="M410 205
-    C418 218, 425 248, 428 280
-    C430 310, 426 338, 416 355
-    C408 368, 398 365, 394 350
-    L395 290 C394 262, 392 240, 386 225 Z"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+  <!-- Curto: dome only, slightly smaller/tighter to head -->
+  <circle cx="300" cy="255" r="128" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
 
 </svg>

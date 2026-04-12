@@ -1,0 +1,11 @@
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Franja cortina: two curtain halves parted in the middle -->
+  <!-- Left curtain -->
+  <path d="M185 240 C185 200, 215 165, 290 158 L295 158 L295 235 Q250 255 185 250 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <!-- Right curtain -->
+  <path d="M415 240 C415 200, 385 165, 310 158 L305 158 L305 235 Q350 255 415 250 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+
+</svg>

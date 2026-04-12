@@ -1,15 +1,7 @@
 <svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- Franja reta: solid cap + 4-5 straight chunky sections -->
-  <!-- Solid cap (hair mass on top of head) -->
-  <path d="M185 235 C182 205, 195 170, 225 156 C258 142, 342 142, 375 156 C405 170, 418 205, 415 235 Z"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
-  <!-- Chunky straight bang sections -->
-  <path d="M188 228 L192 240 C198 238, 215 232, 235 230 L238 240
-    C248 236, 265 230, 282 228 L285 238
-    C295 234, 310 230, 325 228 L328 238
-    C342 234, 358 230, 372 232 L375 240
-    C385 238, 398 235, 412 240 L415 228"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <!-- Franja reta: solid cap with straight cut bottom -->
+  <path d="M185 245 C185 200, 220 162, 300 158 C380 162, 415 200, 415 245 L415 252 L185 252 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
 
 </svg>

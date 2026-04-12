@@ -1,18 +1,7 @@
 <svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- Franja lateral: cap + side-swept bangs to the right -->
-  <path d="M185 235 C182 205, 195 170, 225 156 C258 142, 342 142, 375 156 C405 170, 418 205, 415 235 Z"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
-  <!-- One big side-swept section from left to right -->
-  <path d="M188 225
-    C195 218, 225 210, 280 208
-    C335 210, 380 220, 415 232
-    L412 238
-    C385 228, 340 218, 285 216
-    C235 218, 202 225, 192 235 Z"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
-  <!-- Small piece on the left side of face -->
-  <path d="M185 235 C182 242, 180 255, 182 265 C186 258, 190 252, 192 248 L190 238 Z"
+  <!-- Franja lateral: cap swept to the right side -->
+  <path d="M185 235 C185 200, 220 162, 300 158 C380 162, 415 200, 415 235 L420 260 Q350 235 185 248 Z"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
 
 </svg>

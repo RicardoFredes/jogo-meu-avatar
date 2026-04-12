@@ -1,0 +1,15 @@
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Trancas: dome + two braids falling on each side -->
+  <circle cx="300" cy="252" r="136" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <!-- Left braid -->
+  <path d="M175 300 Q158 345 170 390 Q182 435 168 475 Q160 498 172 505 Q184 498 178 475 Q165 435 178 390 Q190 345 180 300 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <!-- Right braid -->
+  <path d="M425 300 Q442 345 430 390 Q418 435 432 475 Q440 498 428 505 Q416 498 422 475 Q435 435 422 390 Q410 345 420 300 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <!-- Braid ties -->
+  <circle cx="172" cy="508" r="9" fill="#CC00CC"/>
+  <circle cx="428" cy="508" r="9" fill="#CC00CC"/>
+
+</svg>

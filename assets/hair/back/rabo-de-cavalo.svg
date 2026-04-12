@@ -1,0 +1,11 @@
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Rabo de cavalo: dome + ponytail hanging to right side -->
+  <circle cx="300" cy="252" r="136" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <!-- Ponytail body visible behind head -->
+  <path d="M380 200 Q435 225 442 290 Q450 370 432 450 Q422 480 405 462 Q400 425 405 360 Q410 290 390 235 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <!-- Hair tie -->
+  <ellipse cx="392" cy="218" rx="14" ry="9" fill="#CC00CC"/>
+
+</svg>

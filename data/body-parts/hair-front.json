@@ -25,6 +25,50 @@
         "adult": { "x": 0, "y": 220 }
       },
       "offset": { "x": 0, "y": 110 }
+    },
+    {
+      "id": "franja-reta",
+      "name": "Reta",
+      "asset": "assets/hair/front/franja-reta.svg",
+      "size": { "width": 600, "height": 800 },
+      "offsetByShape": {
+        "child": { "x": 0, "y": 110 },
+        "adult": { "x": 0, "y": 220 }
+      },
+      "offset": { "x": 0, "y": 110 }
+    },
+    {
+      "id": "franja-lateral",
+      "name": "Lateral",
+      "asset": "assets/hair/front/franja-lateral.svg",
+      "size": { "width": 600, "height": 800 },
+      "offsetByShape": {
+        "child": { "x": 0, "y": 110 },
+        "adult": { "x": 0, "y": 220 }
+      },
+      "offset": { "x": 0, "y": 110 }
+    },
+    {
+      "id": "franja-cortina",
+      "name": "Cortina",
+      "asset": "assets/hair/front/franja-cortina.svg",
+      "size": { "width": 600, "height": 800 },
+      "offsetByShape": {
+        "child": { "x": 0, "y": 110 },
+        "adult": { "x": 0, "y": 220 }
+      },
+      "offset": { "x": 0, "y": 110 }
+    },
+    {
+      "id": "franja-cacheada",
+      "name": "Cacheada",
+      "asset": "assets/hair/front/franja-cacheada.svg",
+      "size": { "width": 600, "height": 800 },
+      "offsetByShape": {
+        "child": { "x": 0, "y": 110 },
+        "adult": { "x": 0, "y": 220 }
+      },
+      "offset": { "x": 0, "y": 110 }
     }
   ]
 }
