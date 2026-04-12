@@ -6,12 +6,15 @@
   "label": "Oculos",
   "zIndex": 85,
   "anchor": "eyeLine",
+  "freePosition": true,
   "items": [
     {
       "id": "glasses-round",
       "name": "Oculos",
       "asset": "assets/accessories/face/glasses-round-v2.svg",
       "thumbnail": "assets/accessories/face/thumbs/thumb-glasses-round-v2.svg",
+      "colorable": true,
+      "colorPalette": "clothing-colors",
       "size": {
         "width": 600,
         "height": 800
@@ -42,6 +45,8 @@
       "name": "Oculos de Sol",
       "asset": "assets/accessories/face/sunglasses-v2.svg",
       "thumbnail": "assets/accessories/face/thumbs/thumb-sunglasses-v2.svg",
+      "colorable": true,
+      "colorPalette": "clothing-colors",
       "size": {
         "width": 600,
         "height": 800

@@ -6,6 +6,7 @@
   "label": "Chapeus",
   "zIndex": 90,
   "anchor": "head",
+  "freePosition": true,
   "items": [
     {
       "id": "crown",

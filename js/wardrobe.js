@@ -65,6 +65,9 @@ const Wardrobe = (() => {
 
     // Color bar for the first equipped item found
     updateColorBarMulti(cats);
+
+    // Free position controls
+    updateFreePositionPanel();
   }
 
   // Keep old API working
@@ -119,7 +122,7 @@ const Wardrobe = (() => {
         const assetUrl = item.thumbnail || item.asset || (item.assets && (item.assets.front || item.assets.main));
         if (assetUrl) {
           const img = document.createElement('img');
-          img.src = assetUrl;
+          img.src = assetUrl + '?v=' + Date.now();
           img.alt = item.name;
           img.draggable = false;
           thumb.appendChild(img);
@@ -261,6 +264,7 @@ const Wardrobe = (() => {
     }
     renderCharacter();
     refreshCurrentTab();
+    updateFreePositionPanel();
   }
 
   function unequipSlot(slotId) {
@@ -279,6 +283,7 @@ const Wardrobe = (() => {
     }
     renderCharacter();
     refreshCurrentTab();
+    updateFreePositionPanel();
   }
 
   function updateColorBar(cat) {
@@ -424,6 +429,72 @@ const Wardrobe = (() => {
 
   function hideLooksSidebar() {
     document.getElementById('looks-sidebar').classList.add('hidden');
+  }
+
+  // ========== FREE POSITION ==========
+
+  function updateFreePositionPanel() {
+    const panel = document.getElementById('free-pos-panel');
+    if (!panel) return;
+
+    // Find if any equipped item in current tab supports freePosition
+    let freeSlot = null;
+    for (const catId of currentTabCatIds) {
+      const cat = Catalog.getCategory(catId);
+      if (!cat || !cat.freePosition) continue;
+      const equipped = charData.outfit[cat.slotId];
+      if (equipped && equipped.itemId) {
+        freeSlot = cat.slotId;
+        break;
+      }
+    }
+
+    if (!freeSlot) {
+      panel.classList.add('hidden');
+      return;
+    }
+
+    panel.classList.remove('hidden');
+    const slotData = charData.outfit[freeSlot];
+    const scale = slotData.userScale || 1;
+    document.getElementById('free-pos-scale').textContent = Math.round(scale * 100) + '%';
+
+    // Wire buttons (remove old listeners by replacing)
+    panel.querySelectorAll('.free-pos-btn').forEach(btn => {
+      const newBtn = btn.cloneNode(true);
+      btn.parentNode.replaceChild(newBtn, btn);
+      newBtn.addEventListener('click', () => {
+        applyFreePositionAction(freeSlot, newBtn.dataset.action);
+      });
+    });
+  }
+
+  function applyFreePositionAction(slotId, action) {
+    const slotData = charData.outfit[slotId];
+    if (!slotData) return;
+
+    if (!slotData.userOffset) slotData.userOffset = { x: 0, y: 0 };
+    if (!slotData.userScale) slotData.userScale = 1;
+
+    const step = 10; // pixels per press
+    const scaleStep = 0.05;
+
+    switch (action) {
+      case 'left':  slotData.userOffset.x -= step; break;
+      case 'right': slotData.userOffset.x += step; break;
+      case 'up':    slotData.userOffset.y -= step; break;
+      case 'down':  slotData.userOffset.y += step; break;
+      case 'bigger':  slotData.userScale = Math.min(2, slotData.userScale + scaleStep); break;
+      case 'smaller': slotData.userScale = Math.max(0.3, slotData.userScale - scaleStep); break;
+      case 'reset':
+        slotData.userOffset = { x: 0, y: 0 };
+        slotData.userScale = 1;
+        break;
+    }
+
+    Storage.updateCharacterOutfit(characterId, charData.outfit);
+    renderCharacter();
+    document.getElementById('free-pos-scale').textContent = Math.round(slotData.userScale * 100) + '%';
   }
 
   return {

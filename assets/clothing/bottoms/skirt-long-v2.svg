@@ -1,13 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
-
-  <!-- Long skirt -->
-  <rect x="228" y="546" width="144" height="16" rx="6" fill="#FF00FF" stroke="#CC00CC" stroke-width="5"/>
-  <path d="M230 562 L172 668 Q170 674 176 674 L424 674 Q430 674 428 668 L370 562 Z"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
-  <path d="M272 562 L226 672" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
-  <path d="M300 562 L300 672" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
-  <path d="M328 562 L374 672" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
-  <path d="M176 672 Q240 664 300 672 Q360 664 424 672"
-    fill="none" stroke="#CC00CC" stroke-width="3" opacity="0.4"/>
-
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path xmlns="http://www.w3.org/2000/svg" d="M0,800v-800h600v800z" id="imported-0" fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M206.19331,542.95464l-67.22555,127.55014c0,0 30.44796,17.74996 60.36038,20.04057c29.91242,2.29061 171.43129,2.29061 201.34372,0c29.91242,-2.29061 60.36038,-20.04057 60.36038,-20.04057l-67.22555,-127.55014z" id="imported-2" fill="#ff00ff" fill-rule="nonzero" stroke="#cc00cc" stroke-width="5" stroke-linecap="butt" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M262.47732,543.29474l-61.6444,147.41052" id="imported-3" fill="none" fill-rule="nonzero" stroke="#cc00cc" stroke-width="2.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" opacity="0.3" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M300,543.29474v147.41052" id="imported-4" fill="none" fill-rule="nonzero" stroke="#cc00cc" stroke-width="2.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" opacity="0.3" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M337.52268,543.29474l61.6444,147.41052" id="imported-5" fill="none" fill-rule="nonzero" stroke="#cc00cc" stroke-width="2.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" opacity="0.3" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M141.74109,672.55256c54.45468,-6.80684 107.20765,-6.80684 158.25891,0c51.05126,-6.80684 103.80423,-6.80684 158.25891,0" id="imported-6" fill="none" fill-rule="nonzero" stroke="#cc00cc" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" opacity="0.4" style="mix-blend-mode: normal"/>
 </svg>

@@ -8,13 +8,19 @@ const Admin = (() => {
   let currentTool = 'pen';
   let transparencyMode = true;
   let selectedPath = null;
-  let selectedSegment = null;
+  let selectedSegment = null;       // primary segment (for props panel)
+  let selectedSegments = new Set();  // all selected segment indices
   let currentPath = null; // path being drawn
   let konvaStage = null;
 
   // Paper.js refs
-  let penTool, selectTool, moveTool;
+  let penTool, selectTool, moveTool, panTool;
   let guidesLayer, drawingLayer;
+
+  // Pan state
+  let panOffset = { x: 0, y: 0 };
+  let isPanning = false;
+  let toolBeforePan = null; // tool to restore after Space release
 
   // ========== INIT ==========
 
@@ -27,6 +33,7 @@ const Admin = (() => {
     setupTools();
     setupEvents();
     applyZoom();
+    applyTransparency();
     updateLayerList();
     loadAssetBrowser();
   }
@@ -148,11 +155,15 @@ const Admin = (() => {
     };
 
     // SELECT TOOL
+    let draggingHandle = null; // 'in', 'out', or null
+
     selectTool = new paper.Tool();
     selectTool.onMouseDown = function(event) {
+      draggingHandle = null;
+
       const hitResult = paper.project.hitTest(event.point, {
-        segments: true, stroke: true, fill: true, tolerance: 8,
-        match: (hr) => hr.item.layer === drawingLayer,
+        segments: true, handles: true, stroke: true, fill: true, tolerance: 10,
+        match: (hr) => hr.item.layer === drawingLayer && !(hr.item.data && hr.item.data.isMirror),
       });
 
       if (!hitResult) {
@@ -160,23 +171,105 @@ const Admin = (() => {
         return;
       }
 
-      if (hitResult.type === 'segment') {
+      if (hitResult.type === 'handle-in') {
         selectPath(hitResult.item);
-        selectedSegment = hitResult.segment;
-        setStatus(`Editando ponto ${hitResult.segment.index}`);
+        selectSegment(hitResult.segment, event.event.shiftKey);
+        draggingHandle = 'in';
+        setStatus(`Arrastando handle IN do ponto ${hitResult.segment.index}`);
+      } else if (hitResult.type === 'handle-out') {
+        selectPath(hitResult.item);
+        selectSegment(hitResult.segment, event.event.shiftKey);
+        draggingHandle = 'out';
+        setStatus(`Arrastando handle OUT do ponto ${hitResult.segment.index}`);
+      } else if (hitResult.type === 'segment') {
+        if (hitResult.item !== selectedPath) {
+          selectPath(hitResult.item);
+        }
+        selectSegment(hitResult.segment, event.event.shiftKey);
       } else {
         selectPath(hitResult.item);
         selectedSegment = null;
+        selectedSegments.clear();
+        if (segmentMarker) { segmentMarker.remove(); segmentMarker = null; }
+        updateSegmentProps();
+      }
+    };
+
+    // Double-click on stroke → add point
+    selectTool.onMouseDoubleClick = function(event) {
+      const hitResult = paper.project.hitTest(event.point, {
+        stroke: true, tolerance: 10,
+        match: (hr) => hr.item.layer === drawingLayer && !(hr.item.data && hr.item.data.isMirror),
+      });
+      if (hitResult && hitResult.type === 'stroke' && hitResult.location) {
+        const path = hitResult.item;
+        const loc = hitResult.location;
+        const newSeg = path.insert(loc.index + 1, event.point);
+        selectPath(path);
+        selectSegment(newSeg);
+        updateSvgOutput();
+        toast('Ponto adicionado');
+      }
+    };
+
+    // Delete/Backspace → remove selected point
+    selectTool.onKeyDown = function(event) {
+      if ((event.key === 'delete' || event.key === 'backspace') && selectedSegment && selectedPath) {
+        const idx = selectedSegment.index;
+        selectedPath.removeSegment(idx);
+        selectedSegment = null;
+        selectedSegments.clear();
+        if (segmentMarker) { segmentMarker.remove(); segmentMarker = null; }
+
+        if (selectedPath.segments.length === 0) {
+          selectedPath.remove();
+          deselectAll();
+        } else {
+          const newIdx = Math.min(idx, selectedPath.segments.length - 1);
+          selectSegment(selectedPath.segments[newIdx]);
+        }
+        updateSvgOutput();
+        updateLayerList();
+        toast('Ponto removido');
       }
     };
 
     selectTool.onMouseDrag = function(event) {
-      if (selectedSegment) {
-        selectedSegment.point = selectedSegment.point.add(event.delta);
-        updateProps();
+      if (draggingHandle && selectedSegment) {
+        // Drag bezier handle (only on primary segment)
+        if (draggingHandle === 'in') {
+          selectedSegment.handleIn = selectedSegment.handleIn.add(event.delta);
+          if (isSegmentSymmetric(selectedSegment)) {
+            selectedSegment.handleOut = selectedSegment.handleIn.multiply(-1);
+          }
+        } else {
+          selectedSegment.handleOut = selectedSegment.handleOut.add(event.delta);
+          if (isSegmentSymmetric(selectedSegment)) {
+            selectedSegment.handleIn = selectedSegment.handleOut.multiply(-1);
+          }
+        }
+        if (mirrorMode) applyMirrorEdit(selectedPath, selectedSegment.index);
+        highlightSegment();
+        updateSegmentProps();
+      } else if (selectedSegments.size > 0 && selectedPath) {
+        // Drag all selected segments together
+        for (const idx of selectedSegments) {
+          const seg = selectedPath.segments[idx];
+          if (seg) {
+            seg.point = seg.point.add(event.delta);
+            if (mirrorMode) applyMirrorEdit(selectedPath, idx);
+          }
+        }
+        highlightSegment();
+        updateSegmentProps();
       } else if (selectedPath) {
         selectedPath.position = selectedPath.position.add(event.delta);
       }
+    };
+
+    selectTool.onMouseUp = function() {
+      draggingHandle = null;
+      if (selectedSegment) updateSvgOutput();
     };
 
     // MOVE TOOL
@@ -184,7 +277,7 @@ const Admin = (() => {
     moveTool.onMouseDown = function(event) {
       const hitResult = paper.project.hitTest(event.point, {
         fill: true, stroke: true, tolerance: 8,
-        match: (hr) => hr.item.layer === drawingLayer,
+        match: (hr) => hr.item.layer === drawingLayer && !(hr.item.data && hr.item.data.isMirror),
       });
       if (hitResult) {
         selectPath(hitResult.item);
@@ -196,6 +289,20 @@ const Admin = (() => {
       if (selectedPath) {
         selectedPath.position = selectedPath.position.add(event.delta);
       }
+    };
+
+    // PAN TOOL
+    panTool = new paper.Tool();
+    panTool.onMouseDown = function() {
+      isPanning = true;
+    };
+    panTool.onMouseDrag = function(event) {
+      panOffset.x += event.delta.x / zoom;
+      panOffset.y += event.delta.y / zoom;
+      applyPanZoom();
+    };
+    panTool.onMouseUp = function() {
+      isPanning = false;
     };
 
     // Set initial tool
@@ -217,7 +324,10 @@ const Admin = (() => {
     }
   }
 
+  let segmentMarker = null;
+
   function selectPath(path) {
+    if (selectedPath === path) return; // already selected, keep segments
     deselectAll();
     selectedPath = path;
     selectedPath.selected = true;
@@ -226,22 +336,111 @@ const Admin = (() => {
     updateLayerList();
   }
 
+  function selectSegment(seg, shift) {
+    if (shift) {
+      // Toggle this segment in multi-selection
+      if (selectedSegments.has(seg.index)) {
+        selectedSegments.delete(seg.index);
+        // If removed the primary, pick another or clear
+        if (selectedSegment === seg) {
+          selectedSegment = selectedSegments.size > 0
+            ? selectedPath.segments[[...selectedSegments][selectedSegments.size - 1]]
+            : null;
+        }
+      } else {
+        selectedSegments.add(seg.index);
+        selectedSegment = seg;
+      }
+    } else {
+      // Single selection: clear others
+      selectedSegments.clear();
+      selectedSegments.add(seg.index);
+      selectedSegment = seg;
+    }
+    highlightSegment();
+    updateSegmentProps();
+    if (selectedSegments.size === 1) {
+      setStatus(`Ponto ${seg.index} (${Math.round(seg.point.x)}, ${Math.round(seg.point.y)})`);
+    } else {
+      setStatus(`${selectedSegments.size} pontos selecionados (Shift+click para add/remover)`);
+    }
+  }
+
+  function highlightSegment() {
+    if (segmentMarker) { segmentMarker.remove(); segmentMarker = null; }
+    if (selectedSegments.size === 0 || !selectedPath) return;
+
+    guidesLayer.activate();
+    segmentMarker = new paper.Group();
+
+    for (const idx of selectedSegments) {
+      const seg = selectedPath.segments[idx];
+      if (!seg) continue;
+      const pt = seg.point;
+      const isPrimary = seg === selectedSegment;
+
+      // Ring on selected point (primary = red, others = orange)
+      segmentMarker.addChild(new paper.Path.Circle({
+        center: pt, radius: isPrimary ? 8 : 6,
+        strokeColor: isPrimary ? '#e94560' : '#f59e0b',
+        strokeWidth: isPrimary ? 2.5 : 2,
+        fillColor: isPrimary ? 'rgba(233,69,96,0.25)' : 'rgba(245,158,11,0.25)',
+      }));
+
+      // Only show handles on the primary segment
+      if (!isPrimary) continue;
+
+      // Handle-in line + dot (blue)
+      if (!seg.handleIn.isZero()) {
+        const hIn = pt.add(seg.handleIn);
+        segmentMarker.addChild(new paper.Path.Line({
+          from: pt, to: hIn, strokeColor: '#53d8fb', strokeWidth: 1.5,
+        }));
+        segmentMarker.addChild(new paper.Path.Circle({
+          center: hIn, radius: 4, fillColor: '#53d8fb', strokeColor: '#fff', strokeWidth: 1,
+        }));
+      }
+
+      // Handle-out line + dot (green)
+      if (!seg.handleOut.isZero()) {
+        const hOut = pt.add(seg.handleOut);
+        segmentMarker.addChild(new paper.Path.Line({
+          from: pt, to: hOut, strokeColor: '#4ade80', strokeWidth: 1.5,
+        }));
+        segmentMarker.addChild(new paper.Path.Circle({
+          center: hOut, radius: 4, fillColor: '#4ade80', strokeColor: '#fff', strokeWidth: 1,
+        }));
+      }
+    }
+
+    drawingLayer.activate();
+  }
+
   function deselectAll() {
+    if (segmentMarker) { segmentMarker.remove(); segmentMarker = null; }
     if (selectedPath) {
       selectedPath.selected = false;
       selectedPath.fullySelected = false;
     }
     selectedPath = null;
     selectedSegment = null;
+    selectedSegments.clear();
     document.getElementById('props-empty').classList.remove('hidden');
     document.getElementById('props-form').classList.add('hidden');
+    document.getElementById('segment-props').classList.add('hidden');
+    document.getElementById('segment-empty').classList.remove('hidden');
     updateLayerList();
   }
 
   function deleteSelected() {
-    if (selectedSegment && selectedPath) {
-      selectedPath.removeSegment(selectedSegment.index);
+    if (selectedSegments.size > 0 && selectedPath) {
+      // Remove segments in reverse index order to preserve indices
+      const indices = [...selectedSegments].sort((a, b) => b - a);
+      for (const idx of indices) {
+        selectedPath.removeSegment(idx);
+      }
       selectedSegment = null;
+      selectedSegments.clear();
       if (selectedPath.segments.length === 0) {
         selectedPath.remove();
         selectedPath = null;
@@ -260,10 +459,15 @@ const Admin = (() => {
     if (currentPath) finishPath();
     document.querySelectorAll('.tool-btn').forEach(b => b.classList.toggle('active', b.dataset.tool === name));
 
+    const canvas = document.getElementById('paper-canvas');
+    canvas.classList.toggle('panning', name === 'pan');
+    document.getElementById('btn-pan').classList.toggle('active', name === 'pan');
+
     switch (name) {
       case 'pen': penTool.activate(); setStatus('Pen Tool - Clique para pontos, arraste para curvas'); break;
       case 'select': selectTool.activate(); setStatus('Select - Clique em path para editar pontos'); break;
       case 'move': moveTool.activate(); setStatus('Move - Arraste paths'); break;
+      case 'pan': panTool.activate(); setStatus('Pan - Arraste para mover a vista | Space=temporario | 0=reset'); break;
       case 'delete': deleteSelected(); setActiveTool('select'); break;
     }
   }
@@ -287,7 +491,8 @@ const Admin = (() => {
     document.getElementById('prop-opacity').value = (selectedPath.opacity || 1) * 100;
     document.getElementById('prop-opacity-value').textContent = Math.round((selectedPath.opacity || 1) * 100) + '%';
     document.getElementById('prop-closed').checked = selectedPath.closed;
-    document.getElementById('point-count').textContent = selectedPath.segments.length + ' pontos';
+    document.getElementById('point-count').textContent = selectedPath.segments.length + ' pontos - clique num ponto para editar';
+    updateSegmentProps();
   }
 
   function applyProp(prop, value) {
@@ -341,20 +546,17 @@ const Admin = (() => {
 
   function exportSvg() {
     drawingLayer.activate();
-    // Temporarily deselect for clean export
-    const wasSelected = selectedPath;
-    deselectAll();
+    // Save selection state
+    const wasPath = selectedPath;
+    const wasSeg = selectedSegment;
 
-    const svgString = paper.project.exportSVG({ asString: true, bounds: new paper.Rectangle(0, 0, CANVAS_W, CANVAS_H) });
+    // Temporarily deselect for clean export (removes blue handles from SVG output)
+    if (selectedPath) {
+      selectedPath.selected = false;
+      selectedPath.fullySelected = false;
+    }
 
-    // Clean up: replace paper.js viewBox with our standard
-    let clean = svgString
-      .replace(/viewBox="[^"]*"/, `viewBox="0 0 ${CANVAS_W} ${CANVAS_H}"`)
-      .replace(/width="[^"]*"/, '')
-      .replace(/height="[^"]*"/, '');
-
-    // Remove guide elements (they're on a different layer but paper exports all)
-    // Just export drawing layer items manually
+    // Export drawing layer items individually (skip guides, markers)
     let paths = '';
     drawingLayer.children.forEach(item => {
       if (item instanceof paper.Path || item instanceof paper.CompoundPath) {
@@ -362,11 +564,20 @@ const Admin = (() => {
       }
     });
 
-    clean = `<svg viewBox="0 0 ${CANVAS_W} ${CANVAS_H}" fill="none" xmlns="http://www.w3.org/2000/svg">\n${paths}</svg>`;
-
+    const clean = `<svg viewBox="0 0 ${CANVAS_W} ${CANVAS_H}" fill="none" xmlns="http://www.w3.org/2000/svg">\n${paths}</svg>`;
     document.getElementById('svg-output').value = clean;
 
-    if (wasSelected) selectPath(wasSelected);
+    // Restore selection state without clearing segment
+    if (wasPath) {
+      wasPath.selected = true;
+      wasPath.fullySelected = true;
+      selectedPath = wasPath;
+    }
+    if (wasSeg) {
+      selectedSegment = wasSeg;
+      highlightSegment();
+    }
+
     return clean;
   }
 
@@ -431,7 +642,7 @@ const Admin = (() => {
     navigator.clipboard.writeText(svgStr).then(() => toast('SVG copiado!'));
   }
 
-  // ========== ZOOM ==========
+  // ========== ZOOM + PAN ==========
 
   function applyZoom() {
     const w = Math.round(CANVAS_W * zoom);
@@ -444,15 +655,33 @@ const Admin = (() => {
     paperCanvas.style.width = w + 'px';
     paperCanvas.style.height = h + 'px';
 
-    // Resize paper view
+    // Resize paper view and apply pan
     paper.view.viewSize = new paper.Size(w, h);
-    paper.view.matrix = new paper.Matrix().scale(zoom);
-    paper.view.draw();
+    applyPanZoom();
 
     // Konva preview
     setupKonvaPreview();
 
     document.getElementById('zoom-value').textContent = Math.round(zoom * 100) + '%';
+  }
+
+  function applyPanZoom() {
+    paper.view.matrix = new paper.Matrix()
+      .scale(zoom)
+      .translate(panOffset.x, panOffset.y);
+    paper.view.draw();
+
+    // Sync Konva preview offset
+    const konvaContainer = document.getElementById('konva-preview');
+    konvaContainer.style.transform = `translate(calc(-50% + ${panOffset.x * zoom}px), calc(-50% + ${panOffset.y * zoom}px))`;
+  }
+
+  function resetPan() {
+    panOffset = { x: 0, y: 0 };
+    applyPanZoom();
+    // Reset Konva preview
+    document.getElementById('konva-preview').style.transform = 'translate(-50%, -50%)';
+    toast('Pan resetado');
   }
 
   // ========== EVENTS ==========
@@ -470,11 +699,32 @@ const Admin = (() => {
         case 'p': setActiveTool('pen'); break;
         case 'v': setActiveTool('select'); break;
         case 'm': setActiveTool('move'); break;
+        case ' ':
+          e.preventDefault();
+          if (!toolBeforePan) {
+            toolBeforePan = currentTool;
+            setActiveTool('pan');
+          }
+          break;
+        case '0': resetPan(); break;
         case 'Delete': case 'Backspace': deleteSelected(); break;
+        case 'c': centerSelected(); break;
+        case 'h': mirrorSelected(); break;
+        case 'd': cloneSelectedPoint(); break;
+        case '=': case '+': setZoom(zoom + 0.1); break;
+        case '-': setZoom(zoom - 0.1); break;
         case 'Escape':
           if (currentPath) finishPath();
           else deselectAll();
           break;
+      }
+    });
+
+    // Space release: restore previous tool
+    document.addEventListener('keyup', (e) => {
+      if (e.key === ' ' && toolBeforePan) {
+        setActiveTool(toolBeforePan);
+        toolBeforePan = null;
       }
     });
 
@@ -513,6 +763,70 @@ const Admin = (() => {
     // Guides
     document.getElementById('chk-guides').addEventListener('change', () => drawGuides());
 
+    // Transparency
+    document.getElementById('chk-transparency').addEventListener('change', (e) => {
+      transparencyMode = e.target.checked;
+      applyTransparency();
+    });
+
+    // Actions: center, mirror, mirror-mode
+    document.getElementById('btn-center').addEventListener('click', centerSelected);
+    document.getElementById('btn-mirror').addEventListener('click', mirrorSelected);
+    document.getElementById('btn-clone-point').addEventListener('click', cloneSelectedPoint);
+    document.getElementById('btn-transform-apply').addEventListener('click', applyTransform);
+    document.getElementById('btn-remove-point').addEventListener('click', removeSelectedPoint);
+
+    // Segment type buttons
+    document.querySelectorAll('.seg-type-btn').forEach(btn => {
+      btn.addEventListener('click', () => setSegmentType(btn.dataset.type));
+    });
+
+    // Segment position inputs
+    document.getElementById('seg-x').addEventListener('change', applySegmentPosition);
+    document.getElementById('seg-y').addEventListener('change', applySegmentPosition);
+
+    // Handle inputs
+    ['handle-in-x', 'handle-in-y', 'handle-out-x', 'handle-out-y'].forEach(id => {
+      document.getElementById(id).addEventListener('change', applyHandleValues);
+    });
+
+    // Save
+    document.getElementById('btn-save-asset').addEventListener('click', saveAsset);
+    document.getElementById('chk-mirror-mode').addEventListener('change', (e) => {
+      mirrorMode = e.target.checked;
+      updateMirrorGuide();
+    });
+
+    // Pan buttons
+    document.getElementById('btn-pan').addEventListener('click', () => {
+      if (currentTool === 'pan') {
+        setActiveTool(toolBeforePan || 'pen');
+        toolBeforePan = null;
+      } else {
+        toolBeforePan = currentTool;
+        setActiveTool('pan');
+      }
+      document.getElementById('btn-pan').classList.toggle('active', currentTool === 'pan');
+    });
+    document.getElementById('btn-reset-pan').addEventListener('click', resetPan);
+
+    // Zoom buttons
+    document.getElementById('btn-zoom-in').addEventListener('click', () => setZoom(zoom + 0.1));
+    document.getElementById('btn-zoom-out').addEventListener('click', () => setZoom(zoom - 0.1));
+
+    // Scroll: pan normal, zoom com Ctrl/Cmd
+    document.querySelector('.canvas-wrapper').addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if (e.ctrlKey || e.metaKey) {
+        const delta = e.deltaY > 0 ? -0.05 : 0.05;
+        setZoom(zoom + delta);
+      } else {
+        panOffset.x -= e.deltaX / zoom;
+        panOffset.y -= e.deltaY / zoom;
+        applyPanZoom();
+      }
+    }, { passive: false });
+
     // Zoom
     document.getElementById('zoom-slider').addEventListener('input', (e) => {
       zoom = parseInt(e.target.value) / 100;
@@ -520,6 +834,7 @@ const Admin = (() => {
     });
 
     // Import/Export
+    document.getElementById('btn-new-item').addEventListener('click', createNewItem);
     document.getElementById('btn-import').addEventListener('click', () => document.getElementById('file-import').click());
     document.getElementById('file-import').addEventListener('change', (e) => {
       const file = e.target.files[0];
@@ -538,6 +853,409 @@ const Admin = (() => {
       currentPath = null;
       setStatus('Pen Tool - Clique para comecar novo path');
     });
+  }
+
+  // ========== ACTIONS: CENTER, MIRROR ==========
+
+  function centerSelected() {
+    if (!selectedPath) { toast('Selecione um path'); return; }
+    selectedPath.position = new paper.Point(CANVAS_W / 2, selectedPath.position.y);
+    updateSvgOutput();
+    toast('Centralizado horizontalmente');
+  }
+
+  function cloneSelectedPoint() {
+    if (!selectedPath || !selectedSegment) { toast('Selecione um ponto primeiro'); return; }
+    const idx = selectedSegment.index;
+    const pt = selectedSegment.point;
+    // Insert a duplicate slightly offset so it's easy to grab and move
+    const newSeg = selectedPath.insert(idx + 1, new paper.Point(pt.x + 15, pt.y));
+    selectSegment(newSeg);
+    updateSvgOutput();
+    updateLayerList();
+    toast('Ponto clonado - arraste para posicionar');
+  }
+
+  function removeSelectedPoint() {
+    if (!selectedPath || !selectedSegment) { toast('Selecione um ponto primeiro'); return; }
+    const idx = selectedSegment.index;
+    selectedPath.removeSegment(idx);
+    selectedSegment = null;
+    if (segmentMarker) { segmentMarker.remove(); segmentMarker = null; }
+
+    if (selectedPath.segments.length === 0) {
+      selectedPath.remove();
+      deselectAll();
+    } else {
+      const newIdx = Math.min(idx, selectedPath.segments.length - 1);
+      selectSegment(selectedPath.segments[newIdx]);
+    }
+    updateSvgOutput();
+    updateLayerList();
+    toast('Ponto removido');
+  }
+
+  function applyTransform() {
+    const scaleX = parseFloat(document.getElementById('tf-scale-x').value) / 100;
+    const scaleY = parseFloat(document.getElementById('tf-scale-y').value) / 100;
+    const moveX = parseFloat(document.getElementById('tf-move-x').value) || 0;
+    const moveY = parseFloat(document.getElementById('tf-move-y').value) || 0;
+
+    if (scaleX <= 0 || scaleY <= 0) { toast('Scale deve ser > 0'); return; }
+
+    const all = document.getElementById('chk-transform-all').checked;
+    const center = new paper.Point(CANVAS_W / 2, CANVAS_H / 2);
+
+    function transformItem(item) {
+      if (scaleX !== 1 || scaleY !== 1) {
+        item.scale(scaleX, scaleY, center);
+      }
+      if (moveX !== 0 || moveY !== 0) {
+        item.position = item.position.add(new paper.Point(moveX, moveY));
+      }
+    }
+
+    if (all) {
+      drawingLayer.children.forEach(item => {
+        if (item instanceof paper.Path || item instanceof paper.CompoundPath) {
+          transformItem(item);
+        }
+      });
+      toast(`Transformado ${drawingLayer.children.length} layers`);
+    } else {
+      if (!selectedPath) { toast('Selecione um path ou marque "Todos layers"'); return; }
+      transformItem(selectedPath);
+      toast('Transformado');
+    }
+
+    // Reset inputs after applying
+    document.getElementById('tf-scale-x').value = 100;
+    document.getElementById('tf-scale-y').value = 100;
+    document.getElementById('tf-move-x').value = 0;
+    document.getElementById('tf-move-y').value = 0;
+
+    highlightSegment();
+    updateSvgOutput();
+  }
+
+  function mirrorSelected() {
+    if (!selectedPath) { toast('Selecione um path'); return; }
+    const cx = CANVAS_W / 2;
+    selectedPath.scale(-1, 1, new paper.Point(cx, selectedPath.position.y));
+    updateSvgOutput();
+    toast('Espelhado');
+  }
+
+  // Mirror mode: edit symmetric paths - moving a point also moves its mirrored counterpart
+  let mirrorMode = false;
+  const MIRROR_CX = CANVAS_W / 2; // x=300 center axis
+
+  // Find the mirrored counterpart segment within the same path
+  function findMirrorSegment(path, segIndex) {
+    const seg = path.segments[segIndex];
+    const mirroredX = MIRROR_CX * 2 - seg.point.x;
+    const mirroredY = seg.point.y;
+
+    let bestIdx = -1;
+    let bestDist = Infinity;
+
+    for (let i = 0; i < path.segments.length; i++) {
+      if (i === segIndex) continue;
+      const other = path.segments[i];
+      const dist = Math.abs(other.point.x - mirroredX) + Math.abs(other.point.y - mirroredY);
+      if (dist < bestDist) {
+        bestDist = dist;
+        bestIdx = i;
+      }
+    }
+
+    return bestDist < 40 ? bestIdx : -1;
+  }
+
+  // Apply mirror edit: set the counterpart point + handles to be the exact reflection
+  function applyMirrorEdit(path, segIndex) {
+    if (!mirrorMode || !path) return;
+    const seg = path.segments[segIndex];
+
+    // Point on center axis? Constrain to x=300
+    if (Math.abs(seg.point.x - MIRROR_CX) < 8) {
+      seg.point.x = MIRROR_CX;
+      // Mirror handles symmetrically
+      if (seg.handleIn && seg.handleOut) {
+        const avgY = (seg.handleIn.y - seg.handleOut.y) / 2;
+        seg.handleIn = new paper.Point(-Math.abs(seg.handleIn.x), avgY);
+        seg.handleOut = new paper.Point(Math.abs(seg.handleOut.x), -avgY);
+      }
+      return;
+    }
+
+    const mirrorIdx = findMirrorSegment(path, segIndex);
+    if (mirrorIdx < 0) return;
+
+    const mirror = path.segments[mirrorIdx];
+
+    // Set mirrored position
+    mirror.point.x = MIRROR_CX * 2 - seg.point.x;
+    mirror.point.y = seg.point.y;
+
+    // Mirror handles (swap in/out and flip X)
+    mirror.handleIn = new paper.Point(-seg.handleOut.x, seg.handleOut.y);
+    mirror.handleOut = new paper.Point(-seg.handleIn.x, seg.handleIn.y);
+  }
+
+  // Show center guide line when mirror mode is on
+  let mirrorGuide = null;
+  function updateMirrorGuide() {
+    if (mirrorGuide) { mirrorGuide.remove(); mirrorGuide = null; }
+    if (!mirrorMode) return;
+    guidesLayer.activate();
+    mirrorGuide = new paper.Path.Line({
+      from: [MIRROR_CX, 0], to: [MIRROR_CX, CANVAS_H],
+      strokeColor: '#e94560', strokeWidth: 1.5, dashArray: [8, 4], opacity: 0.7,
+    });
+    drawingLayer.activate();
+  }
+
+  // ========== ZOOM ==========
+
+  function setZoom(newZoom) {
+    zoom = Math.max(0.25, Math.min(3, newZoom));
+    document.getElementById('zoom-slider').value = Math.round(zoom * 100);
+    applyZoom();
+  }
+
+  // ========== TRANSPARENCY ==========
+
+  function applyTransparency() {
+    drawingLayer.opacity = transparencyMode ? 0.5 : 1;
+    paper.view.draw();
+  }
+
+  // ========== SEGMENT EDITING ==========
+
+  function updateSegmentProps() {
+    const segPanel = document.getElementById('segment-props');
+    const segEmpty = document.getElementById('segment-empty');
+
+    if (!selectedSegment || !selectedPath) {
+      segPanel.classList.add('hidden');
+      segEmpty.classList.remove('hidden');
+      return;
+    }
+
+    segPanel.classList.remove('hidden');
+    segEmpty.classList.add('hidden');
+
+    const seg = selectedSegment;
+    document.getElementById('seg-x').value = Math.round(seg.point.x);
+    document.getElementById('seg-y').value = Math.round(seg.point.y);
+    document.getElementById('handle-in-x').value = Math.round(seg.handleIn.x);
+    document.getElementById('handle-in-y').value = Math.round(seg.handleIn.y);
+    document.getElementById('handle-out-x').value = Math.round(seg.handleOut.x);
+    document.getElementById('handle-out-y').value = Math.round(seg.handleOut.y);
+
+    // Detect current type
+    const hasHandles = !seg.handleIn.isZero() || !seg.handleOut.isZero();
+    const isSymmetric = hasHandles &&
+      Math.abs(seg.handleIn.x + seg.handleOut.x) < 2 &&
+      Math.abs(seg.handleIn.y + seg.handleOut.y) < 2;
+
+    let type = 'corner';
+    if (isSymmetric) type = 'symmetric';
+    else if (hasHandles) type = 'smooth';
+
+    document.querySelectorAll('.seg-type-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.type === type);
+    });
+
+    document.getElementById('handle-group').style.display = hasHandles ? 'block' : 'none';
+
+    // Update point count to show multi-selection info
+    const countEl = document.getElementById('point-count');
+    if (selectedSegments.size > 1) {
+      countEl.textContent = `${selectedSegments.size} de ${selectedPath.segments.length} pontos selecionados`;
+    } else {
+      countEl.textContent = selectedPath.segments.length + ' pontos - Shift+click para multi-selecao';
+    }
+  }
+
+  function isSegmentSymmetric(seg) {
+    if (!seg || seg.handleIn.isZero() || seg.handleOut.isZero()) return false;
+    return Math.abs(seg.handleIn.x + seg.handleOut.x) < 3 &&
+           Math.abs(seg.handleIn.y + seg.handleOut.y) < 3;
+  }
+
+  function setSegmentType(type) {
+    if (!selectedSegment) return;
+    const seg = selectedSegment;
+
+    switch (type) {
+      case 'corner':
+        seg.handleIn = new paper.Point(0, 0);
+        seg.handleOut = new paper.Point(0, 0);
+        break;
+      case 'smooth': {
+        // Create default handles based on neighboring segments
+        const prev = seg.previous;
+        const next = seg.next;
+        if (prev && next) {
+          const dir = next.point.subtract(prev.point).normalize(30);
+          seg.handleIn = dir.multiply(-1);
+          seg.handleOut = dir;
+        } else {
+          seg.handleIn = new paper.Point(-20, 0);
+          seg.handleOut = new paper.Point(20, 0);
+        }
+        break;
+      }
+      case 'symmetric': {
+        const prev = seg.previous;
+        const next = seg.next;
+        if (prev && next) {
+          const dir = next.point.subtract(prev.point).normalize(30);
+          seg.handleIn = dir.multiply(-1);
+          seg.handleOut = dir;
+        } else {
+          seg.handleIn = new paper.Point(-20, 0);
+          seg.handleOut = new paper.Point(20, 0);
+        }
+        break;
+      }
+    }
+
+    if (mirrorMode) applyMirrorEdit(selectedPath, seg.index);
+    updateSegmentProps();
+    updateSvgOutput();
+  }
+
+  function applySegmentPosition() {
+    if (!selectedSegment) return;
+    const x = parseFloat(document.getElementById('seg-x').value);
+    const y = parseFloat(document.getElementById('seg-y').value);
+    if (isNaN(x) || isNaN(y)) return;
+    selectedSegment.point = new paper.Point(x, y);
+    if (mirrorMode) applyMirrorEdit(selectedPath, selectedSegment.index);
+    updateSvgOutput();
+  }
+
+  function applyHandleValues() {
+    if (!selectedSegment) return;
+    const hix = parseFloat(document.getElementById('handle-in-x').value) || 0;
+    const hiy = parseFloat(document.getElementById('handle-in-y').value) || 0;
+    const hox = parseFloat(document.getElementById('handle-out-x').value) || 0;
+    const hoy = parseFloat(document.getElementById('handle-out-y').value) || 0;
+    selectedSegment.handleIn = new paper.Point(hix, hiy);
+    selectedSegment.handleOut = new paper.Point(hox, hoy);
+    if (mirrorMode) applyMirrorEdit(selectedPath, selectedSegment.index);
+    updateSvgOutput();
+  }
+
+  // ========== SAVE ASSET ==========
+
+  async function saveAsset() {
+    if (!currentAssetPath) {
+      toast('Nenhum asset carregado para salvar');
+      return;
+    }
+
+    const svgStr = exportSvg();
+    try {
+      const resp = await fetch('/api/svg/' + currentAssetPath, {
+        method: 'PUT',
+        body: svgStr,
+        headers: { 'Content-Type': 'image/svg+xml' },
+      });
+      const result = await resp.json();
+      if (result.ok) {
+        toast('Salvo: ' + currentAssetPath);
+      } else {
+        toast('Erro: ' + (result.error || 'falha ao salvar'));
+      }
+    } catch (err) {
+      toast('Erro de rede: ' + err.message);
+    }
+  }
+
+  // ========== NEW ITEM ==========
+
+  async function createNewItem() {
+    const categoryId = document.getElementById('sel-category').value;
+    const cat = Catalog.getCategory(categoryId);
+    if (!cat) { toast('Categoria invalida'); return; }
+
+    const name = prompt('Nome do novo item (ex: Camiseta Longa):');
+    if (!name || !name.trim()) return;
+
+    const id = name.trim().toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, '')
+      .replace(/-+/g, '-');
+
+    if (cat.items.has(id)) { toast('Ja existe um item com esse ID: ' + id); return; }
+
+    // Determine asset path based on category type
+    const catType = cat.type;
+    let assetDir;
+    if (catType === 'clothing') assetDir = 'assets/clothing/' + categoryId;
+    else if (catType === 'accessory') assetDir = 'assets/accessories/' + categoryId.replace('-acc', '');
+    else assetDir = 'assets/faces/' + categoryId;
+
+    const assetPath = assetDir + '/' + id + '.svg';
+    const thumbDir = assetDir + '/thumbs';
+    const thumbPath = thumbDir + '/thumb-' + id + '.svg';
+
+    // Get offset from an existing item in the category, or compute default
+    let offset = { x: 0, y: 0 };
+    let size = { width: 600, height: 800 };
+    for (const [, existingItem] of cat.items) {
+      if (existingItem.offset) { offset = { ...existingItem.offset }; break; }
+      if (existingItem.size) { size = { ...existingItem.size }; break; }
+    }
+
+    // Save empty SVG
+    const emptySvg = `<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">\n</svg>`;
+    try {
+      await fetch('/api/svg/' + assetPath, { method: 'PUT', body: emptySvg, headers: { 'Content-Type': 'image/svg+xml' } });
+      await fetch('/api/svg/' + thumbPath, { method: 'PUT', body: emptySvg, headers: { 'Content-Type': 'image/svg+xml' } });
+    } catch (err) {
+      toast('Erro ao criar arquivo: ' + err.message);
+      return;
+    }
+
+    // Build new item entry
+    const newItem = { id, name: name.trim(), asset: assetPath, thumbnail: thumbPath, size, offset };
+
+    // Load current JSON, add item, save back
+    try {
+      // Find JSON file for this category
+      const jsonResp = await fetch('/api/json');
+      const jsonMap = await jsonResp.json();
+      let jsonFile = null;
+      for (const [file, meta] of Object.entries(jsonMap)) {
+        if (meta.category === categoryId) { jsonFile = file; break; }
+      }
+      if (!jsonFile) { toast('JSON da categoria nao encontrado'); return; }
+
+      const dataResp = await fetch('/api/json/' + jsonFile);
+      const data = await dataResp.json();
+      data.items.push(newItem);
+
+      await fetch('/api/json/' + jsonFile, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      // Register in catalog
+      Catalog.registerCategory(data);
+
+      // Reload browser and open the new item
+      loadAssetBrowser();
+      loadAssetToCanvas(assetPath, name.trim());
+      toast('Item criado: ' + name.trim());
+    } catch (err) {
+      toast('Erro ao salvar JSON: ' + err.message);
+    }
   }
 
   // ========== ASSET BROWSER ==========

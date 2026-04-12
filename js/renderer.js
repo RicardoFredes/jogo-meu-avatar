@@ -10,7 +10,7 @@ const Renderer = (() => {
   async function fetchSvgText(url) {
     if (svgCache.has(url)) return svgCache.get(url);
     try {
-      const resp = await fetch(url);
+      const resp = await fetch(url + (url.includes('?') ? '&' : '?') + '_t=' + Date.now());
       const text = await resp.text();
       svgCache.set(url, text);
       return text;
@@ -18,6 +18,11 @@ const Renderer = (() => {
       console.warn('Renderer: failed to load', url, e);
       return null;
     }
+  }
+
+  function clearCache() {
+    svgCache.clear();
+    imageCache.clear();
   }
 
   function colorizeSvgText(svgText, color) {
@@ -272,14 +277,20 @@ const Renderer = (() => {
           ? item.offsetByShape[shape.id]
           : (item.offset || { x: 0, y: 0 });
 
+        // Apply user offset and scale from freePosition items
+        const userOff = slotData.userOffset || { x: 0, y: 0 };
+        const userScale = slotData.userScale || 1;
+        const finalW = s.width * userScale;
+        const finalH = s.height * userScale;
+
         layers.push({
           type: 'clothing',
           assetUrl: item.asset,
           color,
-          x: anchor.x - s.width / 2 + o.x,
-          y: anchor.y - s.height / 2 + o.y,
-          width: s.width,
-          height: s.height,
+          x: anchor.x - finalW / 2 + o.x + userOff.x,
+          y: anchor.y - finalH / 2 + o.y + userOff.y,
+          width: finalW,
+          height: finalH,
           zIndex: cat.zIndex,
         });
       }
@@ -374,7 +385,7 @@ const Renderer = (() => {
     renderToDataURL,
     resolveColor,
     loadColorizedImage,
-    // Expose for wardrobe direct manipulation
+    clearCache,
     buildLayerList,
     fetchSvgText,
     colorizeSvgText,

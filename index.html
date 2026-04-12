@@ -10,145 +10,182 @@
   <link rel="apple-touch-icon" href="assets/ui/icon-192.png">
   <title>Lauren Fashion - Crie, Vista e Brilhe!</title>
 
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#9B59B6', light: '#C39BD3', dark: '#7D3C98' },
+            secondary: '#E8A0BF',
+            accent: { DEFAULT: '#F39C12', glow: '#FFD700' },
+            lauren: { bg: '#F5E6FF', card: '#FFF0F5', pink: '#E91E90' },
+          },
+          fontFamily: {
+            display: ['Fredoka', 'sans-serif'],
+            body: ['Nunito', 'sans-serif'],
+            logo: ['Pacifico', 'cursive'],
+          },
+          borderRadius: { xl2: '16px', xl3: '20px' },
+        }
+      }
+    }
+  </script>
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Open Props (design tokens) -->
-  <link rel="stylesheet" href="https://unpkg.com/open-props">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
 
   <!-- Animate.css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-  <!-- App CSS -->
+  <!-- Game-specific CSS (animations, konva, custom) -->
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="font-body bg-gradient-to-br from-lauren-bg via-purple-50 to-lauren-card min-h-screen overflow-hidden select-none">
+
   <!-- Loading Screen -->
-  <div id="loading-screen" class="screen active">
-    <div class="loading-content">
-      <h1 class="logo animate__animated animate__pulse animate__infinite">Lauren Fashion</h1>
-      <p class="loading-text">Carregando...</p>
-      <div class="loading-bar"><div class="loading-fill"></div></div>
+  <div id="loading-screen" class="screen active fixed inset-0 flex items-center justify-center bg-gradient-to-br from-lauren-bg to-lauren-card z-50">
+    <div class="text-center">
+      <h1 class="font-logo text-4xl sm:text-5xl text-primary animate__animated animate__pulse animate__infinite drop-shadow-lg">Lauren Fashion</h1>
+      <p class="text-primary-light mt-2 text-sm">Carregando...</p>
+      <div class="loading-bar mt-4 mx-auto"><div class="loading-fill"></div></div>
     </div>
   </div>
 
   <!-- Home Screen -->
-  <div id="home-screen" class="screen">
-    <header class="home-header">
-      <h1 class="logo">Lauren Fashion</h1>
-      <p class="subtitle">Crie, Vista e Brilhe!</p>
-      <button id="btn-install" class="btn btn-accent hidden">Instalar App</button>
-      <button id="btn-debug-clear" class="btn btn-back" style="font-size:0.7rem;opacity:0.5" title="Limpar dados salvos">Reset</button>
-      <span style="font-size:0.6rem;opacity:0.3;position:absolute;bottom:2px;right:8px">v0.1.0</span>
+  <div id="home-screen" class="screen fixed inset-0 flex flex-col">
+    <header class="flex flex-wrap items-center justify-center gap-2 px-4 py-3 sm:py-4 bg-white/80 backdrop-blur-sm shadow-sm">
+      <h1 class="font-logo text-2xl sm:text-3xl text-primary drop-shadow">Lauren Fashion</h1>
+      <p class="font-display text-sm text-secondary hidden sm:block">Crie, Vista e Brilhe!</p>
+      <div class="flex items-center gap-2 ml-auto">
+        <button id="btn-install" class="hidden bg-accent text-white font-display text-sm px-4 py-2 rounded-xl shadow-md hover:shadow-lg active:scale-95 transition-all">Instalar App</button>
+        <button id="btn-debug-clear" class="text-xs text-primary-light/40 hover:text-primary-light/70 transition">Reset</button>
+        <span class="text-xs font-display text-primary-light/50">v0.2.0</span>
+      </div>
     </header>
-    <main class="home-main">
-      <button id="btn-new-character" class="btn btn-primary btn-large">
-        <span class="btn-icon">+</span>
+    <main class="flex-1 flex flex-col items-center px-4 py-4 sm:py-6 gap-4 sm:gap-6 overflow-y-auto">
+      <button id="btn-new-character" class="bg-primary hover:bg-primary-dark text-white font-display text-lg sm:text-xl px-8 py-4 rounded-xl3 shadow-lg hover:shadow-xl active:scale-95 transition-all flex items-center gap-2">
+        <span class="text-2xl">+</span>
         Nova Personagem
       </button>
-      <section class="characters-section">
-        <h2 class="section-title">Minhas Criacoes</h2>
-        <div id="characters-grid" class="characters-grid"></div>
-        <p id="empty-state" class="empty-state hidden">Crie sua primeira personagem!</p>
+      <section class="w-full max-w-2xl">
+        <h2 class="font-display text-lg text-primary-dark mb-3 flex items-center gap-2">Minhas Criacoes <span>⭐</span></h2>
+        <div id="characters-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4"></div>
+        <p id="empty-state" class="hidden text-center text-primary-light/60 font-display text-lg py-10">Crie sua primeira personagem!</p>
       </section>
     </main>
   </div>
 
   <!-- Creator Screen -->
-  <div id="creator-screen" class="screen">
-    <header class="creator-header">
-      <button class="btn btn-back" id="btn-creator-back">← Voltar</button>
-      <h2 class="step-title" id="step-title">Quem Voce Vai Criar?</h2>
-      <span class="step-indicator" id="step-indicator">1/8</span>
+  <div id="creator-screen" class="screen fixed inset-0 flex flex-col">
+    <header class="flex items-center justify-between px-3 py-2 sm:px-4 sm:py-3 bg-white/90 backdrop-blur-sm shadow-sm">
+      <button class="btn btn-back text-primary-light text-sm" id="btn-creator-back">← Voltar</button>
+      <h2 class="font-display text-base sm:text-lg text-primary-dark" id="step-title">Quem Voce Vai Criar?</h2>
+      <span class="font-display text-xs text-primary-light bg-lauren-bg px-3 py-1 rounded-full" id="step-indicator">1/8</span>
     </header>
-    <div class="creator-body">
-      <div class="preview-panel">
+    <div class="flex-1 flex flex-col sm:flex-row overflow-hidden">
+      <div class="preview-panel flex items-center justify-center p-3 sm:p-4 bg-gradient-to-b from-lauren-bg to-lauren-card sm:flex-[0_0_40%] min-h-[180px] sm:min-h-0">
         <div id="creator-preview" class="character-preview"></div>
       </div>
-      <div class="options-panel" id="options-panel">
-        <!-- Dynamically generated step options -->
-      </div>
+      <div class="flex-1 p-3 sm:p-4 overflow-y-auto" id="options-panel"></div>
     </div>
-    <footer class="creator-footer">
-      <button class="btn btn-secondary" id="btn-prev-step" disabled>← Voltar</button>
-      <button class="btn btn-primary" id="btn-next-step">Proximo →</button>
+    <footer class="flex justify-between px-4 py-3 bg-white/90 backdrop-blur-sm shadow-[0_-2px_8px_rgba(0,0,0,0.06)]">
+      <button class="bg-white border-2 border-primary-light text-primary-dark font-display text-sm px-5 py-2.5 rounded-xl2 active:scale-95 transition-all disabled:opacity-40" id="btn-prev-step" disabled>← Voltar</button>
+      <button class="bg-primary hover:bg-primary-dark text-white font-display text-sm px-5 py-2.5 rounded-xl2 shadow-md active:scale-95 transition-all" id="btn-next-step">Proximo →</button>
     </footer>
   </div>
 
   <!-- Done Screen -->
-  <div id="done-screen" class="screen">
-    <div class="done-content">
-      <h2 class="done-title animate__animated animate__tada">Personagem Pronto!</h2>
+  <div id="done-screen" class="screen fixed inset-0 flex items-center justify-center bg-gradient-to-br from-lauren-bg to-lauren-card">
+    <div class="text-center flex flex-col items-center gap-4 sm:gap-5 px-6">
+      <h2 class="font-display text-2xl sm:text-3xl text-primary animate__animated animate__tada">Personagem Pronto!</h2>
       <div id="done-preview" class="character-preview"></div>
-      <p class="done-message" id="done-message">Sua personagem esta pronta para novas aventuras!</p>
-      <div class="done-actions">
-        <button class="btn btn-secondary" id="btn-go-home">Voltar p/ Galeria</button>
-        <button class="btn btn-primary" id="btn-go-wardrobe">Vestir!</button>
+      <p class="text-primary-light text-sm sm:text-base max-w-xs" id="done-message">Sua personagem esta pronta para novas aventuras!</p>
+      <div class="flex gap-3">
+        <button class="bg-white border-2 border-primary-light text-primary-dark font-display text-sm px-5 py-2.5 rounded-xl2 active:scale-95 transition-all" id="btn-go-home">Voltar p/ Galeria</button>
+        <button class="bg-primary hover:bg-primary-dark text-white font-display text-sm px-5 py-2.5 rounded-xl2 shadow-md active:scale-95 transition-all" id="btn-go-wardrobe">Vestir!</button>
       </div>
     </div>
   </div>
 
   <!-- Wardrobe Screen -->
-  <div id="wardrobe-screen" class="screen">
-    <header class="wardrobe-header">
-      <button class="btn btn-back" id="btn-wardrobe-back">← Voltar</button>
-      <h2 class="wardrobe-title">Guarda-Roupa</h2>
-      <button class="btn btn-accent" id="btn-my-looks">Meus Looks</button>
+  <div id="wardrobe-screen" class="screen fixed inset-0 flex flex-col">
+    <header class="flex items-center justify-between px-3 py-2 sm:px-4 sm:py-3 bg-white/90 backdrop-blur-sm shadow-sm">
+      <button class="btn btn-back text-primary-light text-sm" id="btn-wardrobe-back">← Voltar</button>
+      <h2 class="font-display text-base sm:text-lg text-primary-dark">Guarda-Roupa</h2>
+      <button class="bg-accent text-white font-display text-xs px-3 py-1.5 rounded-lg shadow active:scale-95 transition-all" id="btn-my-looks">Meus Looks</button>
     </header>
-    <div class="wardrobe-body">
-      <nav class="category-tabs" id="category-tabs">
-        <!-- Dynamic category tabs -->
-      </nav>
-      <div class="items-grid-container">
-        <div class="color-bar hidden" id="color-bar">
-          <span class="color-bar-label">Cor:</span>
-          <div class="color-options" id="color-options"></div>
+    <div class="flex-1 flex flex-col sm:flex-row overflow-hidden">
+      <!-- Mobile: horizontal tabs, Desktop: vertical sidebar -->
+      <nav class="category-tabs flex sm:flex-col gap-1 px-2 py-1 sm:px-1 sm:py-2 bg-purple-50/50 overflow-x-auto sm:overflow-y-auto sm:w-20 shrink-0" id="category-tabs"></nav>
+      <div class="flex-1 flex flex-col px-2 py-1 sm:p-2 overflow-hidden">
+        <div class="color-bar hidden flex items-center gap-2 px-1 py-1.5 shrink-0" id="color-bar">
+          <span class="font-display text-xs text-primary-light">Cor:</span>
+          <div class="flex gap-1.5 flex-wrap" id="color-options"></div>
         </div>
-        <div class="items-grid" id="items-grid">
-          <!-- Dynamic item thumbnails (drag sources) -->
+        <div class="items-grid flex-1 grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-1.5 sm:gap-2 overflow-y-auto p-1 content-start" id="items-grid"></div>
+        <p class="drag-hint text-center font-display text-xs text-primary-light/50 py-1" id="drag-hint">Toque para vestir!</p>
+        <!-- Free position controls -->
+        <div id="free-pos-panel" class="hidden bg-white/80 backdrop-blur rounded-xl p-2 mx-1 mb-1 shadow-sm">
+          <div class="flex items-center gap-3 flex-wrap">
+            <span class="font-display text-xs text-primary-dark">Ajustar:</span>
+            <div class="flex items-center gap-1">
+              <button class="free-pos-btn" data-action="left" title="Mover esquerda">←</button>
+              <button class="free-pos-btn" data-action="right" title="Mover direita">→</button>
+              <button class="free-pos-btn" data-action="up" title="Mover cima">↑</button>
+              <button class="free-pos-btn" data-action="down" title="Mover baixo">↓</button>
+            </div>
+            <div class="h-4 w-px bg-purple-200"></div>
+            <div class="flex items-center gap-1">
+              <button class="free-pos-btn" data-action="smaller" title="Menor">−</button>
+              <span id="free-pos-scale" class="font-mono text-xs text-primary-dark min-w-[32px] text-center">100%</span>
+              <button class="free-pos-btn" data-action="bigger" title="Maior">+</button>
+            </div>
+            <button class="free-pos-btn text-red-400" data-action="reset" title="Resetar posicao">↺</button>
+          </div>
         </div>
-        <p class="drag-hint" id="drag-hint">Arraste as roupas para vestir!</p>
       </div>
-      <div class="wardrobe-preview">
+      <div class="wardrobe-preview flex items-center justify-center p-2 sm:p-3 bg-gradient-to-b from-lauren-bg to-lauren-card sm:flex-[0_0_35%] min-h-[160px] sm:min-h-0 relative">
         <div id="wardrobe-character" class="character-preview drop-zone"></div>
       </div>
     </div>
-    <footer class="wardrobe-footer">
-      <button class="btn btn-danger" id="btn-clear-outfit">Tirar Tudo</button>
-      <button class="btn btn-primary" id="btn-save-look">Salvar Look</button>
+    <footer class="flex justify-between px-4 py-2 sm:py-3 bg-white/90 backdrop-blur-sm shadow-[0_-2px_8px_rgba(0,0,0,0.06)]">
+      <button class="bg-red-500 hover:bg-red-600 text-white font-display text-xs sm:text-sm px-4 py-2 rounded-xl2 active:scale-95 transition-all" id="btn-clear-outfit">Tirar Tudo</button>
+      <button class="bg-primary hover:bg-primary-dark text-white font-display text-xs sm:text-sm px-4 py-2 rounded-xl2 shadow-md active:scale-95 transition-all" id="btn-save-look">Salvar Look ⭐</button>
     </footer>
 
     <!-- Looks Sidebar -->
-    <div class="looks-sidebar hidden" id="looks-sidebar">
-      <div class="looks-sidebar-header">
-        <h3>Meus Looks</h3>
-        <button class="btn btn-close" id="btn-close-looks">X</button>
+    <div class="looks-sidebar hidden fixed right-0 top-0 bottom-0 w-64 sm:w-72 bg-white/95 backdrop-blur-sm shadow-[-4px_0_20px_rgba(0,0,0,0.1)] z-50 flex flex-col" id="looks-sidebar">
+      <div class="flex items-center justify-between px-4 py-3 border-b border-purple-100">
+        <h3 class="font-display text-primary-dark">Meus Looks</h3>
+        <button class="w-8 h-8 rounded-full text-primary-light hover:bg-purple-50 flex items-center justify-center transition" id="btn-close-looks">✕</button>
       </div>
-      <div class="looks-grid" id="looks-grid"></div>
+      <div class="looks-grid flex-1 grid grid-cols-2 gap-2 p-3 overflow-y-auto content-start" id="looks-grid"></div>
     </div>
   </div>
 
   <!-- Confirm Dialog -->
-  <div class="dialog-overlay hidden" id="dialog-overlay">
-    <div class="dialog animate__animated animate__bounceIn">
-      <p class="dialog-message" id="dialog-message"></p>
-      <div class="dialog-actions">
-        <button class="btn btn-secondary" id="dialog-cancel">Nao</button>
-        <button class="btn btn-danger" id="dialog-confirm">Sim</button>
+  <div class="dialog-overlay hidden fixed inset-0 bg-black/40 flex items-center justify-center z-[200]" id="dialog-overlay">
+    <div class="bg-white rounded-xl3 p-6 sm:p-7 text-center max-w-xs w-[90%] shadow-2xl animate__animated animate__bounceIn">
+      <p class="font-display text-lg text-primary-dark mb-5" id="dialog-message"></p>
+      <div class="flex gap-3 justify-center">
+        <button class="bg-white border-2 border-primary-light text-primary-dark font-display text-sm px-5 py-2.5 rounded-xl2 active:scale-95 transition-all" id="dialog-cancel">Nao</button>
+        <button class="bg-red-500 text-white font-display text-sm px-5 py-2.5 rounded-xl2 shadow active:scale-95 transition-all" id="dialog-confirm">Sim</button>
       </div>
     </div>
   </div>
 
   <!-- Name Input Dialog -->
-  <div class="dialog-overlay hidden" id="name-dialog-overlay">
-    <div class="dialog animate__animated animate__bounceIn">
-      <p class="dialog-message">Dê um nome para este look:</p>
-      <input type="text" id="look-name-input" class="input-name" placeholder="Ex: Princesa" maxlength="20">
-      <div class="dialog-actions">
-        <button class="btn btn-secondary" id="name-dialog-cancel">Cancelar</button>
-        <button class="btn btn-primary" id="name-dialog-confirm">Salvar</button>
+  <div class="dialog-overlay hidden fixed inset-0 bg-black/40 flex items-center justify-center z-[200]" id="name-dialog-overlay">
+    <div class="bg-white rounded-xl3 p-6 sm:p-7 text-center max-w-xs w-[90%] shadow-2xl animate__animated animate__bounceIn">
+      <p class="font-display text-lg text-primary-dark mb-4">De um nome para este look:</p>
+      <input type="text" id="look-name-input" class="w-full h-11 px-4 border-2 border-primary-light rounded-xl2 text-base font-body text-primary-dark outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 mb-4" placeholder="Ex: Princesa" maxlength="20">
+      <div class="flex gap-3 justify-center">
+        <button class="bg-white border-2 border-primary-light text-primary-dark font-display text-sm px-5 py-2.5 rounded-xl2 active:scale-95 transition-all" id="name-dialog-cancel">Cancelar</button>
+        <button class="bg-primary hover:bg-primary-dark text-white font-display text-sm px-5 py-2.5 rounded-xl2 shadow active:scale-95 transition-all" id="name-dialog-confirm">Salvar</button>
       </div>
     </div>
   </div>
@@ -172,31 +209,23 @@
   <script>
     // PWA Install
     let deferredPrompt = null;
-
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
       document.getElementById('btn-install').classList.remove('hidden');
     });
-
     document.getElementById('btn-install').addEventListener('click', async () => {
       if (!deferredPrompt) return;
       deferredPrompt.prompt();
       const result = await deferredPrompt.userChoice;
-      if (result.outcome === 'accepted') {
-        document.getElementById('btn-install').classList.add('hidden');
-      }
+      if (result.outcome === 'accepted') document.getElementById('btn-install').classList.add('hidden');
       deferredPrompt = null;
     });
-
     window.addEventListener('appinstalled', () => {
       document.getElementById('btn-install').classList.add('hidden');
       deferredPrompt = null;
     });
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js');
-    }
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
   </script>
 </body>
 </html>

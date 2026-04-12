@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "node server.js",
+    "admin": "node scripts/open-admin.mjs",
+    "admin:dev": "node scripts/open-admin.mjs --dev",
+    "admin:game": "node scripts/open-admin.mjs --game",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

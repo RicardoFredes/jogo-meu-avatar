@@ -42,7 +42,16 @@ const CharacterCreator = (() => {
 
   function init(existingCharId) {
     const config = Catalog.getUiConfig();
-    steps = config.creationSteps;
+    // Filter out steps where all referenced categories have 0 items
+    steps = config.creationSteps.filter(step => {
+      if (step.type === 'review' || step.fields) return true; // always show basics + review
+      if (step.id === 'skin') return true; // skin uses palette, not category
+      const sources = step.dataSources || (step.dataSource ? [step.dataSource] : []);
+      return sources.some(s => {
+        const cat = Catalog.getCategory(s);
+        return cat && cat.items.size > 0;
+      });
+    });
     currentStep = 0;
 
     if (existingCharId) {
@@ -145,7 +154,7 @@ const CharacterCreator = (() => {
   function renderCategoryStep(panel, categoryIds) {
     for (const catId of categoryIds) {
       const cat = Catalog.getCategory(catId);
-      if (!cat) continue;
+      if (!cat || cat.items.size === 0) continue;
 
       const group = document.createElement('div');
       group.className = 'option-group';
@@ -165,7 +174,7 @@ const CharacterCreator = (() => {
         const thumbUrl = item.thumbnail || item.asset || (item.assets && (item.assets.front || item.assets.main));
         if (thumbUrl) {
           const img = document.createElement('img');
-          img.src = thumbUrl;
+          img.src = thumbUrl + '?v=' + Date.now();
           img.alt = item.name;
           optEl.appendChild(img);
         } else {
@@ -263,7 +272,12 @@ const CharacterCreator = (() => {
   }
 
   async function updatePreview() {
-    await Renderer.renderToStage('creator-preview', charData, 0.9);
+    // Show only body parts during editing - no outfit/clothing
+    const previewData = {
+      ...charData,
+      outfit: {},
+    };
+    await Renderer.renderToStage('creator-preview', previewData, 0.9);
   }
 
   function nextStep() {

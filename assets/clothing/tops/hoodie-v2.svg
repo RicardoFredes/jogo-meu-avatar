@@ -1,23 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
-
-  <!-- Hoodie with hood, long sleeves, pocket -->
-  <!-- Hood -->
-  <path d="M244 410 Q232 386 252 368 Q276 350 300 350 Q324 350 348 368 Q368 386 356 410"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M258 404 Q278 390 300 390 Q322 390 342 404" fill="none" stroke="#CC00CC" stroke-width="4"/>
-  <!-- Body + long sleeves -->
-  <path d="M268 402 C268 416 284 428 300 428 C316 428 332 416 332 402
-    L370 412 L428 510 L404 520 L356 442 L362 560
-    Q300 572 238 560
-    L244 442 L196 520 L172 510 L230 412 Z"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="6" stroke-linejoin="round"/>
-  <!-- Pocket -->
-  <rect x="262" y="498" width="76" height="38" rx="10" fill="none" stroke="#CC00CC" stroke-width="4"/>
-  <line x1="300" y1="498" x2="300" y2="536" stroke="#CC00CC" stroke-width="2.5" opacity="0.5"/>
-  <!-- Drawstrings -->
-  <line x1="290" y1="406" x2="286" y2="434" stroke="#CC00CC" stroke-width="3"/>
-  <line x1="310" y1="406" x2="314" y2="434" stroke="#CC00CC" stroke-width="3"/>
-  <circle cx="286" cy="436" r="3.5" fill="#CC00CC"/>
-  <circle cx="314" cy="436" r="3.5" fill="#CC00CC"/>
-
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path xmlns="http://www.w3.org/2000/svg" d="M0,800v-800h600v800z" id="imported-0" fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M276.4,393.6c0,0 -96.76978,47.67518 -110,-18.8c-13.23022,-66.47518 133.6,-89.6 133.6,-89.6c0,0 146.83022,23.12482 133.6,89.6c-13.23022,66.47518 -110,18.8 -110,18.8z" id="imported-1" fill="#ff00ff" fill-rule="nonzero" stroke="#cc00cc" stroke-width="6" stroke-linecap="butt" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M268.4,403.6c0,14 16,26 32,26c16,0 32,-12 32,-26c0,0 35.25395,-6.04628 55.6,16c20.34605,22.04628 88,139.6 88,139.6l-52.4,24.8l-44,-134.8l25.6,111.2c-55.73333,16 -153.86667,16 -209.6,0l25.6,-111.2l-44,134.8l-52.4,-24.8c0,0 67.65395,-117.55372 88,-139.6c20.34605,-22.04628 55.6,-16 55.6,-16z" id="imported-3" fill="#ff00ff" fill-rule="nonzero" stroke="#cc00cc" stroke-width="6" stroke-linecap="butt" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M244.8,534.8v-34.4h110.4v34.4z" id="imported-4" fill="none" fill-rule="nonzero" stroke="#cc00cc" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M300,498v38" id="imported-5" fill="none" fill-rule="nonzero" stroke="#cc00cc" stroke-width="2.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" opacity="0.5" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M284,423.6l-4,28" id="imported-6" fill="none" fill-rule="nonzero" stroke="#cc00cc" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M313.6,423.2l4,28" id="imported-7" fill="none" fill-rule="nonzero" stroke="#cc00cc" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M275.7,452.4c0,-1.933 1.567,-3.5 3.5,-3.5c1.933,0 3.5,1.567 3.5,3.5c0,1.933 -1.567,3.5 -3.5,3.5c-1.933,0 -3.5,-1.567 -3.5,-3.5z" id="imported-8" fill="#cc00cc" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M314.1,451.2c0,-1.933 1.567,-3.5 3.5,-3.5c1.933,0 3.5,1.567 3.5,3.5c0,1.933 -1.567,3.5 -3.5,3.5c-1.933,0 -3.5,-1.567 -3.5,-3.5z" id="imported-9" fill="#cc00cc" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
 </svg>

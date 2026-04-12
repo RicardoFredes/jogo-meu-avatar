@@ -1,6 +1,4 @@
 <svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-  <!-- Curto: dome only, slightly smaller/tighter to head -->
-  <circle cx="300" cy="255" r="128" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
-
+  <path xmlns="http://www.w3.org/2000/svg" d="M0,800v-800h600v800z" id="imported-0" fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M172,255c0,-70.69245 57.30755,-128 128,-128c70.69245,0 128,57.30755 128,128c0,70.69245 -8.55755,164.25 -128,164.25c-119.44245,0 -128,-93.55755 -128,-164.25z" id="imported-1" fill="#ff00ff" fill-rule="nonzero" stroke="#cc00cc" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
 </svg>

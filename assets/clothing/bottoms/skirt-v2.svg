@@ -1,11 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
-
-  <!-- A-line skirt -->
-  <rect x="228" y="546" width="144" height="16" rx="6" fill="#FF00FF" stroke="#CC00CC" stroke-width="5"/>
-  <path d="M230 562 L186 640 Q184 646 190 646 L410 646 Q416 646 414 640 L370 562 Z"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
-  <path d="M272 562 L248 644" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
-  <path d="M300 562 L300 644" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
-  <path d="M328 562 L352 644" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
-
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path xmlns="http://www.w3.org/2000/svg" d="M0,800v-800h600v800z" id="imported-0" fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M206.19331,547.71598l-41.46421,67.52746c0,0 41.92056,33.27022 71.36038,39.04057c29.43982,5.77035 98.38122,5.77035 127.82104,0c29.43982,-5.77035 71.36038,-39.04057 71.36038,-39.04057l-41.46421,-67.52746z" id="imported-2" fill="#ff00ff" fill-rule="nonzero" stroke="#cc00cc" stroke-width="5" stroke-linecap="butt" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M264.26412,550.67246l-30.63076,104.65509" id="imported-3" fill="none" fill-rule="nonzero" stroke="#cc00cc" stroke-width="2.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" opacity="0.3" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M300,548.05608v109.88784" id="imported-4" fill="none" fill-rule="nonzero" stroke="#cc00cc" stroke-width="2.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" opacity="0.3" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M337.52268,548.05608l32.1623,109.88784" id="imported-5" fill="none" fill-rule="nonzero" stroke="#cc00cc" stroke-width="2.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" opacity="0.3" style="mix-blend-mode: normal"/>
 </svg>

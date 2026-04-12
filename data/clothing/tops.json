@@ -15,8 +15,8 @@
     {
       "id": "tshirt",
       "name": "Camiseta",
-      "asset": "assets/clothing/tops/tshirt-v2.svg",
-      "thumbnail": "assets/clothing/tops/thumbs/thumb-tshirt-v2.svg",
+      "asset": "assets/clothing/tops/tshirt-v3.svg",
+      "thumbnail": "assets/clothing/tops/thumbs/thumb-tshirt-v3.svg",
       "size": {
         "width": 600,
         "height": 800

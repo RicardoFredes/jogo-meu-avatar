@@ -88,6 +88,16 @@ html, body {
   opacity: 0.9;
 }
 
+.dev-btn-success {
+  background: #2ecc71;
+  border-color: #27ae60;
+  color: white;
+  font-weight: 600;
+}
+.dev-btn-success:hover {
+  background: #27ae60;
+}
+
 /* Layout */
 .dev-layout {
   display: flex;

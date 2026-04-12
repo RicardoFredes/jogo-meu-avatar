@@ -202,6 +202,7 @@ const DevMode = (() => {
 
     document.getElementById('btn-copy-json').addEventListener('click', copyJSON);
     document.getElementById('btn-download-json').addEventListener('click', downloadAllJSON);
+    document.getElementById('btn-save-server').addEventListener('click', saveToServer);
   }
 
   // ========== STAGE ==========
@@ -972,6 +973,31 @@ const DevMode = (() => {
       URL.revokeObjectURL(url);
     }
     showToast(`${Object.keys(files).length} arquivo(s) baixado(s)!`);
+  }
+
+  async function saveToServer() {
+    const files = generateModifiedJSON();
+    if (Object.keys(files).length === 0) {
+      showToast('Nenhuma modificacao para salvar');
+      return;
+    }
+    try {
+      const resp = await fetch('/api/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(files),
+      });
+      const result = await resp.json();
+      if (result.ok) {
+        showToast(`Salvo! ${result.saved.length} arquivo(s) atualizados`);
+        state.overrides = {};
+        state.anchorOverrides = {};
+      } else {
+        showToast(`Erro: ${result.error}`);
+      }
+    } catch (e) {
+      showToast(`Erro ao salvar: ${e.message}`);
+    }
   }
 
   // ========== CROP ==========

@@ -34,6 +34,8 @@ const Catalog = (() => {
         colorable: data.colorable || false,
         colorPalette: data.colorPalette || null,
         skinTint: data.skinTint || false,
+        freePosition: data.freePosition || false,
+        conflicts: data.conflicts || null,
         items,
       });
     },

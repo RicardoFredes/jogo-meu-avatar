@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="158 395 284 190" fill="none">
+  <!-- T-shirt v3 - based on admin edit, cleaned + symmetric -->
+  <path d="M270 402 C270 416 284 428 300 428 C316 428 330 416 330 402
+    L380 410 L432 504 L397 523 L391 508 L398 570
+    C358 578 242 578 202 570
+    L209 508 L203 523 L168 504 L220 410 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="6" stroke-linejoin="round"/>
+  <!-- Neckline detail -->
+  <path d="M270 402 C270 416 284 428 300 428 C316 428 330 416 330 402"
+    fill="none" stroke="#CC00CC" stroke-width="4"/>
+  <!-- Hem line -->
+  <path d="M202 570 C242 578 358 578 398 570"
+    fill="none" stroke="#CC00CC" stroke-width="3"/>
+</svg>

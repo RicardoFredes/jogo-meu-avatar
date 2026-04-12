@@ -6,6 +6,7 @@
   "label": "Extras",
   "zIndex": 40,
   "anchor": "shoulders",
+  "freePosition": true,
   "items": [
     {
       "id": "necklace",

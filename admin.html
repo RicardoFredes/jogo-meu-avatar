@@ -12,6 +12,7 @@
     <h1>ADMIN <span class="accent">Asset Editor</span></h1>
     <div class="header-actions">
       <select id="sel-body" class="adm-select"><option value="child">Crianca</option><option value="adult">Adulto</option></select>
+      <button id="btn-new-item" class="adm-btn" style="background:var(--success);border-color:var(--success);color:#000;font-weight:600;">+ Novo Item</button>
       <button id="btn-import" class="adm-btn">Import SVG</button>
       <button id="btn-copy" class="adm-btn">Copy SVG</button>
       <button id="btn-download" class="adm-btn adm-btn-primary">Download SVG</button>
@@ -40,6 +41,47 @@
             <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" fill="currentColor"/></svg>
             Delete
           </button>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <h3 class="panel-title">Acoes</h3>
+        <div class="tool-grid">
+          <button class="adm-btn action-btn" id="btn-center" title="Centralizar (C)">Centralizar</button>
+          <button class="adm-btn action-btn" id="btn-mirror" title="Espelhar (H)">Espelhar H</button>
+          <button class="adm-btn action-btn" id="btn-clone-point" title="Clona ponto selecionado (D)">Clonar Pt</button>
+          <button class="adm-btn action-btn" id="btn-remove-point" title="Remove ponto selecionado (Del)">- Ponto</button>
+          <label class="chk-label" style="grid-column:1/-1;margin-top:4px;">
+            <input type="checkbox" id="chk-mirror-mode"> Modo Mirror
+          </label>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <h3 class="panel-title">Transformar <label class="chk-label" style="margin-left:auto;font-size:10px;"><input type="checkbox" id="chk-transform-all" checked> Todos layers</label></h3>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;gap:4px;">
+            <label style="font-size:11px;color:var(--dim);width:50px;">Scale X</label>
+            <input type="number" id="tf-scale-x" class="adm-input" style="width:60px;" value="100" step="5" min="1" max="500">
+            <label style="font-size:11px;color:var(--dim);">%</label>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <label style="font-size:11px;color:var(--dim);width:50px;">Scale Y</label>
+            <input type="number" id="tf-scale-y" class="adm-input" style="width:60px;" value="100" step="5" min="1" max="500">
+            <label style="font-size:11px;color:var(--dim);">%</label>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <label style="font-size:11px;color:var(--dim);width:50px;">Move X</label>
+            <input type="number" id="tf-move-x" class="adm-input" style="width:60px;" value="0" step="5">
+            <label style="font-size:11px;color:var(--dim);">px</label>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <label style="font-size:11px;color:var(--dim);width:50px;">Move Y</label>
+            <input type="number" id="tf-move-y" class="adm-input" style="width:60px;" value="0" step="5">
+            <label style="font-size:11px;color:var(--dim);">px</label>
+          </div>
+          <button class="adm-btn adm-btn-primary" id="btn-transform-apply" style="width:100%;">Aplicar</button>
+        </div>
         </div>
       </section>
 
@@ -87,9 +129,14 @@
         <span id="status-bar">Pen Tool - Clique para adicionar pontos</span>
         <label class="chk-label"><input type="checkbox" id="chk-preview" checked> Preview</label>
         <label class="chk-label"><input type="checkbox" id="chk-guides" checked> Guias</label>
+        <label class="chk-label"><input type="checkbox" id="chk-transparency" checked> Transparencia</label>
         <div class="zoom-bar">
-          <label>Zoom:</label>
-          <input type="range" id="zoom-slider" min="25" max="200" value="80" step="5">
+          <button class="adm-btn" id="btn-pan" title="Pan (Space para ativar temporario)">Pan</button>
+          <button class="adm-btn" id="btn-reset-pan" title="Reset Pan (0)">Reset</button>
+          <span class="zoom-sep">|</span>
+          <button class="adm-btn" id="btn-zoom-out" title="Zoom Out (-)">-</button>
+          <input type="range" id="zoom-slider" min="25" max="300" value="80" step="5">
+          <button class="adm-btn" id="btn-zoom-in" title="Zoom In (+)">+</button>
           <span id="zoom-value">80%</span>
         </div>
       </div>
@@ -130,16 +177,47 @@
           </div>
 
           <hr class="divider">
-          <h4 class="sub-title">Pontos</h4>
-          <div class="prop-group">
-            <span id="point-count">0 pontos</span>
+          <h4 class="sub-title">Ponto Selecionado</h4>
+          <div id="segment-props" class="props-form hidden">
+            <div class="prop-group">
+              <label>Posicao</label>
+              <div style="display:flex;gap:4px;">
+                <input type="number" id="seg-x" class="adm-input" style="width:50%" step="1" placeholder="X">
+                <input type="number" id="seg-y" class="adm-input" style="width:50%" step="1" placeholder="Y">
+              </div>
+            </div>
+            <div class="prop-group">
+              <label>Tipo</label>
+              <div style="display:flex;gap:4px;">
+                <button class="adm-btn seg-type-btn" data-type="corner" title="Canto reto">Canto</button>
+                <button class="adm-btn seg-type-btn" data-type="smooth" title="Curva suave">Curva</button>
+                <button class="adm-btn seg-type-btn" data-type="symmetric" title="Curva simetrica">Simetrica</button>
+              </div>
+            </div>
+            <div class="prop-group" id="handle-group">
+              <label>Handles</label>
+              <div style="display:flex;gap:4px;align-items:center;margin-bottom:4px;">
+                <span style="font-size:10px;width:20px;">In:</span>
+                <input type="number" id="handle-in-x" class="adm-input" style="width:40%" step="1">
+                <input type="number" id="handle-in-y" class="adm-input" style="width:40%" step="1">
+              </div>
+              <div style="display:flex;gap:4px;align-items:center;">
+                <span style="font-size:10px;width:20px;">Out:</span>
+                <input type="number" id="handle-out-x" class="adm-input" style="width:40%" step="1">
+                <input type="number" id="handle-out-y" class="adm-input" style="width:40%" step="1">
+              </div>
+            </div>
+          </div>
+          <div id="segment-empty" class="prop-group">
+            <span id="point-count">0 pontos - clique num ponto para editar</span>
           </div>
         </div>
       </section>
 
       <section class="panel-section">
         <h3 class="panel-title">SVG Output</h3>
-        <textarea id="svg-output" class="svg-textarea" rows="8" readonly placeholder="SVG aparece aqui ao exportar"></textarea>
+        <textarea id="svg-output" class="svg-textarea" rows="6" readonly placeholder="SVG aparece aqui ao exportar"></textarea>
+        <button id="btn-save-asset" class="adm-btn adm-btn-primary" style="width:100%;margin-top:8px;height:34px;">Salvar no Jogo</button>
       </section>
     </aside>
   </div>

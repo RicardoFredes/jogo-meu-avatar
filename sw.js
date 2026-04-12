@@ -1,9 +1,8 @@
-// Service Worker - NO CACHE (always fetch from network)
-// Exists only to enable PWA install on tablets
+// Service Worker - NO CACHE, network only
+// Falls back gracefully if network fails
 
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (e) => {
-  // Clear any old caches if they exist
   e.waitUntil(
     caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))))
       .then(() => self.clients.claim())
@@ -11,6 +10,15 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  // Always go to network - no caching
-  e.respondWith(fetch(e.request));
+  e.respondWith(
+    fetch(e.request).catch(() => {
+      // If network fails, return a simple offline response
+      if (e.request.mode === 'navigate') {
+        return new Response('<h1>Offline</h1><p>Reconecte e recarregue.</p>', {
+          headers: { 'Content-Type': 'text/html' }
+        });
+      }
+      return new Response('', { status: 408 });
+    })
+  );
 });
