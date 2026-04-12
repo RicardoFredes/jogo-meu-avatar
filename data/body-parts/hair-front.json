@@ -20,10 +20,6 @@
       "name": "Ondulada",
       "asset": "assets/hair/front/franja-ondulada.svg",
       "size": { "width": 600, "height": 800 },
-      "offsetByShape": {
-        "child": { "x": 0, "y": 110 },
-        "adult": { "x": 0, "y": 220 }
-      },
       "offset": { "x": 0, "y": 110 }
     },
     {
@@ -31,10 +27,6 @@
       "name": "Reta",
       "asset": "assets/hair/front/franja-reta.svg",
       "size": { "width": 600, "height": 800 },
-      "offsetByShape": {
-        "child": { "x": 0, "y": 110 },
-        "adult": { "x": 0, "y": 220 }
-      },
       "offset": { "x": 0, "y": 110 }
     },
     {
@@ -42,10 +34,6 @@
       "name": "Lateral",
       "asset": "assets/hair/front/franja-lateral.svg",
       "size": { "width": 600, "height": 800 },
-      "offsetByShape": {
-        "child": { "x": 0, "y": 110 },
-        "adult": { "x": 0, "y": 220 }
-      },
       "offset": { "x": 0, "y": 110 }
     },
     {
@@ -53,10 +41,6 @@
       "name": "Cortina",
       "asset": "assets/hair/front/franja-cortina.svg",
       "size": { "width": 600, "height": 800 },
-      "offsetByShape": {
-        "child": { "x": 0, "y": 110 },
-        "adult": { "x": 0, "y": 220 }
-      },
       "offset": { "x": 0, "y": 110 }
     },
     {
@@ -64,10 +48,6 @@
       "name": "Cacheada",
       "asset": "assets/hair/front/franja-cacheada.svg",
       "size": { "width": 600, "height": 800 },
-      "offsetByShape": {
-        "child": { "x": 0, "y": 110 },
-        "adult": { "x": 0, "y": 220 }
-      },
       "offset": { "x": 0, "y": 110 }
     }
   ]

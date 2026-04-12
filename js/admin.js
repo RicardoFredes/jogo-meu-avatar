@@ -6,6 +6,7 @@ const Admin = (() => {
   const CANVAS_W = 600, CANVAS_H = 800;
   let zoom = 0.8;
   let currentTool = 'pen';
+  let transparencyMode = true;
   let selectedPath = null;
   let selectedSegment = null;
   let currentPath = null; // path being drawn
@@ -17,6 +18,8 @@ const Admin = (() => {
 
   // ========== INIT ==========
 
+  let currentAssetPath = null; // track which asset file is loaded
+
   async function init() {
     await ConfigLoader.loadAll();
     setupKonvaPreview();
@@ -25,6 +28,7 @@ const Admin = (() => {
     setupEvents();
     applyZoom();
     updateLayerList();
+    loadAssetBrowser();
   }
 
   // ========== KONVA PREVIEW ==========
@@ -35,7 +39,7 @@ const Admin = (() => {
       parts: {
         'face-shapes': { itemId: 'face-round' },
         eyes: { itemId: 'eyes-round', colorId: 'brown' },
-        noses: { itemId: 'nose-small' },
+        noses: { itemId: 'nose-round' },
         mouths: { itemId: 'mouth-smile' },
         'hair-back': null,
         'hair-front': null,
@@ -373,22 +377,37 @@ const Admin = (() => {
   function importSvg(svgString) {
     drawingLayer.activate();
     const imported = paper.project.importSVG(svgString, { insert: false });
-    if (imported) {
-      // Flatten groups - add all paths directly to drawingLayer
-      if (imported instanceof paper.Group) {
-        imported.children.forEach((child, i) => {
-          if (child instanceof paper.Path || child instanceof paper.CompoundPath) {
-            child.name = `imported-${i}`;
-            drawingLayer.addChild(child.clone());
-          }
-        });
-      } else if (imported instanceof paper.Path) {
-        imported.name = 'imported-0';
-        drawingLayer.addChild(imported);
+    if (!imported) { toast('Erro: SVG invalido'); return; }
+
+    // Recursively extract all drawable items from any nesting depth
+    let count = 0;
+    function flatten(item) {
+      if (item instanceof paper.Path || item instanceof paper.CompoundPath) {
+        const clone = item.clone();
+        clone.name = `imported-${count++}`;
+        drawingLayer.addChild(clone);
+      } else if (item instanceof paper.Shape) {
+        // Convert shapes (rect, circle, ellipse) to paths
+        const pathItem = item.toPath(false);
+        pathItem.name = `imported-${count++}`;
+        pathItem.style = item.style;
+        drawingLayer.addChild(pathItem);
+      } else if (item.children) {
+        // Group, Layer, or other container - recurse
+        const kids = [...item.children];
+        kids.forEach(child => flatten(child));
       }
+    }
+
+    flatten(imported);
+    imported.remove(); // clean up the original import
+
+    if (count === 0) {
+      toast('Nenhum path encontrado no SVG');
+    } else {
       updateLayerList();
       updateSvgOutput();
-      toast('SVG importado!');
+      toast(`Importado: ${count} paths`);
     }
   }
 
@@ -488,6 +507,9 @@ const Admin = (() => {
     // Body shape
     document.getElementById('sel-body').addEventListener('change', () => setupKonvaPreview());
 
+    // Category change → refresh asset browser
+    document.getElementById('sel-category').addEventListener('change', () => loadAssetBrowser());
+
     // Guides
     document.getElementById('chk-guides').addEventListener('change', () => drawGuides());
 
@@ -516,6 +538,64 @@ const Admin = (() => {
       currentPath = null;
       setStatus('Pen Tool - Clique para comecar novo path');
     });
+  }
+
+  // ========== ASSET BROWSER ==========
+
+  function loadAssetBrowser() {
+    const categoryId = document.getElementById('sel-category').value;
+    const browser = document.getElementById('asset-browser');
+    browser.innerHTML = '';
+
+    const cat = Catalog.getCategory(categoryId);
+    if (!cat || cat.items.size === 0) {
+      browser.innerHTML = '<div style="color:#888;font-size:0.8rem;padding:8px;">Nenhum asset nesta categoria</div>';
+      return;
+    }
+
+    for (const [itemId, item] of cat.items) {
+      const btn = document.createElement('button');
+      btn.className = 'adm-btn asset-item';
+      btn.style.cssText = 'width:100%;text-align:left;margin-bottom:4px;display:flex;align-items:center;gap:8px;padding:6px 10px;';
+
+      const thumbUrl = item.thumbnail || item.asset;
+      if (thumbUrl) {
+        const img = document.createElement('img');
+        img.src = thumbUrl;
+        img.style.cssText = 'width:32px;height:32px;object-fit:contain;border-radius:4px;background:#f0e6ff;';
+        btn.appendChild(img);
+      }
+
+      const label = document.createElement('span');
+      label.style.cssText = 'font-size:0.8rem;overflow:hidden;text-overflow:ellipsis;';
+      label.textContent = item.name;
+      btn.appendChild(label);
+
+      btn.title = item.asset;
+      btn.addEventListener('click', () => loadAssetToCanvas(item.asset, item.name));
+      browser.appendChild(btn);
+    }
+  }
+
+  async function loadAssetToCanvas(assetUrl, name) {
+    try {
+      const resp = await fetch(assetUrl);
+      if (!resp.ok) throw new Error('Failed to fetch ' + assetUrl);
+      const svgText = await resp.text();
+
+      // Clear current drawing
+      drawingLayer.removeChildren();
+      currentPath = null;
+      deselectAll();
+
+      // Import SVG
+      importSvg(svgText);
+      currentAssetPath = assetUrl;
+      toast(`Carregado: ${name}`);
+      setStatus(`Editando: ${assetUrl}`);
+    } catch (err) {
+      toast('Erro ao carregar: ' + err.message);
+    }
   }
 
   // ========== UTILS ==========

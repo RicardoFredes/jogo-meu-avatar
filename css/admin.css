@@ -49,6 +49,8 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
 .zoom-bar input[type=range]{width:100px}
 
 /* Layers */
+.asset-browser{display:flex;flex-direction:column;gap:2px;max-height:200px;overflow-y:auto}
+.asset-item:hover{border-color:var(--accent)!important}
 .layer-list{display:flex;flex-direction:column;gap:2px}
 .layer-item{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:3px;cursor:pointer;font-size:11px;font-family:var(--mono);transition:background .1s}
 .layer-item:hover{background:var(--hover)}

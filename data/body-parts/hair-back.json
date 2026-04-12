@@ -13,10 +13,6 @@
       "name": "Longo Liso",
       "asset": "assets/hair/back/longo-liso.svg",
       "size": { "width": 600, "height": 800 },
-      "offsetByShape": {
-        "child": { "x": 0, "y": 110 },
-        "adult": { "x": 0, "y": 220 }
-      },
       "offset": { "x": 0, "y": 110 }
     },
     {
@@ -24,10 +20,6 @@
       "name": "Medio Liso",
       "asset": "assets/hair/back/medio-liso.svg",
       "size": { "width": 600, "height": 800 },
-      "offsetByShape": {
-        "child": { "x": 0, "y": 110 },
-        "adult": { "x": 0, "y": 220 }
-      },
       "offset": { "x": 0, "y": 110 }
     },
     {
@@ -35,10 +27,6 @@
       "name": "Curto",
       "asset": "assets/hair/back/curto.svg",
       "size": { "width": 600, "height": 800 },
-      "offsetByShape": {
-        "child": { "x": 0, "y": 110 },
-        "adult": { "x": 0, "y": 220 }
-      },
       "offset": { "x": 0, "y": 110 }
     },
     {
@@ -46,10 +34,6 @@
       "name": "Longo Cacheado",
       "asset": "assets/hair/back/longo-cacheado.svg",
       "size": { "width": 600, "height": 800 },
-      "offsetByShape": {
-        "child": { "x": 0, "y": 110 },
-        "adult": { "x": 0, "y": 220 }
-      },
       "offset": { "x": 0, "y": 110 }
     },
     {
@@ -57,10 +41,6 @@
       "name": "Rabo de Cavalo",
       "asset": "assets/hair/back/rabo-de-cavalo.svg",
       "size": { "width": 600, "height": 800 },
-      "offsetByShape": {
-        "child": { "x": 0, "y": 110 },
-        "adult": { "x": 0, "y": 220 }
-      },
       "offset": { "x": 0, "y": 110 }
     },
     {
@@ -68,10 +48,6 @@
       "name": "Coques",
       "asset": "assets/hair/back/coques.svg",
       "size": { "width": 600, "height": 800 },
-      "offsetByShape": {
-        "child": { "x": 0, "y": 110 },
-        "adult": { "x": 0, "y": 220 }
-      },
       "offset": { "x": 0, "y": 110 }
     },
     {
@@ -79,10 +55,6 @@
       "name": "Trancas",
       "asset": "assets/hair/back/trancas.svg",
       "size": { "width": 600, "height": 800 },
-      "offsetByShape": {
-        "child": { "x": 0, "y": 110 },
-        "adult": { "x": 0, "y": 220 }
-      },
       "offset": { "x": 0, "y": 110 }
     },
     {
