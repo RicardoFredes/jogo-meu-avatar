@@ -1,23 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="188 385 224 180" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="168 384 264 186" fill="none">
 
   <!-- Blouse with collar and puff sleeves -->
-  <path d="M262 410 L260 545 Q300 555 340 545 L338 410 Z"
+  <path d="M260 410 L252 548 Q300 560 348 548 L340 410 Z"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="6" stroke-linejoin="round"/>
   <!-- Left puff sleeve -->
-  <path d="M262 410 L222 416 Q198 425 202 448 Q208 465 228 456 L258 435"
+  <path d="M260 410 L210 418 Q178 428 184 458 Q192 480 218 468 L256 438"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
   <!-- Right puff sleeve -->
-  <path d="M338 410 L378 416 Q402 425 398 448 Q392 465 372 456 L342 435"
+  <path d="M340 410 L390 418 Q422 428 416 458 Q408 480 382 468 L344 438"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
   <!-- Collar left -->
-  <path d="M284 397 L268 410 L286 422 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <path d="M286 396 L264 410 L286 424 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
   <!-- Collar right -->
-  <path d="M316 397 L332 410 L314 422 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
-  <!-- Collar neckline -->
-  <path d="M284 397 Q292 392 300 392 Q308 392 316 397" fill="none" stroke="#CC00CC" stroke-width="4"/>
+  <path d="M314 396 L336 410 L314 424 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <path d="M286 396 Q293 391 300 391 Q307 391 314 396" fill="none" stroke="#CC00CC" stroke-width="4"/>
   <!-- Buttons -->
-  <circle cx="300" cy="445" r="4" fill="#CC00CC"/>
-  <circle cx="300" cy="475" r="4" fill="#CC00CC"/>
-  <circle cx="300" cy="505" r="4" fill="#CC00CC"/>
+  <circle cx="300" cy="448" r="5" fill="#CC00CC"/>
+  <circle cx="300" cy="478" r="5" fill="#CC00CC"/>
+  <circle cx="300" cy="508" r="5" fill="#CC00CC"/>
 
 </svg>

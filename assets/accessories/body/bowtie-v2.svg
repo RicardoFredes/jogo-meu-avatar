@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
 
   <!-- Bow tie - colorizable -->
-  <path d="M300 405 L268 390 Q258 386 260 396 L268 405 L260 414 Q258 424 268 420 Z"
+  <path d="M300 402 L260 384 Q246 378 250 392 L260 402 L250 412 Q246 426 260 420 Z"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="4" stroke-linejoin="round"/>
-  <path d="M300 405 L332 390 Q342 386 340 396 L332 405 L340 414 Q342 424 332 420 Z"
+  <path d="M300 402 L340 384 Q354 378 350 392 L340 402 L350 412 Q354 426 340 420 Z"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="4" stroke-linejoin="round"/>
-  <ellipse cx="300" cy="405" rx="10" ry="12" fill="#CC00CC" stroke="#CC00CC" stroke-width="2"/>
+  <ellipse cx="300" cy="402" rx="12" ry="14" fill="#CC00CC" stroke="#CC00CC" stroke-width="3"/>
 
 </svg>

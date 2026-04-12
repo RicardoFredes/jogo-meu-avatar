@@ -9,68 +9,131 @@
   "colorPalette": "hair-colors",
   "items": [
     {
-      "id": "nada",
+      "id": "sem-franja",
       "name": "Sem Franja",
-      "asset": "assets/hair/front/nada.svg",
+      "asset": "assets/hair/front/sem-franja.svg",
       "size": {
-        "width": 400,
-        "height": 500
+        "width": 10,
+        "height": 10
       },
       "offset": {
         "x": 0,
-        "y": 50
+        "y": 0
       }
     },
     {
-      "id": "repartido-meio",
-      "name": "Repartido Meio",
-      "asset": "assets/hair/front/repartido-meio.svg",
+      "id": "franja-reta",
+      "name": "Franja Reta",
+      "asset": "assets/hair/front/franja-reta.svg",
       "size": {
-        "width": 400,
-        "height": 500
+        "width": 600,
+        "height": 800
+      },
+      "offsetByShape": {
+        "child": {
+          "x": 0,
+          "y": 110
+        },
+        "adult": {
+          "x": 0,
+          "y": 220
+        }
       },
       "offset": {
         "x": 0,
-        "y": 50
+        "y": 110
       }
     },
     {
-      "id": "repartido-lado",
-      "name": "Repartido Lado",
-      "asset": "assets/hair/front/repartido-lado.svg",
+      "id": "franja-lateral",
+      "name": "Franja Lateral",
+      "asset": "assets/hair/front/franja-lateral.svg",
       "size": {
-        "width": 400,
-        "height": 500
+        "width": 600,
+        "height": 800
+      },
+      "offsetByShape": {
+        "child": {
+          "x": 0,
+          "y": 110
+        },
+        "adult": {
+          "x": 0,
+          "y": 220
+        }
       },
       "offset": {
         "x": 0,
-        "y": 50
+        "y": 110
       }
     },
     {
-      "id": "moicano",
-      "name": "Moicano",
-      "asset": "assets/hair/front/moicano.svg",
+      "id": "franja-repartida",
+      "name": "Repartida",
+      "asset": "assets/hair/front/franja-repartida.svg",
       "size": {
-        "width": 400,
-        "height": 500
+        "width": 600,
+        "height": 800
+      },
+      "offsetByShape": {
+        "child": {
+          "x": 0,
+          "y": 110
+        },
+        "adult": {
+          "x": 0,
+          "y": 220
+        }
       },
       "offset": {
         "x": 0,
-        "y": 50
+        "y": 110
       }
     },
     {
-      "id": "franjinha",
-      "name": "Franjinha",
-      "asset": "assets/hair/front/franjinha.svg",
+      "id": "franja-cacheada",
+      "name": "Cacheada",
+      "asset": "assets/hair/front/franja-cacheada.svg",
       "size": {
-        "width": 400,
-        "height": 500
+        "width": 600,
+        "height": 800
+      },
+      "offsetByShape": {
+        "child": {
+          "x": 0,
+          "y": 110
+        },
+        "adult": {
+          "x": 0,
+          "y": 220
+        }
       },
       "offset": {
         "x": 0,
-        "y": 50
+        "y": 110
+      }
+    },
+    {
+      "id": "topete",
+      "name": "Topete",
+      "asset": "assets/hair/front/topete.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offsetByShape": {
+        "child": {
+          "x": 0,
+          "y": 110
+        },
+        "adult": {
+          "x": 0,
+          "y": 220
+        }
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
       }
     }
   ]

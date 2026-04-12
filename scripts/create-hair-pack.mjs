@@ -1,13 +1,15 @@
 /**
- * Hair Pack v5 - ViewBox 600x800, coordenadas exatas da cabeca
+ * Hair Pack v6 - REDESIGNED for front-view chibi
  *
- * Head reference:
- *   Top: y=186, Center: y=290, Bottom: y=394
- *   Left: x=191, Right: x=409
- *   Volume extends ~25px beyond head on each side
+ * KEY INSIGHT: Character is viewed FROM THE FRONT. So:
+ * - BACK layer (z=10, behind head) = hair SIDES framing the face + hair below head
+ * - FRONT layer (z=80, over face) = bangs on forehead only
  *
- * FRANJA: bottom edge NEVER below y=240 (eyes start at y=260)
- * Style: solid fills + stroke outlines, stroke-width=6
+ * Head coords in 600x800:
+ *   Top=186, Bottom=394, Left=191, Right=409, Center=(300,290)
+ *   Eyes at y=260-315. BANGS stop at y<=238.
+ *
+ * Style: thick organic curves like the user's SVGs. stroke-width=6.
  */
 
 import fs from 'fs';
@@ -17,247 +19,206 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 
-const F = '#FF00FF';
-const S = '#CC00CC';
-const SW = 6;
-const VB = '0 0 600 800';
+const F = '#FF00FF', S = '#CC00CC', SW = 6;
 
 function svg(c) {
-  return `<svg viewBox="${VB}" fill="none" xmlns="http://www.w3.org/2000/svg">\n${c}\n</svg>\n`;
+  return `<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">\n${c}\n</svg>\n`;
 }
 function w(f, c) {
-  fs.mkdirSync(path.dirname(path.join(ROOT, f)), { recursive: true });
-  fs.writeFileSync(path.join(ROOT, f), svg(c));
+  const p = path.join(ROOT, f);
+  fs.mkdirSync(path.dirname(p), { recursive: true });
+  fs.writeFileSync(p, svg(c));
   console.log('  ' + f);
 }
 
-// ==================== HAIR BACKS (5) ====================
+// ==========================================
+// BACK LAYERS - hair silhouette from front view
+// These frame the face: sides of hair + below head
+// ==========================================
 
-w('assets/hair/back/longo.svg', `
-  <!-- Longo: volume atras da cabeca, cai ate y=600 -->
-  <!-- Massa central atras -->
-  <path d="M210 185 C240 175, 360 175, 390 185
-    L395 560 C395 585, 375 598, 350 600
-    L250 600 C225 598, 205 585, 205 560 Z"
+w('assets/hair/back/longo-liso.svg', `
+  <!-- Longo liso: two straight curtains on each side of face, to waist -->
+  <!-- Crown/top above head connecting both sides -->
+  <path d="M190 200 C195 170, 230 150, 300 148 C370 150, 405 170, 410 200 L410 210 L190 210 Z"
     fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <!-- Mecha esquerda caindo -->
-  <path d="M185 220 C172 245, 162 290, 158 340
-    L155 520 C155 545, 168 555, 182 552
-    L195 548 C200 546, 202 538, 202 528
-    L205 300 C208 260, 215 235, 222 215 Z"
+  <!-- Left hair curtain: from temple, past ear, down to waist -->
+  <path d="M190 200
+    C182 210, 172 240, 168 275
+    C164 310, 162 350, 160 390
+    C158 440, 158 490, 160 530
+    C162 555, 168 570, 178 575
+    C185 578, 190 568, 192 555
+    L195 390 C196 350, 198 310, 200 280
+    C202 255, 205 235, 210 220 Z"
     fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <!-- Mecha direita caindo -->
-  <path d="M415 220 C428 245, 438 290, 442 340
-    L445 520 C445 545, 432 555, 418 552
-    L405 548 C400 546, 398 538, 398 528
-    L395 300 C392 260, 385 235, 378 215 Z"
+  <!-- Right hair curtain -->
+  <path d="M410 200
+    C418 210, 428 240, 432 275
+    C436 310, 438 350, 440 390
+    C442 440, 442 490, 440 530
+    C438 555, 432 570, 422 575
+    C415 578, 410 568, 408 555
+    L405 390 C404 350, 402 310, 400 280
+    C398 255, 395 235, 390 220 Z"
+    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
+`);
+
+w('assets/hair/back/longo-ondulado.svg', `
+  <!-- Longo ondulado: wavy curtains on sides with volume -->
+  <path d="M188 200 C192 168, 232 148, 300 146 C368 148, 408 168, 412 200 L412 212 L188 212 Z"
+    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
+  <!-- Left wavy curtain -->
+  <path d="M188 205
+    C178 220, 165 260, 158 305
+    C152 345, 155 380, 162 405
+    C168 425, 158 448, 150 475
+    C145 505, 148 535, 158 555
+    C168 572, 180 568, 185 555
+    C190 535, 188 508, 185 480
+    C182 455, 190 430, 198 405
+    C205 380, 202 348, 200 310
+    C198 270, 200 240, 208 218 Z"
+    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
+  <!-- Right wavy curtain -->
+  <path d="M412 205
+    C422 220, 435 260, 442 305
+    C448 345, 445 380, 438 405
+    C432 425, 442 448, 450 475
+    C455 505, 452 535, 442 555
+    C432 572, 420 568, 415 555
+    C410 535, 412 508, 415 480
+    C418 455, 410 430, 402 405
+    C395 380, 398 348, 400 310
+    C402 270, 400 240, 392 218 Z"
     fill="${F}" stroke="${S}" stroke-width="${SW}"/>
 `);
 
 w('assets/hair/back/medio.svg', `
-  <!-- Medio: ate os ombros, y~480 -->
-  <path d="M210 185 C240 175, 360 175, 390 185
-    L395 445 C395 465, 375 478, 350 480
-    L250 480 C225 478, 205 465, 205 445 Z"
+  <!-- Medio: sides to shoulder level, rounder shape -->
+  <path d="M190 200 C195 170, 232 150, 300 148 C368 150, 405 170, 410 200 L410 212 L190 212 Z"
     fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <!-- Laterais -->
-  <path d="M188 220 C175 250, 168 300, 166 345
-    L164 430 C164 448, 175 455, 188 452
-    L200 448 L202 310 C205 268, 215 238, 225 218 Z"
+  <!-- Left side to shoulder -->
+  <path d="M190 205
+    C180 218, 170 248, 166 285
+    C162 325, 164 365, 170 395
+    C176 420, 188 430, 200 425
+    C208 418, 210 400, 208 375
+    L205 310 C204 278, 206 250, 212 228 Z"
     fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <path d="M412 220 C425 250, 432 300, 434 345
-    L436 430 C436 448, 425 455, 412 452
-    L400 448 L398 310 C395 268, 385 238, 375 218 Z"
+  <!-- Right side to shoulder -->
+  <path d="M410 205
+    C420 218, 430 248, 434 285
+    C438 325, 436 365, 430 395
+    C424 420, 412 430, 400 425
+    C392 418, 390 400, 392 375
+    L395 310 C396 278, 394 250, 388 228 Z"
     fill="${F}" stroke="${S}" stroke-width="${SW}"/>
 `);
 
 w('assets/hair/back/curto.svg', `
-  <!-- Curto: so atras da cabeca ate pescoco, y~420 -->
-  <path d="M210 185 C240 178, 360 178, 390 185
-    L400 365 C402 390, 388 408, 365 412
-    L235 412 C212 408, 198 390, 200 365 Z"
+  <!-- Curto: short hair, just around head contour -->
+  <path d="M190 200 C195 170, 232 152, 300 150 C368 152, 405 170, 410 200 L410 210 L190 210 Z"
+    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
+  <!-- Left side short -->
+  <path d="M190 205
+    C182 218, 175 248, 172 280
+    C170 310, 174 338, 184 355
+    C192 368, 202 365, 206 350
+    L205 290 C206 262, 208 240, 214 225 Z"
+    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
+  <!-- Right side short -->
+  <path d="M410 205
+    C418 218, 425 248, 428 280
+    C430 310, 426 338, 416 355
+    C408 368, 398 365, 394 350
+    L395 290 C394 262, 392 240, 386 225 Z"
     fill="${F}" stroke="${S}" stroke-width="${SW}"/>
 `);
 
-w('assets/hair/back/calvo.svg', `
-  <!-- Calvo: bem curto, so no topo -->
-  <path d="M220 188 C248 180, 352 180, 380 188
-    L385 240 C385 255, 372 262, 358 260
-    L300 252 L242 260 C228 262, 215 255, 215 240 Z"
-    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-`);
+w('assets/hair/back/careca.svg', `<!-- Careca -->`);
 
-w('assets/hair/back/longo-cacheado.svg', `
-  <!-- Longo cacheado: volume + ondas -->
-  <path d="M205 185 C235 172, 365 172, 395 185
-    L400 540 C400 568, 380 582, 355 585
-    L245 585 C220 582, 200 568, 200 540 Z"
-    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <!-- Ondas/cachos nas laterais -->
-  <path d="M180 225 C165 258, 148 310, 145 365
-    C142 415, 150 465, 162 505
-    C170 530, 185 540, 198 535
-    L202 310 C208 262, 218 235, 228 215 Z"
-    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <circle cx="155" cy="520" r="18" fill="${F}" stroke="${S}" stroke-width="4"/>
-  <circle cx="175" cy="540" r="15" fill="${F}" stroke="${S}" stroke-width="4"/>
-  <path d="M420 225 C435 258, 452 310, 455 365
-    C458 415, 450 465, 438 505
-    C430 530, 415 540, 402 535
-    L398 310 C392 262, 382 235, 372 215 Z"
-    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <circle cx="445" cy="520" r="18" fill="${F}" stroke="${S}" stroke-width="4"/>
-  <circle cx="425" cy="540" r="15" fill="${F}" stroke="${S}" stroke-width="4"/>
-`);
-
-w('assets/hair/back/longo-enrolado.svg', `
-  <!-- Longo enrolado: cachos bem definidos tipo espiral -->
-  <path d="M215 185 C242 175, 358 175, 385 185
-    L390 400 C390 415, 378 425, 365 422
-    L235 422 C222 425, 210 415, 210 400 Z"
-    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <!-- Espirais/cachos longos esquerda -->
-  <path d="M185 235 C170 268, 155 320, 155 380
-    C155 420, 162 452, 175 478
-    C168 492, 178 498, 185 492
-    C178 478, 172 458, 170 430
-    C168 400, 162 370, 165 338
-    C170 360, 178 388, 185 405
-    C192 438, 195 475, 188 510
-    C182 535, 195 545, 205 538
-    L208 340 C212 285, 222 248, 232 225 Z"
-    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <!-- Espirais/cachos longos direita -->
-  <path d="M415 235 C430 268, 445 320, 445 380
-    C445 420, 438 452, 425 478
-    C432 492, 422 498, 415 492
-    C422 478, 428 458, 430 430
-    C432 400, 438 370, 435 338
-    C430 360, 422 388, 415 405
-    C408 438, 405 475, 412 510
-    C418 535, 405 545, 395 538
-    L392 340 C388 285, 378 248, 368 225 Z"
-    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-`);
-
-w('assets/hair/back/medio-liso.svg', `
-  <!-- Medio liso: liso ate os ombros -->
-  <path d="M210 185 C240 175, 360 175, 390 185
-    L395 445 C395 465, 375 478, 350 480
-    L250 480 C225 478, 205 465, 205 445 Z"
-    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <path d="M188 220 C175 250, 168 300, 166 345
-    L164 430 C164 448, 175 455, 188 452
-    L200 448 L202 310 C205 268, 215 238, 225 218 Z"
-    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <path d="M412 220 C425 250, 432 300, 434 345
-    L436 430 C436 448, 425 455, 412 452
-    L400 448 L398 310 C395 268, 385 238, 375 218 Z"
-    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-`);
-
-w('assets/hair/back/careca.svg', `<!-- Careca - sem cabelo -->`);
-
-// ==================== FRANJAS (6) ====================
-
-// Todas as franjas incluem o "cap" solido que cobre o topo da cabeca.
-// Cap: forma solida de y~155 (acima da cabeca) ate onde a franja termina.
-// Franja PARA em y<=240. Olhos comecam em y=260.
+// ==========================================
+// FRONT LAYERS (BANGS) - over the forehead
+// All stop at y<=238. Eyes start at y=260.
+// ==========================================
 
 w('assets/hair/front/sem-franja.svg', `<!-- Sem franja -->`);
 
-w('assets/hair/front/franjinha.svg', `
-  <!-- Franjinha: cap solido + franja reta com 5 mechas -->
-  <!-- Cap solido cobrindo topo da cabeca -->
-  <path d="M180 238
-    C178 210, 185 175, 210 160
-    C240 145, 360 145, 390 160
-    C415 175, 422 210, 420 238 Z"
+w('assets/hair/front/franja-reta.svg', `
+  <!-- Franja reta: solid cap + 4-5 straight chunky sections -->
+  <!-- Solid cap (hair mass on top of head) -->
+  <path d="M185 235 C182 205, 195 170, 225 156 C258 142, 342 142, 375 156 C405 170, 418 205, 415 235 Z"
     fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <!-- 5 mechas da franja (pontas retas/anguladas) -->
-  <path d="M182 232
-    L186 240 L220 235 L222 225
-    L258 238 L295 238 L298 222
-    L335 238 L372 235 L378 225
-    L412 238 L418 232
-    L420 238 L180 238 Z"
+  <!-- Chunky straight bang sections -->
+  <path d="M188 228 L192 240 C198 238, 215 232, 235 230 L238 240
+    C248 236, 265 230, 282 228 L285 238
+    C295 234, 310 230, 325 228 L328 238
+    C342 234, 358 230, 372 232 L375 240
+    C385 238, 398 235, 412 240 L415 228"
+    fill="${F}" stroke="${S}" stroke-width="4"/>
+`);
+
+w('assets/hair/front/franja-lateral.svg', `
+  <!-- Franja lateral: cap + side-swept bangs to the right -->
+  <path d="M185 235 C182 205, 195 170, 225 156 C258 142, 342 142, 375 156 C405 170, 418 205, 415 235 Z"
+    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
+  <!-- One big side-swept section from left to right -->
+  <path d="M188 225
+    C195 218, 225 210, 280 208
+    C335 210, 380 220, 415 232
+    L412 238
+    C385 228, 340 218, 285 216
+    C235 218, 202 225, 192 235 Z"
+    fill="${F}" stroke="${S}" stroke-width="4"/>
+  <!-- Small piece on the left side of face -->
+  <path d="M185 235 C182 242, 180 255, 182 265 C186 258, 190 252, 192 248 L190 238 Z"
     fill="${F}" stroke="${S}" stroke-width="3"/>
 `);
 
-w('assets/hair/front/repartido-meio.svg', `
-  <!-- Repartido ao meio: cap + risca central + mechas caindo pros lados -->
-  <path d="M180 240
-    C178 210, 185 175, 210 160
-    C240 145, 360 145, 390 160
-    C415 175, 422 210, 420 240 Z"
+w('assets/hair/front/franja-repartida.svg', `
+  <!-- Franja repartida ao meio: cap + center part with two curtain bangs -->
+  <path d="M185 235 C182 205, 195 170, 225 156 C258 142, 342 142, 375 156 C405 170, 418 205, 415 235 Z"
     fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <!-- Risca central -->
-  <line x1="300" y1="150" x2="300" y2="240" stroke="${S}" stroke-width="3" opacity="0.5"/>
-  <!-- Mecha esquerda descendo -->
-  <path d="M180 238 C185 228, 210 218, 250 215
-    C275 214, 295 218, 298 225
-    L298 240 C290 232, 268 226, 248 228
-    C218 232, 195 240, 182 245 Z"
+  <!-- Center part line -->
+  <line x1="300" y1="148" x2="300" y2="235" stroke="${S}" stroke-width="2" opacity="0.5"/>
+  <!-- Left curtain bang -->
+  <path d="M188 230 C195 220, 225 212, 270 210
+    L295 215 L295 235
+    C270 225, 235 222, 210 228 L195 238 Z"
     fill="${F}" stroke="${S}" stroke-width="3"/>
-  <!-- Mecha direita descendo -->
-  <path d="M420 238 C415 228, 390 218, 350 215
-    C325 214, 305 218, 302 225
-    L302 240 C310 232, 332 226, 352 228
-    C382 232, 405 240, 418 245 Z"
+  <!-- Right curtain bang -->
+  <path d="M412 230 C405 220, 375 212, 330 210
+    L305 215 L305 235
+    C330 225, 365 222, 390 228 L405 238 Z"
     fill="${F}" stroke="${S}" stroke-width="3"/>
 `);
 
-w('assets/hair/front/repartido-lado.svg', `
-  <!-- Repartido pro lado: cap + risca lateral esquerda + mechas pro lado direito -->
-  <path d="M180 240
-    C178 210, 185 175, 210 160
-    C240 145, 360 145, 390 160
-    C415 175, 422 210, 420 240 Z"
+w('assets/hair/front/franja-cacheada.svg', `
+  <!-- Franja cacheada: cap + round/curly bang sections -->
+  <path d="M185 232 C182 202, 195 168, 225 154 C258 140, 342 140, 375 154 C405 168, 418 202, 415 232 Z"
     fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <!-- Risca lateral esquerda -->
-  <line x1="225" y1="155" x2="220" y2="240" stroke="${S}" stroke-width="3" opacity="0.5"/>
-  <!-- Grande mecha caindo pra direita -->
-  <path d="M182 235
-    C195 225, 240 210, 310 208
-    C370 210, 408 222, 418 235
-    L415 242
-    C400 232, 365 220, 305 218
-    C245 220, 200 232, 185 242 Z"
-    fill="${F}" stroke="${S}" stroke-width="3"/>
+  <!-- Round/bouncy curly bang sections -->
+  <path d="M195 225 C198 212, 215 205, 232 210 C248 215, 250 228, 242 235 C232 240, 212 238, 200 232 Z"
+    fill="${F}" stroke="${S}" stroke-width="4"/>
+  <path d="M238 218 C242 205, 262 198, 280 204 C298 210, 302 225, 292 232 C280 238, 258 235, 245 228 Z"
+    fill="${F}" stroke="${S}" stroke-width="4"/>
+  <path d="M288 215 C292 202, 315 196, 335 202 C352 208, 355 222, 345 230 C332 236, 308 233, 295 225 Z"
+    fill="${F}" stroke="${S}" stroke-width="4"/>
+  <path d="M340 220 C345 208, 368 202, 388 210 C405 218, 405 232, 395 237 C382 242, 358 238, 348 230 Z"
+    fill="${F}" stroke="${S}" stroke-width="4"/>
 `);
 
-w('assets/hair/front/moicano.svg', `
-  <!-- Moicano: cap + espinhos centrais pra cima -->
-  <path d="M180 238
-    C178 210, 185 175, 210 160
-    C240 145, 360 145, 390 160
-    C415 175, 422 210, 420 238 Z"
+w('assets/hair/front/topete.svg', `
+  <!-- Topete: cap + pompadour/volume going up -->
+  <path d="M185 235 C182 205, 195 170, 225 156 C258 142, 342 142, 375 156 C405 170, 418 205, 415 235 Z"
     fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <!-- Espinhos centrais -->
-  <path d="M255 195 L245 115 L275 175 L268 90 L300 165
-    L332 90 L325 175 L355 115 L345 195"
+  <!-- Pompadour volume on top -->
+  <path d="M220 168 C228 130, 270 108, 300 105 C330 108, 372 130, 380 168
+    C375 148, 345 128, 300 125 C255 128, 225 148, 220 168 Z"
     fill="${F}" stroke="${S}" stroke-width="${SW}"/>
 `);
 
-w('assets/hair/front/cacheado.svg', `
-  <!-- Cacheado: cap + mechas arredondadas/cachos no topo -->
-  <path d="M180 240
-    C178 210, 185 175, 210 160
-    C240 145, 360 145, 390 160
-    C415 175, 422 210, 420 240 Z"
-    fill="${F}" stroke="${S}" stroke-width="${SW}"/>
-  <!-- Cachos arredondados sobre o cap -->
-  <circle cx="210" cy="195" r="22" fill="${F}" stroke="${S}" stroke-width="4"/>
-  <circle cx="255" cy="178" r="25" fill="${F}" stroke="${S}" stroke-width="4"/>
-  <circle cx="300" cy="170" r="26" fill="${F}" stroke="${S}" stroke-width="4"/>
-  <circle cx="345" cy="178" r="25" fill="${F}" stroke="${S}" stroke-width="4"/>
-  <circle cx="390" cy="195" r="22" fill="${F}" stroke="${S}" stroke-width="4"/>
-  <!-- Mechas laterais encaracoladas -->
-  <circle cx="178" cy="225" r="18" fill="${F}" stroke="${S}" stroke-width="3"/>
-  <circle cx="422" cy="225" r="18" fill="${F}" stroke="${S}" stroke-width="3"/>
-`);
-
-console.log('\\nHair Pack v5 created!');
-console.log('ViewBox 600x800 - same as body/head');
-console.log('All bangs stop at y<=240 (eyes at y=260)');
-console.log('Solid fills + stroke outlines matching user style');
+console.log('\\nHair Pack v6 - Redesigned for front view!');
+console.log('Back layers: hair SIDES framing face (not back of head)');
+console.log('Front layers: bangs only, all stop at y<=238');
+console.log('Organic curves, thick strokes, solid fills');

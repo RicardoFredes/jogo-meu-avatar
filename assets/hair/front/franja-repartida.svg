@@ -1,0 +1,19 @@
+<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Franja repartida ao meio: cap + center part with two curtain bangs -->
+  <path d="M185 235 C182 205, 195 170, 225 156 C258 142, 342 142, 375 156 C405 170, 418 205, 415 235 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+  <!-- Center part line -->
+  <line x1="300" y1="148" x2="300" y2="235" stroke="#CC00CC" stroke-width="2" opacity="0.5"/>
+  <!-- Left curtain bang -->
+  <path d="M188 230 C195 220, 225 212, 270 210
+    L295 215 L295 235
+    C270 225, 235 222, 210 228 L195 238 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+  <!-- Right curtain bang -->
+  <path d="M412 230 C405 220, 375 212, 330 210
+    L305 215 L305 235
+    C330 225, 365 222, 390 228 L405 238 Z"
+    fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+
+</svg>

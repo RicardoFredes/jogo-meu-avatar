@@ -1,14 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="205 264 192 52" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="208 266 188 52" fill="none">
 
-  <!-- Sunglasses - dark lenses -->
+  <!-- Sunglasses -->
   <g stroke="#222222" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="237" y="271" width="56" height="36" rx="12" fill="#333333"/>
-    <rect x="309" y="271" width="56" height="36" rx="12" fill="#333333"/>
-    <path d="M293 285 Q301 278 309 285" fill="none"/>
-    <path d="M237 283 L214 278" fill="none"/>
-    <path d="M365 283 L388 278" fill="none"/>
+    <rect x="237" y="273" width="58" height="32" rx="12" fill="#333333"/>
+    <rect x="307" y="273" width="58" height="32" rx="12" fill="#333333"/>
+    <path d="M295 286 Q301 279 307 286" fill="none"/>
+    <path d="M237 284 L216 280" fill="none"/>
+    <path d="M365 284 L386 280" fill="none"/>
   </g>
-  <path d="M248 278 Q256 274 264 278" stroke="white" stroke-width="2" opacity="0.2" fill="none"/>
-  <path d="M320 278 Q328 274 336 278" stroke="white" stroke-width="2" opacity="0.2" fill="none"/>
+  <path d="M248 280 Q257 276 266 280" stroke="white" stroke-width="2" opacity="0.2" fill="none"/>
+  <path d="M318 280 Q327 276 336 280" stroke="white" stroke-width="2" opacity="0.2" fill="none"/>
 
 </svg>

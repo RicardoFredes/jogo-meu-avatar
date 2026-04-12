@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
+
+  <!-- Party/Birthday cone hat - colorizable -->
+  <g fill="#FF00FF">
+    <!-- Cone -->
+    <path d="M260,218 L296,154 Q300,148 304,154 L340,218 Z"
+      stroke="#CC00CC" stroke-width="3" stroke-linejoin="round"/>
+    <!-- Horizontal stripes -->
+    <path d="M270,204 L330,204" stroke="#FFFFFF" stroke-width="3" opacity="0.4"/>
+    <path d="M280,190 L320,190" stroke="#FFFFFF" stroke-width="3" opacity="0.4"/>
+    <path d="M290,176 L310,176" stroke="#FFFFFF" stroke-width="3" opacity="0.4"/>
+    <!-- Elastic band -->
+    <path d="M258,218 Q300,226 342,218" fill="none" stroke="#CC00CC" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Pom-pom on top -->
+    <circle cx="300" cy="150" r="8" fill="#FFD700" stroke="#DAA520" stroke-width="2"/>
+    <!-- Confetti dots -->
+    <circle cx="278" cy="196" r="3" fill="#FFFFFF" opacity="0.5"/>
+    <circle cx="310" cy="186" r="2.5" fill="#FFFFFF" opacity="0.5"/>
+    <circle cx="295" cy="208" r="2.5" fill="#FFFFFF" opacity="0.5"/>
+    <circle cx="320" cy="200" r="3" fill="#FFFFFF" opacity="0.5"/>
+  </g>
+
+</svg>

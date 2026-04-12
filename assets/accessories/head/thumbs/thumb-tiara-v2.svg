@@ -1,18 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="230 172 140 56" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="222 166 156 64" fill="none">
 
-  <!-- Tiara - NOT colorizable -->
-  <path d="M238 220 Q260 210 280 206 Q290 204 300 200 Q310 204 320 206 Q340 210 362 220"
-    fill="none" stroke="#FFD700" stroke-width="5" stroke-linecap="round"/>
-  <!-- Tiara points -->
-  <path d="M268 210 L264 196 L274 206" fill="#FFD700" stroke="#B8860B" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M284 207 L280 190 L290 203" fill="#FFD700" stroke="#B8860B" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M300 204 L296 182 L300 178 L304 182 L300 204" fill="#FFD700" stroke="#B8860B" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M316 207 L320 190 L310 203" fill="#FFD700" stroke="#B8860B" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M332 210 L336 196 L326 206" fill="#FFD700" stroke="#B8860B" stroke-width="2" stroke-linejoin="round"/>
-  <!-- Center gem -->
-  <circle cx="300" cy="188" r="5" fill="#FF69B4" stroke="#B8860B" stroke-width="1.5"/>
-  <!-- Side gems -->
-  <circle cx="280" cy="198" r="3.5" fill="#FF69B4" stroke="#B8860B" stroke-width="1"/>
-  <circle cx="320" cy="198" r="3.5" fill="#FF69B4" stroke="#B8860B" stroke-width="1"/>
+  <!-- Tiara -->
+  <path d="M230 222 Q258 210 282 206 Q292 203 300 198 Q308 203 318 206 Q342 210 370 222"
+    fill="none" stroke="#FFD700" stroke-width="6" stroke-linecap="round"/>
+  <path d="M264 212 L258 194 L272 208" fill="#FFD700" stroke="#B8860B" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M282 208 L276 186 L290 204" fill="#FFD700" stroke="#B8860B" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M300 204 L294 178 L300 172 L306 178 L300 204" fill="#FFD700" stroke="#B8860B" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M318 208 L324 186 L310 204" fill="#FFD700" stroke="#B8860B" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M336 212 L342 194 L328 208" fill="#FFD700" stroke="#B8860B" stroke-width="2.5" stroke-linejoin="round"/>
+  <circle cx="300" cy="185" r="6" fill="#FF69B4" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="276" cy="196" r="4.5" fill="#FF69B4" stroke="#B8860B" stroke-width="1.5"/>
+  <circle cx="324" cy="196" r="4.5" fill="#FF69B4" stroke="#B8860B" stroke-width="1.5"/>
 
 </svg>

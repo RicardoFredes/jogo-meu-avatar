@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
+  <!-- Oval face - taller, slightly narrower + ears - skin tintable -->
+  <!-- Left ear -->
+  <path d="M200 272C185.641 272 174 283.641 174 298C174 312.359 185.641 324 200 324H222V272H200Z" fill="#FFFFFF" stroke="#C0C0C0" stroke-width="8"/>
+  <!-- Right ear -->
+  <path d="M400 272C414.359 272 426 283.641 426 298C426 312.359 414.359 324 400 324H378V272H400Z" fill="#FFFFFF" stroke="#C0C0C0" stroke-width="8"/>
+  <!-- Oval head -->
+  <ellipse cx="300" cy="290" rx="100" ry="112" fill="#FFFFFF" stroke="#C0C0C0" stroke-width="8"/>
+</svg>

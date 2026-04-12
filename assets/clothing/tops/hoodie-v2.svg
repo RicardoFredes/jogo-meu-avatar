@@ -1,22 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
 
-  <!-- Hoodie with hood and kangaroo pocket -->
-  <!-- Hood behind -->
-  <path d="M248 410 Q240 385 258 370 Q280 355 300 355 Q320 355 342 370 Q360 385 352 410"
+  <!-- Hoodie with hood, long sleeves, pocket -->
+  <!-- Hood -->
+  <path d="M244 410 Q232 386 252 368 Q276 350 300 350 Q324 350 348 368 Q368 386 356 410"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M260 405 Q280 390 300 390 Q320 390 340 405" fill="none" stroke="#CC00CC" stroke-width="4"/>
-  <!-- Main body -->
-  <path d="M268 405 C268 418 285 427 300 427 C315 427 332 418 332 405
-    L360 413 L405 490 L385 498 L348 440 L350 560 Q300 570 250 560
-    L252 440 L215 498 L195 490 L240 413 Z"
+  <path d="M258 404 Q278 390 300 390 Q322 390 342 404" fill="none" stroke="#CC00CC" stroke-width="4"/>
+  <!-- Body + long sleeves -->
+  <path d="M268 402 C268 416 284 428 300 428 C316 428 332 416 332 402
+    L370 412 L428 510 L404 520 L356 442 L362 560
+    Q300 572 238 560
+    L244 442 L196 520 L172 510 L230 412 Z"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="6" stroke-linejoin="round"/>
-  <!-- Kangaroo pocket -->
-  <rect x="264" y="500" width="72" height="36" rx="10" fill="none" stroke="#CC00CC" stroke-width="4"/>
-  <line x1="300" y1="500" x2="300" y2="536" stroke="#CC00CC" stroke-width="2.5" opacity="0.5"/>
+  <!-- Pocket -->
+  <rect x="262" y="498" width="76" height="38" rx="10" fill="none" stroke="#CC00CC" stroke-width="4"/>
+  <line x1="300" y1="498" x2="300" y2="536" stroke="#CC00CC" stroke-width="2.5" opacity="0.5"/>
   <!-- Drawstrings -->
-  <line x1="290" y1="410" x2="287" y2="435" stroke="#CC00CC" stroke-width="2.5"/>
-  <line x1="310" y1="410" x2="313" y2="435" stroke="#CC00CC" stroke-width="2.5"/>
-  <circle cx="287" cy="437" r="3" fill="#CC00CC"/>
-  <circle cx="313" cy="437" r="3" fill="#CC00CC"/>
+  <line x1="290" y1="406" x2="286" y2="434" stroke="#CC00CC" stroke-width="3"/>
+  <line x1="310" y1="406" x2="314" y2="434" stroke="#CC00CC" stroke-width="3"/>
+  <circle cx="286" cy="436" r="3.5" fill="#CC00CC"/>
+  <circle cx="314" cy="436" r="3.5" fill="#CC00CC"/>
 
 </svg>

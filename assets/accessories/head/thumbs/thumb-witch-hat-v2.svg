@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="224 124 156 106" fill="none">
+
+  <!-- Witch Hat - colorizable -->
+  <g fill="#FF00FF">
+    <!-- Wide brim -->
+    <ellipse cx="300" cy="218" rx="80" ry="14" fill="#FF00FF" stroke="#CC00CC" stroke-width="3"/>
+    <!-- Hat cone -->
+    <path d="M232,214 L290,140 Q296,130 300,128 Q304,130 310,140 L368,214 Z"
+      stroke="#CC00CC" stroke-width="3" stroke-linejoin="round"/>
+    <!-- Droopy curved tip -->
+    <path d="M300,128 Q304,126 310,130 Q330,140 342,158 Q348,168 340,166"
+      stroke="#CC00CC" stroke-width="2.5" stroke-linejoin="round"/>
+    <!-- Hat band -->
+    <path d="M240,210 Q300,200 360,210" fill="none" stroke="#CC00CC" stroke-width="5" stroke-linecap="round"/>
+    <!-- Buckle -->
+    <rect x="286" y="203" width="28" height="16" rx="3" fill="#CC00CC" stroke="#CC00CC" stroke-width="1.5"/>
+    <rect x="292" y="207" width="16" height="8" rx="2" fill="#FF00FF"/>
+    <!-- Star on tip -->
+    <polygon points="342,158 344,162 348,162 345,165 346,169 342,167 338,169 339,165 336,162 340,162"
+      fill="#FFFFFF" opacity="0.6"/>
+  </g>
+
+</svg>

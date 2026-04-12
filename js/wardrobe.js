@@ -75,6 +75,13 @@ const Wardrobe = (() => {
   function renderItemsGridMulti(cats) {
     const grid = document.getElementById('items-grid');
     grid.innerHTML = '';
+    // Hide global color bar - we use inline ones for multi-cat tabs
+    if (cats.length > 1) {
+      document.getElementById('color-bar').classList.add('hidden');
+    }
+
+    // Check if full-body is equipped (patterns depend on it)
+    const hasFullBody = !!charData.outfit['full-body']?.itemId;
 
     for (const cat of cats) {
       const slotId = cat.slotId;
@@ -82,18 +89,29 @@ const Wardrobe = (() => {
         ? (charData.parts?.hair?.itemId || null)
         : (charData.outfit[slotId]?.itemId || null);
 
-      // Add section label if multiple categories
+      // Patterns disabled when no dress equipped
+      const isDisabled = cat.slotId === 'pattern' && !hasFullBody;
+
+      // Section label
       if (cats.length > 1) {
         const label = document.createElement('div');
         label.className = 'grid-section-label';
         label.textContent = cat.label;
-        label.style.cssText = 'grid-column:1/-1;font-family:var(--font-display);font-size:0.75rem;color:var(--text-secondary);padding:4px 0;margin-top:4px;';
+        label.style.cssText = 'grid-column:1/-1;font-family:var(--font-display);font-size:0.75rem;color:var(--text-secondary);padding:4px 0;margin-top:4px;' +
+          (isDisabled ? 'opacity:0.4;' : '');
         grid.appendChild(label);
+      }
+
+      // Color bar ABOVE items
+      if (cats.length > 1 && !isDisabled) {
+        renderInlineColorBar(grid, cat);
       }
 
       for (const [itemId, item] of cat.items) {
         const thumb = document.createElement('div');
         thumb.className = 'item-thumbnail' + (equippedItemId === itemId ? ' equipped' : '');
+        if (isDisabled) thumb.style.opacity = '0.35';
+        if (isDisabled) thumb.style.pointerEvents = 'none';
         thumb.dataset.itemId = itemId;
         thumb.dataset.categoryId = cat.category;
         thumb.dataset.slotId = slotId;
@@ -126,23 +144,61 @@ const Wardrobe = (() => {
     DragDrop.initDraggables();
   }
 
-  function updateColorBarMulti(cats) {
-    // Find the first equipped colorable item across all categories
-    for (const cat of cats) {
-      const slotId = cat.slotId;
-      const equipped = cat.category === 'hair'
-        ? charData.parts?.hair
-        : charData.outfit[slotId];
-      if (equipped && equipped.itemId) {
-        const item = cat.items.get(equipped.itemId);
-        const isColorable = cat.colorable || (item && item.colorable);
-        if (isColorable) {
-          updateColorBar(cat);
-          return;
+  function renderInlineColorBar(grid, cat) {
+    const slotId = cat.slotId;
+    const equipped = cat.category === 'hair'
+      ? charData.parts?.hair
+      : charData.outfit[slotId];
+
+    if (!equipped || !equipped.itemId) return;
+
+    const item = cat.items.get(equipped.itemId);
+    const isColorable = cat.colorable || (item && item.colorable);
+    if (!isColorable) return;
+
+    const paletteId = cat.colorPalette || (item && item.colorPalette) || 'clothing-colors';
+    const palette = Catalog.getColorPalette(paletteId);
+    if (palette.length === 0) return;
+
+    const bar = document.createElement('div');
+    bar.className = 'inline-color-bar';
+    bar.style.cssText = 'grid-column:1/-1;display:flex;align-items:center;gap:6px;padding:4px 0;flex-wrap:wrap;';
+
+    const label = document.createElement('span');
+    label.textContent = 'Cor:';
+    label.style.cssText = 'font-family:var(--font-display);font-size:0.75rem;color:var(--text-secondary);';
+    bar.appendChild(label);
+
+    palette.forEach(c => {
+      const opt = document.createElement('div');
+      opt.className = 'color-option' + (equipped.colorId === c.id ? ' selected' : '');
+      opt.style.backgroundColor = c.hex;
+      opt.title = c.name;
+      opt.addEventListener('click', () => {
+        equipped.colorId = c.id;
+        if (cat.category === 'hair') {
+          Storage.saveCharacter(charData);
+        } else {
+          Storage.updateCharacterOutfit(characterId, charData.outfit);
         }
-      }
+        renderCharacter();
+        bar.querySelectorAll('.color-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+      });
+      bar.appendChild(opt);
+    });
+
+    grid.appendChild(bar);
+  }
+
+  function updateColorBarMulti(cats) {
+    // For multi-cat tabs, inline bars handle it - hide global
+    if (cats.length > 1) {
+      document.getElementById('color-bar').classList.add('hidden');
+      return;
     }
-    document.getElementById('color-bar').classList.add('hidden');
+    // Single-cat tab: use the global color bar
+    updateColorBar(cats[0]);
   }
 
   // Re-render grid only (all categories in current tab)
@@ -184,12 +240,13 @@ const Wardrobe = (() => {
       }
     }
 
-    // Set default color (check category-level or item-level colorable)
+    // Preserve current color when switching items in the same slot
     const item = cat.items.get(itemId);
-    let colorId = null;
     const isColorable = cat.colorable || (item && item.colorable);
     const paletteId = cat.colorPalette || (item && item.colorPalette) || 'clothing-colors';
-    if (isColorable) {
+    const currentSlotData = cat.category === 'hair' ? charData.parts?.hair : charData.outfit[slotId];
+    let colorId = currentSlotData?.colorId || null;
+    if (isColorable && !colorId) {
       const palette = Catalog.getColorPalette(paletteId);
       colorId = palette.length > 0 ? palette[0].id : null;
     }
@@ -203,8 +260,7 @@ const Wardrobe = (() => {
       Storage.updateCharacterOutfit(characterId, charData.outfit);
     }
     renderCharacter();
-    refreshCurrentGrid();
-    updateColorBar(cat);
+    refreshCurrentTab();
   }
 
   function unequipSlot(slotId) {
@@ -215,6 +271,10 @@ const Wardrobe = (() => {
       Storage.saveCharacter(charData);
     } else {
       charData.outfit[slotId] = null;
+      // Removing dress also removes pattern (pattern depends on dress)
+      if (slotId === 'full-body' && charData.outfit['pattern']) {
+        charData.outfit['pattern'] = null;
+      }
       Storage.updateCharacterOutfit(characterId, charData.outfit);
     }
     renderCharacter();

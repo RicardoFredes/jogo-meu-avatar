@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
 
-  <!-- Star-shaped glasses - colorizable -->
+  <!-- Star glasses - colorizable -->
   <g>
-    <polygon points="265,263 269,276 283,278 273,287 275,301 265,294 255,301 257,287 247,278 261,276"
+    <polygon points="265,261 270,276 286,278 274,289 277,305 265,296 253,305 256,289 244,278 260,276"
       fill="#FF00FF" fill-opacity="0.3" stroke="#FF00FF" stroke-width="4" stroke-linejoin="round"/>
-    <polygon points="337,263 341,276 355,278 345,287 347,301 337,294 327,301 329,287 319,278 333,276"
+    <polygon points="337,261 342,276 358,278 346,289 349,305 337,296 325,305 328,289 316,278 332,276"
       fill="#FF00FF" fill-opacity="0.3" stroke="#FF00FF" stroke-width="4" stroke-linejoin="round"/>
-    <path d="M283 282 Q301 273 319 282" fill="none" stroke="#FF00FF" stroke-width="4"/>
-    <path d="M247 282 L222 278" fill="none" stroke="#FF00FF" stroke-width="4" stroke-linecap="round"/>
-    <path d="M355 282 L380 278" fill="none" stroke="#FF00FF" stroke-width="4" stroke-linecap="round"/>
+    <path d="M286 284 Q301 276 316 284" fill="none" stroke="#FF00FF" stroke-width="4"/>
+    <path d="M244 282 L222 278" fill="none" stroke="#FF00FF" stroke-width="4" stroke-linecap="round"/>
+    <path d="M358 282 L380 278" fill="none" stroke="#FF00FF" stroke-width="4" stroke-linecap="round"/>
   </g>
 
 </svg>

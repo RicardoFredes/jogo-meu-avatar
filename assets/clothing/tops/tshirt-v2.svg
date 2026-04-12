@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
 
-  <!-- T-shirt -->
-  <path d="M270 405 C270 418 285 427 300 427 C315 427 330 418 330 405
-    L360 413 L392 442 L372 454 L348 430 L348 545
-    Q300 555 252 545
-    L252 430 L228 454 L208 442 L240 413 Z"
+  <!-- T-shirt - covers torso with short sleeves -->
+  <path d="M270 402 C270 416 284 428 300 428 C316 428 330 416 330 402
+    L370 410 L410 450 L386 462 L356 432 L360 548
+    Q300 560 240 548
+    L244 432 L214 462 L190 450 L230 410 Z"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M270 405 C270 418 285 427 300 427 C315 427 330 418 330 405"
-    fill="none" stroke="#CC00CC" stroke-width="4" stroke-linecap="round"/>
-  <path d="M252 545 Q300 555 348 545" fill="none" stroke="#CC00CC" stroke-width="3"/>
+  <path d="M270 402 C270 416 284 428 300 428 C316 428 330 416 330 402"
+    fill="none" stroke="#CC00CC" stroke-width="4"/>
+  <path d="M240 548 Q300 560 360 548" fill="none" stroke="#CC00CC" stroke-width="3"/>
 
 </svg>

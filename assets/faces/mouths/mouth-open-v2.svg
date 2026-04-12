@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
+
+  <!-- Open happy mouth - colorizable lips -->
+  <ellipse cx="300" cy="350" rx="22" ry="16" fill="#FF00FF" stroke="#CC00CC" stroke-width="2.5"/>
+  <!-- Teeth -->
+  <rect x="284" y="338" width="32" height="8" rx="3" fill="#FFFFFF"/>
+  <!-- Inner mouth dark -->
+  <ellipse cx="300" cy="354" rx="15" ry="8" fill="#CC00CC" opacity="0.5"/>
+
+</svg>

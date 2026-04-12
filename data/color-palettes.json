@@ -37,6 +37,16 @@
       { "id": "purple", "name": "Roxo", "hex": "#9370DB" },
       { "id": "green", "name": "Verde", "hex": "#32CD32" }
     ],
+    "lip-colors": [
+      { "id": "natural", "name": "Natural", "hex": "#E8A090" },
+      { "id": "rose", "name": "Rosa", "hex": "#E75480" },
+      { "id": "red", "name": "Vermelho", "hex": "#CC2936" },
+      { "id": "coral", "name": "Coral", "hex": "#FF6F61" },
+      { "id": "pink", "name": "Pink", "hex": "#FF69B4" },
+      { "id": "berry", "name": "Amora", "hex": "#8B2252" },
+      { "id": "nude", "name": "Nude", "hex": "#D4A590" },
+      { "id": "plum", "name": "Ameixa", "hex": "#8E4585" }
+    ],
     "clothing-colors": [
       { "id": "white", "name": "Branco", "hex": "#FFFFFF" },
       { "id": "black", "name": "Preto", "hex": "#222222" },

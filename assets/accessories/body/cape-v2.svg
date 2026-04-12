@@ -1,19 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
 
-  <!-- Cape - colorizable, renders at body-acc zIndex 40 -->
-  <path d="M252 410 Q240 414 232 424 L190 560 Q180 600 200 640 L220 660
-    Q234 668 250 660 L268 640 Q280 600 260 540 L252 410 Z"
+  <!-- Cape - colorizable -->
+  <path d="M248 410 Q234 416 224 430 L172 568 Q158 610 180 650 L204 672
+    Q220 682 240 672 L264 648 Q280 608 256 548 L248 410 Z"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
-  <path d="M348 410 Q360 414 368 424 L410 560 Q420 600 400 640 L380 660
-    Q366 668 350 660 L332 640 Q320 600 340 540 L348 410 Z"
+  <path d="M352 410 Q366 416 376 430 L428 568 Q442 610 420 650 L396 672
+    Q380 682 360 672 L336 648 Q320 608 344 548 L352 410 Z"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
-  <!-- Center back -->
-  <path d="M252 410 Q268 406 300 406 Q332 406 348 410 L348 540 Q340 600 332 640
-    Q316 660 300 665 Q284 660 268 640 Q260 600 252 540 Z"
+  <path d="M248 410 Q270 404 300 404 Q330 404 352 410 L352 548
+    Q342 608 336 648 Q318 672 300 678 Q282 672 264 648
+    Q258 608 248 548 Z"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="3" opacity="0.6"/>
-  <!-- Flow lines -->
-  <path d="M272 450 Q276 530 268 610" stroke="#CC00CC" stroke-width="2" opacity="0.3" fill="none"/>
-  <path d="M300 430 Q300 530 300 630" stroke="#CC00CC" stroke-width="2" opacity="0.3" fill="none"/>
-  <path d="M328 450 Q324 530 332 610" stroke="#CC00CC" stroke-width="2" opacity="0.3" fill="none"/>
 
 </svg>

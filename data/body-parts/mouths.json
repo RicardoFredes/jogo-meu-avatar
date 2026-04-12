@@ -5,21 +5,48 @@
   "label": "Boca",
   "anchor": "mouth",
   "zIndex": 73,
-  "colorable": false,
-  "skinTint": true,
+  "colorable": true,
+  "colorPalette": "lip-colors",
   "items": [
     {
       "id": "mouth-smile",
       "name": "Sorriso",
       "asset": "assets/faces/mouths/mouth-smile-v2.svg",
-      "size": {
-        "width": 600,
-        "height": 800
-      },
-      "offset": {
-        "x": 0,
-        "y": 50
-      }
+      "thumbnail": "assets/faces/mouths/thumbs/thumb-mouth-smile-v2.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 50 }
+    },
+    {
+      "id": "mouth-open",
+      "name": "Aberta",
+      "asset": "assets/faces/mouths/mouth-open-v2.svg",
+      "thumbnail": "assets/faces/mouths/thumbs/thumb-mouth-open-v2.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 50 }
+    },
+    {
+      "id": "mouth-cat",
+      "name": "Gatinho",
+      "asset": "assets/faces/mouths/mouth-cat-v2.svg",
+      "thumbnail": "assets/faces/mouths/thumbs/thumb-mouth-cat-v2.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 50 }
+    },
+    {
+      "id": "mouth-small",
+      "name": "Pequena",
+      "asset": "assets/faces/mouths/mouth-small-v2.svg",
+      "thumbnail": "assets/faces/mouths/thumbs/thumb-mouth-small-v2.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 50 }
+    },
+    {
+      "id": "mouth-tongue",
+      "name": "Lingua",
+      "asset": "assets/faces/mouths/mouth-tongue-v2.svg",
+      "thumbnail": "assets/faces/mouths/thumbs/thumb-mouth-tongue-v2.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 50 }
     }
   ]
 }

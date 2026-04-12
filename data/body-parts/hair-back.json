@@ -9,16 +9,49 @@
   "colorPalette": "hair-colors",
   "items": [
     {
-      "id": "longo",
-      "name": "Longo",
-      "asset": "assets/hair/back/longo.svg",
+      "id": "longo-liso",
+      "name": "Longo Liso",
+      "asset": "assets/hair/back/longo-liso.svg",
       "size": {
-        "width": 400,
-        "height": 500
+        "width": 600,
+        "height": 800
+      },
+      "offsetByShape": {
+        "child": {
+          "x": 0,
+          "y": 110
+        },
+        "adult": {
+          "x": 0,
+          "y": 220
+        }
       },
       "offset": {
         "x": 0,
-        "y": 50
+        "y": 110
+      }
+    },
+    {
+      "id": "longo-ondulado",
+      "name": "Longo Ondulado",
+      "asset": "assets/hair/back/longo-ondulado.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offsetByShape": {
+        "child": {
+          "x": 0,
+          "y": 110
+        },
+        "adult": {
+          "x": 0,
+          "y": 220
+        }
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
       }
     },
     {
@@ -26,12 +59,22 @@
       "name": "Medio",
       "asset": "assets/hair/back/medio.svg",
       "size": {
-        "width": 400,
-        "height": 500
+        "width": 600,
+        "height": 800
+      },
+      "offsetByShape": {
+        "child": {
+          "x": 0,
+          "y": 110
+        },
+        "adult": {
+          "x": 0,
+          "y": 220
+        }
       },
       "offset": {
         "x": 0,
-        "y": 50
+        "y": 110
       }
     },
     {
@@ -39,25 +82,22 @@
       "name": "Curto",
       "asset": "assets/hair/back/curto.svg",
       "size": {
-        "width": 400,
-        "height": 500
+        "width": 600,
+        "height": 800
+      },
+      "offsetByShape": {
+        "child": {
+          "x": 0,
+          "y": 110
+        },
+        "adult": {
+          "x": 0,
+          "y": 220
+        }
       },
       "offset": {
         "x": 0,
-        "y": 50
-      }
-    },
-    {
-      "id": "calvo",
-      "name": "Calvo",
-      "asset": "assets/hair/back/calvo.svg",
-      "size": {
-        "width": 400,
-        "height": 500
-      },
-      "offset": {
-        "x": 0,
-        "y": 50
+        "y": 110
       }
     },
     {

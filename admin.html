@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADMIN - Lauren Fashion Asset Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header class="admin-header">
+    <h1>ADMIN <span class="accent">Asset Editor</span></h1>
+    <div class="header-actions">
+      <select id="sel-body" class="adm-select"><option value="child">Crianca</option><option value="adult">Adulto</option></select>
+      <button id="btn-import" class="adm-btn">Import SVG</button>
+      <button id="btn-copy" class="adm-btn">Copy SVG</button>
+      <button id="btn-download" class="adm-btn adm-btn-primary">Download SVG</button>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+    <!-- Left: Tools + Layers -->
+    <aside class="panel panel-left">
+      <section class="panel-section">
+        <h3 class="panel-title">Ferramentas</h3>
+        <div class="tool-grid">
+          <button class="tool-btn active" data-tool="pen" title="Pen Tool (P)">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/></svg>
+            Pen
+          </button>
+          <button class="tool-btn" data-tool="select" title="Select (V)">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M7 2l12 11.2-5.8.5 3.3 7.3-2.2 1-3.2-7.4L7 18V2z" fill="currentColor"/></svg>
+            Select
+          </button>
+          <button class="tool-btn" data-tool="move" title="Move (M)">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z" fill="currentColor"/></svg>
+            Move
+          </button>
+          <button class="tool-btn" data-tool="delete" title="Delete (Del)">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" fill="currentColor"/></svg>
+            Delete
+          </button>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <h3 class="panel-title">Categoria</h3>
+        <select id="sel-category" class="adm-select">
+          <option value="hair-back">Cabelo (atras)</option>
+          <option value="hair-front">Franja (frente)</option>
+          <option value="face-shapes">Rosto</option>
+          <option value="eyes">Olhos</option>
+          <option value="noses">Nariz</option>
+          <option value="mouths">Boca</option>
+          <option value="tops">Blusas</option>
+          <option value="bottoms">Calcas</option>
+          <option value="shoes">Sapatos</option>
+          <option value="full-body">Vestidos</option>
+          <option value="patterns">Padronagens</option>
+          <option value="head-acc">Acess. Cabeca</option>
+          <option value="face-acc">Acess. Rosto</option>
+          <option value="body-acc">Acess. Corpo</option>
+        </select>
+      </section>
+
+      <section class="panel-section flex-grow">
+        <h3 class="panel-title">Layers <span class="badge" id="layer-count">0</span></h3>
+        <div id="layer-list" class="layer-list"></div>
+        <button id="btn-new-path" class="adm-btn" style="width:100%;margin-top:8px">+ Novo Path</button>
+      </section>
+    </aside>
+
+    <!-- Center: Canvas -->
+    <main class="panel panel-center">
+      <div class="canvas-wrapper">
+        <!-- Konva preview (background, non-interactive) -->
+        <div id="konva-preview" class="canvas-layer"></div>
+        <!-- Paper.js drawing canvas (foreground, interactive) -->
+        <canvas id="paper-canvas" class="canvas-layer" resize></canvas>
+      </div>
+      <div class="canvas-footer">
+        <span id="status-bar">Pen Tool - Clique para adicionar pontos</span>
+        <label class="chk-label"><input type="checkbox" id="chk-preview" checked> Preview</label>
+        <label class="chk-label"><input type="checkbox" id="chk-guides" checked> Guias</label>
+        <div class="zoom-bar">
+          <label>Zoom:</label>
+          <input type="range" id="zoom-slider" min="25" max="200" value="80" step="5">
+          <span id="zoom-value">80%</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right: Properties -->
+    <aside class="panel panel-right">
+      <section class="panel-section">
+        <h3 class="panel-title">Propriedades</h3>
+        <div id="props-empty" class="props-empty">Selecione um path</div>
+        <div id="props-form" class="props-form hidden">
+          <div class="prop-group">
+            <label>Fill</label>
+            <div class="color-row">
+              <input type="color" id="prop-fill" value="#FF00FF">
+              <button class="adm-btn color-preset" data-color="#FF00FF" title="Placeholder">M</button>
+              <button class="adm-btn color-preset" data-color="none" title="Sem fill">X</button>
+            </div>
+          </div>
+          <div class="prop-group">
+            <label>Stroke</label>
+            <div class="color-row">
+              <input type="color" id="prop-stroke" value="#CC00CC">
+              <button class="adm-btn color-preset" data-color="#CC00CC" title="Stroke placeholder">S</button>
+            </div>
+          </div>
+          <div class="prop-group">
+            <label>Stroke Width</label>
+            <input type="number" id="prop-stroke-width" class="adm-input" value="6" min="0" max="20" step="1">
+          </div>
+          <div class="prop-group">
+            <label>Opacity</label>
+            <input type="range" id="prop-opacity" min="0" max="100" value="100" step="5">
+            <span id="prop-opacity-value">100%</span>
+          </div>
+          <div class="prop-group">
+            <label class="chk-label"><input type="checkbox" id="prop-closed" checked> Path fechado</label>
+          </div>
+
+          <hr class="divider">
+          <h4 class="sub-title">Pontos</h4>
+          <div class="prop-group">
+            <span id="point-count">0 pontos</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <h3 class="panel-title">SVG Output</h3>
+        <textarea id="svg-output" class="svg-textarea" rows="8" readonly placeholder="SVG aparece aqui ao exportar"></textarea>
+      </section>
+    </aside>
+  </div>
+
+  <!-- Import file input (hidden) -->
+  <input type="file" id="file-import" accept=".svg" style="display:none">
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- Dependencies -->
+  <script src="https://unpkg.com/konva@9/konva.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/paper@0.12.18/dist/paper-full.min.js"></script>
+
+  <!-- Game modules (for character preview) -->
+  <script src="js/storage.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/config-loader.js"></script>
+  <script src="js/renderer.js"></script>
+
+  <!-- Admin module -->
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
 
-  <!-- Tank top -->
-  <path d="M274 402 L274 408 C274 420 286 430 300 430 C314 430 326 420 326 408 L326 402
-    L345 410 L345 545 Q300 555 255 545 L255 410 Z"
+  <!-- Tank top - sleeveless, wide body -->
+  <path d="M276 400 C276 416 286 428 300 428 C314 428 324 416 324 400
+    L356 410 L356 548 Q300 560 244 548 L244 410 Z"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M274 402 C274 420 286 430 300 430 C314 430 326 420 326 402"
+  <path d="M276 400 C276 416 286 428 300 428 C314 428 324 416 324 400"
     fill="none" stroke="#CC00CC" stroke-width="4"/>
-  <path d="M255 545 Q300 555 345 545" fill="none" stroke="#CC00CC" stroke-width="3"/>
+  <path d="M244 548 Q300 560 356 548" fill="none" stroke="#CC00CC" stroke-width="3"/>
 
 </svg>

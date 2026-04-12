@@ -1,14 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="190 540 220 140" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="162 540 276 144" fill="none">
 
-  <!-- Long flowing skirt -->
-  <rect x="248" y="546" width="104" height="14" rx="5" fill="#FF00FF" stroke="#CC00CC" stroke-width="5"/>
-  <path d="M250 560 L200 664 Q198 670 204 670 L396 670 Q402 670 400 664 L350 560 Z"
+  <!-- Long skirt -->
+  <rect x="228" y="546" width="144" height="16" rx="6" fill="#FF00FF" stroke="#CC00CC" stroke-width="5"/>
+  <path d="M230 562 L172 668 Q170 674 176 674 L424 674 Q430 674 428 668 L370 562 Z"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
-  <path d="M278 560 L245 668" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
-  <path d="M300 560 L300 668" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
-  <path d="M322 560 L355 668" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
-  <!-- Hem ruffle -->
-  <path d="M204 668 Q240 662 276 668 Q300 674 324 668 Q360 662 396 668"
+  <path d="M272 562 L226 672" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
+  <path d="M300 562 L300 672" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
+  <path d="M328 562 L374 672" stroke="#CC00CC" stroke-width="2.5" opacity="0.3"/>
+  <path d="M176 672 Q240 664 300 672 Q360 664 424 672"
     fill="none" stroke="#CC00CC" stroke-width="3" opacity="0.4"/>
 
 </svg>

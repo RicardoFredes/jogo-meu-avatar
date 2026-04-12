@@ -1,17 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="245 382 110 68" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="242 380 116 74" fill="none">
 
-  <!-- Gold bead necklace - NOT colorizable -->
-  <path d="M254 388 Q266 400 278 408 Q290 414 300 418 Q310 414 322 408 Q334 400 346 388"
-    fill="none" stroke="#B8860B" stroke-width="3"/>
-  <circle cx="258" cy="390" r="6" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
-  <circle cx="270" cy="398" r="6" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
-  <circle cx="282" cy="406" r="6" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
-  <circle cx="300" cy="418" r="8" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
-  <circle cx="318" cy="406" r="6" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
-  <circle cx="330" cy="398" r="6" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
-  <circle cx="342" cy="390" r="6" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
-  <!-- Pendant -->
-  <path d="M294 424 L300 440 L306 424 Z" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
-  <circle cx="300" cy="432" r="4" fill="#E74C3C" stroke="#B8860B" stroke-width="1"/>
+  <!-- Gold necklace -->
+  <path d="M252 386 Q268 400 284 410 Q292 416 300 420 Q308 416 316 410 Q332 400 348 386"
+    fill="none" stroke="#B8860B" stroke-width="3.5"/>
+  <circle cx="256" cy="388" r="7" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="270" cy="398" r="7" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="284" cy="408" r="7" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="300" cy="420" r="9" fill="#FFD700" stroke="#B8860B" stroke-width="2.5"/>
+  <circle cx="316" cy="408" r="7" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="330" cy="398" r="7" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="344" cy="388" r="7" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <path d="M293 426 L300 444 L307 426 Z" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+  <circle cx="300" cy="435" r="5" fill="#E74C3C" stroke="#B8860B" stroke-width="1.5"/>
 
 </svg>
