@@ -12,106 +12,19 @@
       "id": "longo-liso",
       "name": "Longo Liso",
       "asset": "assets/hair/back/longo-liso.svg",
-      "size": {
-        "width": 600,
-        "height": 800
-      },
+      "size": { "width": 600, "height": 800 },
       "offsetByShape": {
-        "child": {
-          "x": 0,
-          "y": 110
-        },
-        "adult": {
-          "x": 0,
-          "y": 220
-        }
+        "child": { "x": 0, "y": 110 },
+        "adult": { "x": 0, "y": 220 }
       },
-      "offset": {
-        "x": 0,
-        "y": 110
-      }
-    },
-    {
-      "id": "longo-ondulado",
-      "name": "Longo Ondulado",
-      "asset": "assets/hair/back/longo-ondulado.svg",
-      "size": {
-        "width": 600,
-        "height": 800
-      },
-      "offsetByShape": {
-        "child": {
-          "x": 0,
-          "y": 110
-        },
-        "adult": {
-          "x": 0,
-          "y": 220
-        }
-      },
-      "offset": {
-        "x": 0,
-        "y": 110
-      }
-    },
-    {
-      "id": "medio",
-      "name": "Medio",
-      "asset": "assets/hair/back/medio.svg",
-      "size": {
-        "width": 600,
-        "height": 800
-      },
-      "offsetByShape": {
-        "child": {
-          "x": 0,
-          "y": 110
-        },
-        "adult": {
-          "x": 0,
-          "y": 220
-        }
-      },
-      "offset": {
-        "x": 0,
-        "y": 110
-      }
-    },
-    {
-      "id": "curto",
-      "name": "Curto",
-      "asset": "assets/hair/back/curto.svg",
-      "size": {
-        "width": 600,
-        "height": 800
-      },
-      "offsetByShape": {
-        "child": {
-          "x": 0,
-          "y": 110
-        },
-        "adult": {
-          "x": 0,
-          "y": 220
-        }
-      },
-      "offset": {
-        "x": 0,
-        "y": 110
-      }
+      "offset": { "x": 0, "y": 110 }
     },
     {
       "id": "careca",
       "name": "Careca",
       "asset": "assets/hair/back/careca.svg",
-      "size": {
-        "width": 10,
-        "height": 10
-      },
-      "offset": {
-        "x": 0,
-        "y": 0
-      }
+      "size": { "width": 10, "height": 10 },
+      "offset": { "x": 0, "y": 0 }
     }
   ]
 }
