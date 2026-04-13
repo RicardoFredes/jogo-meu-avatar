@@ -8,14 +8,30 @@ const Renderer = (() => {
   // overlay (up to ~2.3x). Without this, zooming pixelates the canvas
   // because the SVG → canvas step fixes resolution at draw time.
   // Factor × devicePixelRatio keeps native DPR on top of the headroom.
+  // Hard-cap the product: iOS WebKit crashes the tab when a canvas's
+  // backing store gets too large (DPR=3 × 2.5 = 7.5x blew past the
+  // per-tab memory budget on iPhone and produced the "Um problema
+  // ocorreu repetidamente" dialog). 4x is plenty for the zoom overlay.
   const ZOOM_HEADROOM = 2.5;
+  const MAX_PIXEL_RATIO = 4;
   if (typeof Konva !== 'undefined') {
-    Konva.pixelRatio = (window.devicePixelRatio || 1) * ZOOM_HEADROOM;
+    Konva.pixelRatio = Math.min(
+      (window.devicePixelRatio || 1) * ZOOM_HEADROOM,
+      MAX_PIXEL_RATIO
+    );
   }
 
   // SVG text cache to avoid repeated fetches
   const svgCache = new Map();
   const imageCache = new Map();
+
+  // Track the Konva.Stage currently bound to each container so we can
+  // destroy the old one before building a new one. Without this, stages
+  // pile up in Konva's internal registry (clearing container.innerHTML
+  // only drops the DOM canvas, not the stage object + its Layer +
+  // cached images), which exhausts the per-tab memory budget on iOS and
+  // crashes the web process.
+  const stageByContainer = new WeakMap();
 
   async function fetchSvgText(url) {
     if (svgCache.has(url)) return svgCache.get(url);
@@ -378,6 +394,15 @@ const Renderer = (() => {
     const w = baseW * scale;
     const h = extendedHeight * scale;
 
+    // Destroy any previous Konva stage bound to this container before
+    // wiping the DOM, so the old stage object (and its Layer/Image
+    // children) can be GC'd instead of leaking for the life of the tab.
+    const prevStage = stageByContainer.get(container);
+    if (prevStage) {
+      try { prevStage.destroy(); } catch { /* ignore */ }
+      stageByContainer.delete(container);
+    }
+
     // Now that everything is loaded, create the stage and swap instantly
     container.innerHTML = '';
     container.style.width = w + 'px';
@@ -393,6 +418,7 @@ const Renderer = (() => {
       width: w,
       height: h,
     });
+    stageByContainer.set(container, stage);
 
     const layer = new Konva.Layer();
     stage.add(layer);
