@@ -63,7 +63,7 @@
       <div class="flex items-center gap-2 ml-auto">
         <button id="btn-install" class="hidden bg-accent text-white font-display text-sm px-4 py-2 rounded-xl shadow-md hover:shadow-lg active:scale-95 transition-all">Instalar App</button>
         <button id="btn-debug-clear" class="text-xs text-primary-light/40 hover:text-primary-light/70 transition">Reset</button>
-        <span class="text-xs font-display text-primary-light/50">v0.2.0</span>
+        <span class="text-xs font-display text-primary-light/50">v0.3.0</span>
       </div>
     </header>
     <main class="flex-1 flex flex-col items-center px-4 py-4 sm:py-6 gap-4 sm:gap-6 overflow-y-auto">
@@ -225,7 +225,7 @@
       document.getElementById('btn-install').classList.add('hidden');
       deferredPrompt = null;
     });
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
   </script>
 </body>
 </html>
