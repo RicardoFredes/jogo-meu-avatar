@@ -41,343 +41,699 @@
   <!-- Animate.css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-  <!-- Game-specific CSS (animations, konva, custom) -->
+  <!-- Design tokens + game styles -->
+  <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="font-body bg-gradient-to-br from-lauren-bg via-purple-50 to-lauren-card min-h-screen overflow-hidden select-none">
 
-  <!-- Loading Screen -->
-  <div id="loading-screen" class="screen active fixed inset-0 flex items-center justify-center bg-gradient-to-br from-lauren-bg to-lauren-card z-50">
+  <!-- ============================================ -->
+  <!-- LOADING SCREEN                                -->
+  <!-- ============================================ -->
+  <div x-data x-show="$store.app.screen === 'loading'" x-cloak
+       class="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-lauren-bg to-lauren-card z-50">
     <div class="text-center">
       <h1 class="font-logo text-4xl sm:text-5xl text-primary animate__animated animate__pulse animate__infinite drop-shadow-lg">Lauren Fashion</h1>
-      <p class="text-primary-light mt-2 text-sm">Carregando...</p>
+      <p class="text-primary-light mt-2 text-sm loading-text">Carregando...</p>
       <div class="loading-bar mt-4 mx-auto"><div class="loading-fill"></div></div>
     </div>
   </div>
 
-  <!-- Home Screen -->
-  <div id="home-screen" class="screen fixed inset-0 flex flex-col">
+  <!-- ============================================ -->
+  <!-- HOME SCREEN                                   -->
+  <!-- ============================================ -->
+  <div x-data="homeScreen" x-show="$store.app.screen === 'home'" x-cloak
+       class="fixed inset-0 flex flex-col">
     <header class="flex items-center justify-between px-4 py-3 sm:py-4 bg-white/80 backdrop-blur-sm shadow-sm">
       <h1 class="font-logo text-2xl sm:text-3xl text-primary drop-shadow">Lauren Fashion</h1>
-      <!-- Desktop: inline items -->
       <div class="hidden sm:flex items-center gap-3">
         <p class="font-display text-sm text-secondary">Crie, Vista e Brilhe!</p>
-        <button id="btn-install" class="hidden bg-accent text-white font-display text-sm px-4 py-2 rounded-xl shadow-md active:scale-95 transition-all">Instalar App</button>
+        <button x-show="$store.install.available"
+                @click="$store.install.prompt()"
+                class="bg-accent text-white font-display text-sm px-4 py-2 rounded-xl shadow-md active:scale-95 transition-all">
+          Instalar App
+        </button>
         <span class="text-xs font-display text-primary-light/50">v1.0.0</span>
       </div>
-      <!-- Mobile: hamburger -->
-      <button id="btn-hamburger" class="sm:hidden w-10 h-10 flex items-center justify-center text-primary text-xl rounded-lg active:bg-purple-50 transition">☰</button>
+      <button @click="$store.app.openMenu()"
+              class="sm:hidden w-10 h-10 flex items-center justify-center text-primary text-xl rounded-lg active:bg-purple-50 transition">☰</button>
     </header>
 
     <!-- Mobile menu overlay -->
-    <div id="mobile-menu" class="hidden fixed inset-0 z-[180] flex">
-      <div class="flex-1 bg-black/30" id="mobile-menu-backdrop"></div>
+    <div x-show="$store.app.menuOpen" x-cloak class="fixed inset-0 z-[180] flex">
+      <div class="flex-1 bg-black/30" @click="$store.app.closeMenu()"></div>
       <div class="w-64 bg-white shadow-[-4px_0_20px_rgba(0,0,0,0.15)] flex flex-col animate__animated animate__slideInRight animate__faster">
         <div class="flex items-center justify-between px-4 py-3 border-b border-purple-100">
           <h2 class="font-logo text-xl text-primary">Lauren Fashion</h2>
-          <button id="btn-close-menu" class="w-8 h-8 rounded-full text-primary-light flex items-center justify-center">✕</button>
+          <button @click="$store.app.closeMenu()"
+                  class="w-8 h-8 rounded-full text-primary-light flex items-center justify-center">✕</button>
         </div>
         <div class="flex-1 flex flex-col gap-2 p-4">
           <p class="font-display text-sm text-secondary mb-2">Crie, Vista e Brilhe! ✨</p>
-          <button id="btn-install-menu" class="hidden bg-accent hover:bg-amber-500 text-white font-display text-base py-3 px-4 rounded-xl shadow active:scale-95 transition-all w-full">
+          <button x-show="$store.install.available"
+                  @click="$store.install.prompt(); $store.app.closeMenu()"
+                  class="bg-accent hover:bg-amber-500 text-white font-display text-base py-3 px-4 rounded-xl shadow active:scale-95 transition-all w-full">
             📲 Instalar App
           </button>
-          <button id="btn-debug-clear" class="text-left text-sm text-primary-light/60 hover:text-primary-light py-2 px-1 transition">
+          <button @click="resetData()"
+                  class="text-left text-sm text-primary-light/60 hover:text-primary-light py-2 px-1 transition">
             🔄 Resetar dados
           </button>
         </div>
         <div class="px-4 py-3 border-t border-purple-100">
-          <span class="font-display text-xs text-primary-light/40">Versao v1.0.0</span>
+          <span class="font-display text-xs text-primary-light/40">Versão v1.0.0</span>
         </div>
       </div>
     </div>
+
     <main class="flex-1 flex flex-col items-center px-4 py-4 sm:py-6 gap-4 sm:gap-6 overflow-y-auto">
-      <button id="btn-new-character" class="bg-primary hover:bg-primary-dark text-white font-display text-lg sm:text-xl px-8 py-4 rounded-xl3 shadow-lg hover:shadow-xl active:scale-95 transition-all flex items-center gap-2">
+      <button @click="startNewCharacter()"
+              class="bg-primary hover:bg-primary-dark text-white font-display text-lg sm:text-xl px-8 py-4 rounded-xl3 shadow-lg hover:shadow-xl active:scale-95 transition-all flex items-center gap-2">
         <span class="text-2xl">+</span>
         Nova Personagem
       </button>
       <section class="w-full max-w-2xl">
-        <h2 class="font-display text-lg text-primary-dark mb-3 flex items-center gap-2">Minhas Criacoes <span>⭐</span></h2>
-        <div id="characters-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4"></div>
-        <p id="empty-state" class="hidden text-center text-primary-light/60 font-display text-lg py-10">Crie sua primeira personagem!</p>
+        <h2 class="font-display text-lg text-primary-dark mb-3 flex items-center gap-2">
+          Minhas Criações <span>⭐</span>
+        </h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+          <template x-for="char in characters" :key="char.id">
+            <div @click="openCharacter(char.id)"
+                 class="character-card animate__animated animate__fadeIn">
+              <div class="card-preview">
+                <template x-if="thumbnails[char.id]">
+                  <img :src="thumbnails[char.id]" style="max-height:130px">
+                </template>
+              </div>
+              <div class="card-name" x-text="char.name || 'Sem nome'"></div>
+            </div>
+          </template>
+        </div>
+        <p x-show="isEmpty"
+           class="text-center text-primary-light/60 font-display text-lg py-10">
+          Crie sua primeira personagem!
+        </p>
       </section>
     </main>
   </div>
 
-  <!-- Creator Screen -->
-  <div id="creator-screen" class="screen fixed inset-0 flex flex-col">
-    <!-- Header (desktop only) -->
+  <!-- ============================================ -->
+  <!-- CREATOR SCREEN                                -->
+  <!-- ============================================ -->
+  <div x-data="creatorScreen" x-show="$store.app.screen === 'creator'" x-cloak
+       class="fixed inset-0 flex flex-col">
+    <!-- Desktop header -->
     <header class="creator-header hidden sm:flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm shadow-sm shrink-0 z-10">
-      <button class="text-primary-light text-sm shrink-0 px-1" id="btn-creator-back">← Sair</button>
+      <button @click="exit()" class="text-primary-light text-sm shrink-0 px-1">← Sair</button>
       <div class="flex-1 text-center min-w-0">
-        <h2 class="font-display text-base text-primary-dark truncate" id="step-title">Quem Voce Vai Criar?</h2>
+        <h2 class="font-display text-base text-primary-dark truncate" x-text="step?.label"></h2>
       </div>
-      <span class="font-display text-xs text-primary-light bg-lauren-bg px-2 py-0.5 rounded-full shrink-0" id="step-indicator">1/8</span>
+      <span class="font-display text-xs text-primary-light bg-lauren-bg px-2 py-0.5 rounded-full shrink-0"
+            x-text="(store.currentStep + 1) + '/' + store.steps.length"></span>
     </header>
 
-    <!-- Mobile: floating close button + step indicator -->
-    <button class="mobile-close-btn sm:hidden" id="btn-creator-back-mobile">✕</button>
-    <div class="mobile-step-dots sm:hidden" id="mobile-step-dots"></div>
+    <!-- Mobile floating close + step dots -->
+    <button @click="exit()" class="mobile-close-btn sm:hidden">✕</button>
+    <div class="mobile-step-dots sm:hidden" x-data="stepDots">
+      <template x-for="(_, i) in steps" :key="i">
+        <div class="step-dot" :class="stateFor(i)"></div>
+      </template>
+    </div>
 
-    <!-- Main area -->
+    <!-- Main creator body -->
     <div class="creator-body flex-1 overflow-hidden relative">
-      <!-- Sidebar (visible on desktop/landscape, hidden on portrait mobile) -->
+
+      <!-- Desktop sidebar -->
       <div class="creator-desktop-sidebar flex-col overflow-hidden">
-        <div class="flex-1 overflow-y-auto p-3 pb-16" id="options-panel"></div>
-      </div>
+        <div class="flex-1 overflow-y-auto p-3 pb-16">
+          <template x-if="data">
+            <div x-data>
+              <!-- Reuse the same step-content template via a plain x-if cascade -->
+              <div x-html="''"></div>
+              <!-- BASICS -->
+              <div x-show="isBasics">
+                <div class="option-group">
+                  <div class="option-group-title">Nome</div>
+                  <div class="name-input-group">
+                    <input type="text" :value="data.name" @input="onNameInput($event)"
+                           placeholder="Ex: Luna" maxlength="20">
+                  </div>
+                </div>
+                <div class="option-group">
+                  <div class="option-group-title">Tamanho</div>
+                  <div class="choice-buttons">
+                    <template x-for="opt in bodyChoices" :key="opt.id">
+                      <button class="choice-btn"
+                              :class="{ 'selected': isShapeSelected(opt.id) }"
+                              @click="pickBodyShape(opt.id)">
+                        <span class="choice-icon" x-text="opt.icon"></span>
+                        <span x-text="opt.label"></span>
+                      </button>
+                    </template>
+                  </div>
+                </div>
+              </div>
+              <!-- SKIN -->
+              <div x-show="isSkin">
+                <div class="option-group">
+                  <div class="option-group-title">Escolha a cor da pele</div>
+                  <div class="option-items">
+                    <template x-for="c in skinColors" :key="c.id">
+                      <div class="option-item color-swatch"
+                           :class="{ selected: isSkinSelected(c.id) }"
+                           :style="`background-color:${c.hex}`"
+                           :title="c.name"
+                           @click="pickSkin(c.id)"></div>
+                    </template>
+                  </div>
+                </div>
+              </div>
+              <!-- CATEGORY STEP -->
+              <div x-show="isCategoryStep" :key="step?.id || ''">
+                <div x-data="itemGrid({ getCategoryIds: () => categoryIdsForStep, getOptional: () => !!step?.optional, variant: 'option', showSectionLabels: false })">
+                  <template x-for="(cat, ci) in categories" :key="cat.category">
+                    <div class="creator-cat-group"
+                         :class="{ 'group-start': isColorBarVisible(cat, categories.slice(0, ci)) }">
+                      <template x-if="isColorBarVisible(cat, categories.slice(0, ci))">
+                        <color-bar></color-bar>
+                      </template>
 
-      <!-- Preview takes full space on mobile -->
-      <div class="creator-preview-area">
-        <div id="creator-preview" class="character-preview"></div>
-      </div>
-
-      <!-- Mobile: options overlay (always visible, slides up) -->
-      <div id="creator-mobile-panel" class="creator-mobile-panel">
-        <!-- Panel header with nav buttons -->
-        <div class="flex items-center justify-between px-3 py-2 border-b border-purple-100 shrink-0">
-          <button class="creator-panel-nav-btn disabled:opacity-30" id="btn-prev-step" disabled>←</button>
-          <h3 id="creator-panel-title" class="font-display text-sm text-primary-dark flex-1 text-center">Opcoes</h3>
-          <button class="creator-panel-nav-btn creator-panel-nav-next" id="btn-next-step">→</button>
+                      <!-- Items group -->
+                      <div class="option-group">
+                        <div class="option-group-title" x-text="cat.label"></div>
+                        <div class="option-items">
+                          <template x-if="optional">
+                            <div class="option-item option-none"
+                                 :class="{ selected: isNoneSelected(cat) }"
+                                 :title="'Sem ' + cat.label.toLowerCase()"
+                                 @click="clearPart(cat)">Nenhum</div>
+                          </template>
+                          <template x-for="item in itemsOf(cat)" :key="item.id">
+                            <div class="option-item"
+                                 :class="{ selected: isEquipped(cat, item.id) }"
+                                 :title="item.name"
+                                 @click="selectItem(cat, item.id)">
+                              <img :src="thumbUrl(item)" :alt="item.name">
+                            </div>
+                          </template>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+              <!-- REVIEW -->
+              <div x-show="isReview">
+                <div class="option-group" style="text-align:center">
+                  <div class="option-group-title" style="font-size:1.3rem"
+                       x-text="(data.name || 'Sem nome') + ' está ficando incrível!'"></div>
+                  <p style="color:var(--c-ink-soft); margin-top:8px">
+                    Revise sua personagem e clique em Salvar!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </template>
         </div>
-        <div class="flex-1 overflow-y-auto mobile-panel-content" id="mobile-options-panel"></div>
       </div>
 
-      <!-- Desktop only: floating nav (hidden on mobile since buttons are in panel) -->
+      <!-- Preview -->
+      <div class="creator-preview-area">
+        <div class="character-preview" x-data="characterPreview()" x-effect="render()"></div>
+      </div>
+
+      <!-- Mobile slide-up panel (mirrors the desktop sidebar content) -->
+      <div class="creator-mobile-panel" x-show="true">
+        <div class="flex items-center justify-between px-3 py-2 border-b border-purple-100 shrink-0">
+          <button class="creator-panel-nav-btn" :disabled="isFirst" @click="prev()">←</button>
+          <h3 class="font-display text-sm text-primary-dark flex-1 text-center" x-text="step?.label"></h3>
+          <button class="creator-panel-nav-btn"
+                  :class="{ 'creator-panel-nav-next': !isLast, 'creator-panel-nav-save': isLast }"
+                  @click="next()"
+                  x-text="isLast ? '✓' : '→'"></button>
+        </div>
+        <div class="flex-1 overflow-y-auto mobile-panel-content">
+          <template x-if="data">
+            <div>
+              <!-- BASICS -->
+              <div x-show="isBasics">
+                <div class="option-group">
+                  <div class="option-group-title">Nome</div>
+                  <div class="name-input-group">
+                    <input type="text" :value="data.name" @input="onNameInput($event)"
+                           placeholder="Ex: Luna" maxlength="20">
+                  </div>
+                </div>
+                <div class="option-group">
+                  <div class="option-group-title">Tamanho</div>
+                  <div class="choice-buttons">
+                    <template x-for="opt in bodyChoices" :key="opt.id">
+                      <button class="choice-btn"
+                              :class="{ 'selected': isShapeSelected(opt.id) }"
+                              @click="pickBodyShape(opt.id)">
+                        <span class="choice-icon" x-text="opt.icon"></span>
+                        <span x-text="opt.label"></span>
+                      </button>
+                    </template>
+                  </div>
+                </div>
+              </div>
+              <!-- SKIN -->
+              <div x-show="isSkin">
+                <div class="option-group">
+                  <div class="option-group-title">Escolha a cor da pele</div>
+                  <div class="option-items">
+                    <template x-for="c in skinColors" :key="c.id">
+                      <div class="option-item color-swatch"
+                           :class="{ selected: isSkinSelected(c.id) }"
+                           :style="`background-color:${c.hex}`"
+                           :title="c.name"
+                           @click="pickSkin(c.id)"></div>
+                    </template>
+                  </div>
+                </div>
+              </div>
+              <!-- CATEGORY STEP -->
+              <div x-show="isCategoryStep" :key="step?.id || ''">
+                <div x-data="itemGrid({ getCategoryIds: () => categoryIdsForStep, getOptional: () => !!step?.optional, variant: 'option', showSectionLabels: false })">
+                  <template x-for="(cat, ci) in categories" :key="cat.category">
+                    <div class="creator-cat-group"
+                         :class="{ 'group-start': isColorBarVisible(cat, categories.slice(0, ci)) }">
+                      <template x-if="isColorBarVisible(cat, categories.slice(0, ci))">
+                        <color-bar></color-bar>
+                      </template>
+                      <div class="option-group">
+                        <div class="option-group-title" x-text="cat.label"></div>
+                        <scroll-row>
+                          <template x-if="optional">
+                            <div class="option-item option-none"
+                                 :class="{ selected: isNoneSelected(cat) }"
+                                 :title="'Sem ' + cat.label.toLowerCase()"
+                                 @click="clearPart(cat)">Nenhum</div>
+                          </template>
+                          <template x-for="item in itemsOf(cat)" :key="item.id">
+                            <div class="option-item"
+                                 :class="{ selected: isEquipped(cat, item.id) }"
+                                 :title="item.name"
+                                 @click="selectItem(cat, item.id)">
+                              <img :src="thumbUrl(item)" :alt="item.name">
+                            </div>
+                          </template>
+                        </scroll-row>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+              <!-- REVIEW -->
+              <div x-show="isReview">
+                <div class="option-group" style="text-align:center">
+                  <div class="option-group-title" style="font-size:1.3rem"
+                       x-text="(data.name || 'Sem nome') + ' está ficando incrível!'"></div>
+                  <p style="color:var(--c-ink-soft); margin-top:8px">
+                    Revise sua personagem e clique em Salvar!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Desktop floating nav -->
       <div class="creator-floating-nav hidden sm:flex">
-        <button class="creator-float-btn creator-float-prev disabled:opacity-30" id="btn-prev-step-desktop" disabled>←</button>
-        <button class="creator-float-btn creator-float-next" id="btn-next-step-desktop">→</button>
+        <button class="creator-float-btn creator-float-prev"
+                :disabled="isFirst" @click="prev()">←</button>
+        <button class="creator-float-btn"
+                :class="{ 'creator-float-next': !isLast, 'creator-float-save': isLast }"
+                @click="next()" x-text="isLast ? '✓' : '→'"></button>
       </div>
     </div>
   </div>
 
-  <!-- Done Screen -->
-  <div id="done-screen" class="screen fixed inset-0 flex items-center justify-center bg-gradient-to-br from-lauren-bg to-lauren-card">
+  <!-- ============================================ -->
+  <!-- DONE SCREEN                                   -->
+  <!-- ============================================ -->
+  <div x-data="doneScreen" x-show="$store.app.screen === 'done'" x-cloak
+       class="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-lauren-bg to-lauren-card">
     <div class="text-center flex flex-col items-center gap-4 sm:gap-5 px-6">
-      <h2 class="font-display text-2xl sm:text-3xl text-primary animate__animated animate__tada">Personagem Pronto!</h2>
-      <div id="done-preview" class="character-preview"></div>
-      <p class="text-primary-light text-sm sm:text-base max-w-xs" id="done-message">Sua personagem esta pronta para novas aventuras!</p>
+      <h2 class="font-display text-2xl sm:text-3xl text-primary animate__animated animate__tada">
+        Personagem Pronto!
+      </h2>
+      <div class="character-preview" x-data="characterPreview({ scale: 0.8 })" x-effect="render()"></div>
+      <p class="text-primary-light text-sm sm:text-base max-w-xs" x-text="message"></p>
       <div class="flex gap-3">
-        <button class="bg-white border-2 border-primary-light text-primary-dark font-display text-sm px-5 py-2.5 rounded-xl2 active:scale-95 transition-all" id="btn-go-home">Voltar p/ Galeria</button>
-        <button class="bg-primary hover:bg-primary-dark text-white font-display text-sm px-5 py-2.5 rounded-xl2 shadow-md active:scale-95 transition-all" id="btn-go-wardrobe">Vestir!</button>
+        <button @click="goHome()"
+                class="bg-white border-2 border-primary-light text-primary-dark font-display text-sm px-5 py-2.5 rounded-xl2 active:scale-95 transition-all">
+          Voltar p/ Galeria
+        </button>
+        <button @click="goWardrobe()"
+                class="bg-primary hover:bg-primary-dark text-white font-display text-sm px-5 py-2.5 rounded-xl2 shadow-md active:scale-95 transition-all">
+          Vestir!
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Wardrobe Screen -->
-  <div id="wardrobe-screen" class="screen fixed inset-0 flex flex-col">
-    <!-- Header (desktop only) -->
+  <!-- ============================================ -->
+  <!-- WARDROBE SCREEN                               -->
+  <!-- ============================================ -->
+  <div x-data="wardrobeScreen" x-show="$store.app.screen === 'wardrobe'" x-cloak
+       class="fixed inset-0 flex flex-col">
+    <!-- Desktop header -->
     <header class="hidden sm:flex items-center justify-between px-4 py-2 bg-white/90 backdrop-blur-sm shadow-sm shrink-0 z-10">
-      <button class="text-primary-light text-sm px-1" id="btn-wardrobe-back">← Sair</button>
+      <button @click="exit()" class="text-primary-light text-sm px-1">← Sair</button>
       <h2 class="font-display text-lg text-primary-dark">Guarda-Roupa</h2>
       <div class="flex gap-1.5">
-        <button class="bg-red-100 text-red-500 font-display text-xs px-3 py-1.5 rounded-lg active:scale-95 transition-all" id="btn-clear-outfit">Tirar Tudo</button>
-        <button class="bg-accent text-white font-display text-xs px-3 py-1.5 rounded-lg shadow active:scale-95 transition-all" id="btn-save-look">Salvar Look</button>
-        <button class="bg-purple-100 text-primary font-display text-xs px-3 py-1.5 rounded-lg active:scale-95 transition-all" id="btn-my-looks">Meus Looks</button>
+        <button @click="clearOutfit()"
+                class="bg-red-100 text-red-500 font-display text-xs px-3 py-1.5 rounded-lg active:scale-95 transition-all">Tirar Tudo</button>
+        <button @click="promptSaveLook()"
+                class="bg-accent text-white font-display text-xs px-3 py-1.5 rounded-lg shadow active:scale-95 transition-all">Salvar Look</button>
+        <button @click="openLooks()"
+                class="bg-purple-100 text-primary font-display text-xs px-3 py-1.5 rounded-lg active:scale-95 transition-all">Meus Looks</button>
       </div>
     </header>
 
-    <!-- Mobile: floating close button -->
-    <button class="mobile-close-btn sm:hidden" id="btn-wardrobe-back-mobile">✕</button>
-
-    <!-- Mobile floating action buttons (kid-friendly, big with emojis) -->
+    <!-- Mobile floating close + actions -->
+    <button @click="exit()" class="mobile-close-btn sm:hidden">✕</button>
     <div class="wardrobe-mobile-actions sm:hidden">
-      <button class="wma-btn wma-clear" id="btn-clear-outfit-mobile">
-        <span class="wma-icon">🧹</span>
-        <span class="wma-label">Limpar</span>
+      <button class="wma-btn wma-clear" @click="clearOutfit()">
+        <span class="wma-icon">🧹</span><span class="wma-label">Limpar</span>
       </button>
-      <button class="wma-btn wma-save" id="btn-save-look-mobile">
-        <span class="wma-icon">💾</span>
-        <span class="wma-label">Salvar</span>
+      <button class="wma-btn wma-save" @click="promptSaveLook()">
+        <span class="wma-icon">💾</span><span class="wma-label">Salvar</span>
       </button>
-      <button class="wma-btn wma-looks" id="btn-my-looks-mobile">
-        <span class="wma-icon">👗</span>
-        <span class="wma-label">Looks</span>
+      <button class="wma-btn wma-looks" @click="openLooks()">
+        <span class="wma-icon">👗</span><span class="wma-label">Looks</span>
       </button>
     </div>
 
-    <!-- Main area: canvas takes full space -->
+    <!-- Main area -->
     <div class="wardrobe-main flex-1 relative overflow-hidden">
-      <!-- Desktop sidebar (hidden on mobile) -->
+
+      <!-- Desktop sidebar -->
       <div class="wardrobe-desktop-sidebar">
-        <nav class="category-tabs flex flex-col gap-1 px-1 py-2 bg-purple-50/50 overflow-y-auto w-20 shrink-0" id="category-tabs"></nav>
-        <div class="wardrobe-items-sidebar flex-1 flex flex-col p-2 overflow-hidden">
-          <div class="color-bar hidden shrink-0" id="color-bar"></div>
-          <div class="items-grid flex-1 grid grid-cols-4 md:grid-cols-5 gap-2 overflow-y-auto p-1 content-start" id="items-grid"></div>
-          <!-- Free position controls -->
-          <div id="free-pos-panel" class="hidden bg-white/80 backdrop-blur rounded-xl p-2 mt-1 shadow-sm">
+        <!-- Tabs (sidebar layout) -->
+        <nav class="flex flex-col gap-1 px-1 py-2 bg-purple-50/50 overflow-y-auto w-20 shrink-0"
+             x-data="categoryTabs({
+               getActiveKey: () => activeKey,
+               onSelect: (ids, label) => selectTab(ids, label)
+             })">
+          <template x-for="tab in tabs" :key="tab.key">
+            <button class="category-tab"
+                    :class="{ active: isActive(tab) }"
+                    @click="select(tab)">
+              <span class="tab-icon" x-text="tab.icon"></span>
+              <span x-text="tab.label"></span>
+            </button>
+          </template>
+        </nav>
+
+        <!-- Items + color bars + free position -->
+        <div class="flex-1 flex flex-col p-2 overflow-hidden">
+          <template x-if="activeTabIds.length > 0">
+            <div class="flex-1 flex flex-col overflow-hidden"
+                 x-data="itemGrid({ getCategoryIds: () => activeTabIds, getOptional: () => true, variant: 'thumbnail', showSectionLabels: true })">
+              <div class="grid grid-cols-4 md:grid-cols-5 gap-2 overflow-y-auto p-1 content-start flex-1">
+                <template x-for="(cat, ci) in categories" :key="cat.category">
+                  <div style="display:contents">
+                    <!-- Section label (multi-cat) -->
+                    <template x-if="categories.length > 1">
+                      <div class="grid-section-label"
+                           :class="{ disabled: isDisabled(cat), 'group-start': isColorBarVisible(cat, categories.slice(0, ci)) }"
+                           x-text="cat.label"></div>
+                    </template>
+                    <template x-if="isColorBarVisible(cat, categories.slice(0, ci))">
+                      <color-bar></color-bar>
+                    </template>
+                    <!-- None tile -->
+                    <template x-if="optional">
+                      <div class="item-thumbnail item-none"
+                           :class="{ selected: isNoneSelected(cat), disabled: isDisabled(cat) }"
+                           :title="'Sem ' + cat.label.toLowerCase()"
+                           @click="clearPart(cat)">Nenhum</div>
+                    </template>
+                    <!-- Items -->
+                    <template x-for="item in itemsOf(cat)" :key="item.id">
+                      <div class="item-thumbnail"
+                           :class="{ equipped: isEquipped(cat, item.id), disabled: isDisabled(cat) }"
+                           :data-item-id="item.id"
+                           :data-category-id="cat.category"
+                           :data-slot-id="cat.slotId"
+                           :title="item.name"
+                           @click="selectItem(cat, item.id)">
+                        <img :src="thumbUrl(item)" :alt="item.name" draggable="false">
+                      </div>
+                    </template>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </template>
+
+          <!-- Free position -->
+          <div x-data="freePosition({ getCategoryIds: () => activeTabIds })" x-show="visible"
+               class="bg-white/80 backdrop-blur rounded-xl p-2 mt-1 shadow-sm">
             <div class="flex items-center gap-3 flex-wrap">
               <span class="font-display text-xs text-primary-dark">Ajustar:</span>
               <div class="flex items-center gap-1">
-                <button class="free-pos-btn" data-action="left">←</button>
-                <button class="free-pos-btn" data-action="right">→</button>
-                <button class="free-pos-btn" data-action="up">↑</button>
-                <button class="free-pos-btn" data-action="down">↓</button>
+                <button class="free-pos-btn" @click="apply('left')">←</button>
+                <button class="free-pos-btn" @click="apply('right')">→</button>
+                <button class="free-pos-btn" @click="apply('up')">↑</button>
+                <button class="free-pos-btn" @click="apply('down')">↓</button>
               </div>
               <div class="h-4 w-px bg-purple-200"></div>
               <div class="flex items-center gap-1">
-                <button class="free-pos-btn" data-action="smaller">−</button>
-                <span id="free-pos-scale" class="font-mono text-xs text-primary-dark min-w-[32px] text-center">100%</span>
-                <button class="free-pos-btn" data-action="bigger">+</button>
+                <button class="free-pos-btn" @click="apply('smaller')">−</button>
+                <span class="font-mono text-xs text-primary-dark min-w-[32px] text-center"
+                      x-text="scalePercent"></span>
+                <button class="free-pos-btn" @click="apply('bigger')">+</button>
               </div>
-              <button class="free-pos-btn text-red-400" data-action="reset">↺</button>
+              <button class="free-pos-btn text-red-400" @click="apply('reset')">↺</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Character preview (full area on mobile, right side on desktop) -->
+      <!-- Character preview (drop zone) -->
       <div class="wardrobe-preview-area">
-        <div id="wardrobe-character" class="character-preview drop-zone"></div>
+        <div class="character-preview drop-zone" x-data="characterPreview()" x-effect="render()"></div>
       </div>
 
-      <!-- Mobile: items overlay panel (slides up from bottom) -->
-      <div id="mobile-items-panel" class="wardrobe-mobile-panel hidden">
+      <!-- Mobile slide-up items panel -->
+      <div class="wardrobe-mobile-panel" x-show="mobilePanelOpen" x-cloak>
         <div class="flex items-center justify-between px-3 py-2 border-b border-purple-100">
-          <h3 id="mobile-panel-title" class="font-display text-sm text-primary-dark">Categoria</h3>
-          <button id="btn-close-mobile-panel" class="w-8 h-8 rounded-full bg-purple-50 text-primary text-sm flex items-center justify-center active:scale-90 transition">✕</button>
+          <h3 class="font-display text-sm text-primary-dark" x-text="activeTabLabel"></h3>
+          <button @click="closeMobilePanel()"
+                  class="w-8 h-8 rounded-full bg-purple-50 text-primary text-sm flex items-center justify-center active:scale-90 transition">✕</button>
         </div>
         <div class="flex-1 overflow-y-auto mobile-panel-content">
-          <div id="mobile-color-bar" class="hidden mb-2"></div>
-          <div id="mobile-items-grid" class="grid grid-cols-4 gap-2 content-start"></div>
-          <!-- Free position (mobile) -->
-          <div id="mobile-free-pos-panel" class="hidden bg-white/80 backdrop-blur rounded-xl p-2 mt-2 shadow-sm">
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="font-display text-xs text-primary-dark">Ajustar:</span>
-              <button class="free-pos-btn" data-action="left">←</button>
-              <button class="free-pos-btn" data-action="right">→</button>
-              <button class="free-pos-btn" data-action="up">↑</button>
-              <button class="free-pos-btn" data-action="down">↓</button>
-              <button class="free-pos-btn" data-action="smaller">−</button>
-              <span id="mobile-free-pos-scale" class="font-mono text-xs min-w-[32px] text-center">100%</span>
-              <button class="free-pos-btn" data-action="bigger">+</button>
-              <button class="free-pos-btn text-red-400" data-action="reset">↺</button>
+          <template x-if="activeTabIds.length > 0">
+            <div class="flex flex-col gap-3"
+                 x-data="itemGrid({ getCategoryIds: () => activeTabIds, getOptional: () => true, variant: 'thumbnail', showSectionLabels: true })">
+              <template x-for="(cat, ci) in categories" :key="cat.category">
+                <div class="flex flex-col gap-2">
+                  <template x-if="categories.length > 1">
+                    <div class="grid-section-label mobile"
+                         :class="{ disabled: isDisabled(cat) }"
+                         x-text="cat.label"></div>
+                  </template>
+                  <template x-if="isColorBarVisible(cat, categories.slice(0, ci))">
+                    <color-bar></color-bar>
+                  </template>
+                  <!-- Items (single horizontal scroll row per category) -->
+                  <scroll-row>
+                    <template x-if="optional">
+                      <div class="item-thumbnail item-none"
+                           :class="{ selected: isNoneSelected(cat), disabled: isDisabled(cat) }"
+                           :title="'Sem ' + cat.label.toLowerCase()"
+                           @click="clearPart(cat)">Nenhum</div>
+                    </template>
+                    <template x-for="item in itemsOf(cat)" :key="item.id">
+                      <div class="item-thumbnail"
+                           :class="{ equipped: isEquipped(cat, item.id), disabled: isDisabled(cat) }"
+                           :data-item-id="item.id"
+                           :data-category-id="cat.category"
+                           :data-slot-id="cat.slotId"
+                           @click="selectItem(cat, item.id)">
+                        <img :src="thumbUrl(item)" :alt="item.name" draggable="false">
+                      </div>
+                    </template>
+                  </scroll-row>
+                </div>
+              </template>
+
+              <!-- Free position (mobile) -->
+              <div x-data="freePosition({ getCategoryIds: () => activeTabIds })" x-show="visible"
+                   class="bg-white/80 backdrop-blur rounded-xl p-2 mt-2 shadow-sm">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-display text-xs text-primary-dark">Ajustar:</span>
+                  <button class="free-pos-btn" @click="apply('left')">←</button>
+                  <button class="free-pos-btn" @click="apply('right')">→</button>
+                  <button class="free-pos-btn" @click="apply('up')">↑</button>
+                  <button class="free-pos-btn" @click="apply('down')">↓</button>
+                  <button class="free-pos-btn" @click="apply('smaller')">−</button>
+                  <span class="font-mono text-xs min-w-[32px] text-center" x-text="scalePercent"></span>
+                  <button class="free-pos-btn" @click="apply('bigger')">+</button>
+                  <button class="free-pos-btn text-red-400" @click="apply('reset')">↺</button>
+                </div>
+              </div>
             </div>
-          </div>
+          </template>
         </div>
       </div>
     </div>
 
-    <!-- Mobile: category buttons at bottom -->
-    <nav id="mobile-category-bar" class="sm:hidden flex gap-1 py-1.5 bg-white/90 backdrop-blur-sm shadow-[0_-2px_8px_rgba(0,0,0,0.06)] overflow-x-auto shrink-0 mobile-scroll-bleed">
-      <!-- Filled dynamically -->
-    </nav>
+    <!-- Mobile category bar -->
+    <scroll-row class="sm:hidden cat-bar bg-white/90 backdrop-blur-sm shadow-[0_-2px_8px_rgba(0,0,0,0.06)] shrink-0 px-1">
+      <div x-data="categoryTabs({
+             getActiveKey: () => activeKey,
+             getIsActive: (tab) => tab.key === activeKey && mobilePanelOpen,
+             onSelect: (ids, label) => selectTabMobile(ids, label)
+           })"
+           style="display:contents">
+        <template x-for="tab in tabs" :key="tab.key">
+          <button class="category-tab"
+                  :class="{ active: isActive(tab) }"
+                  @click="select(tab)">
+            <span class="tab-icon" x-text="tab.icon"></span>
+            <span x-text="tab.label"></span>
+          </button>
+        </template>
+      </div>
+    </scroll-row>
 
-    <!-- Looks Sidebar -->
-    <div class="looks-sidebar hidden fixed right-0 top-0 bottom-0 w-64 sm:w-72 bg-white/95 backdrop-blur-sm shadow-[-4px_0_20px_rgba(0,0,0,0.1)] z-50 flex flex-col" id="looks-sidebar">
+    <!-- Looks sidebar -->
+    <div x-show="looksOpen" x-cloak
+         class="fixed right-0 top-0 bottom-0 w-64 sm:w-72 bg-white/95 backdrop-blur-sm shadow-[-4px_0_20px_rgba(0,0,0,0.1)] z-50 flex flex-col">
       <div class="flex items-center justify-between px-4 py-3 border-b border-purple-100">
         <h3 class="font-display text-primary-dark">Meus Looks</h3>
-        <button class="w-8 h-8 rounded-full text-primary-light hover:bg-purple-50 flex items-center justify-center transition" id="btn-close-looks">✕</button>
+        <button @click="closeLooks()"
+                class="w-8 h-8 rounded-full text-primary-light hover:bg-purple-50 flex items-center justify-center transition">✕</button>
       </div>
-      <div class="looks-grid flex-1 grid grid-cols-2 gap-2 p-3 overflow-y-auto content-start" id="looks-grid"></div>
+      <div class="flex-1 grid grid-cols-2 gap-2 p-3 overflow-y-auto content-start">
+        <template x-if="savedOutfits.length === 0">
+          <p class="col-span-2 text-center text-primary-light text-sm py-5">Nenhum look salvo ainda</p>
+        </template>
+        <template x-for="look in savedOutfits" :key="look.id">
+          <div class="look-card" @click="loadLook(look.id)">
+            <div class="look-preview">
+              <template x-if="lookThumbnails[look.id]">
+                <img :src="lookThumbnails[look.id]" style="max-height:65px">
+              </template>
+              <template x-if="!lookThumbnails[look.id]">
+                <span x-init="thumbForLook(look.id)"></span>
+              </template>
+            </div>
+            <div class="look-name" x-text="look.name || 'Sem nome'"></div>
+            <button class="look-delete" @click.stop="deleteLook(look.id)">X</button>
+          </div>
+        </template>
+      </div>
     </div>
   </div>
 
-  <!-- Character Fullscreen View -->
-  <div id="char-fullscreen" class="hidden fixed inset-0 z-[150] bg-gradient-to-b from-lauren-bg to-lauren-card flex flex-col">
-    <!-- Close -->
-    <button id="btn-fs-close" class="absolute top-3 left-3 z-10 w-11 h-11 rounded-full bg-white/80 backdrop-blur shadow text-primary-dark text-xl flex items-center justify-center active:scale-90 transition">✕</button>
-    <!-- Name -->
+  <!-- ============================================ -->
+  <!-- FULLSCREEN VIEW (overlay)                     -->
+  <!-- ============================================ -->
+  <div x-data="fullscreenView" x-show="open" x-cloak
+       class="fixed inset-0 z-[150] bg-gradient-to-b from-lauren-bg to-lauren-card flex flex-col">
+    <button @click="close()"
+            class="absolute top-3 left-3 z-10 w-11 h-11 rounded-full bg-white/80 backdrop-blur shadow text-primary-dark text-xl flex items-center justify-center active:scale-90 transition">✕</button>
     <div class="text-center pt-4 pb-1">
-      <h2 id="fs-name" class="font-display text-xl sm:text-2xl text-primary-dark">Luna</h2>
+      <h2 class="font-display text-xl sm:text-2xl text-primary-dark" x-text="name"></h2>
     </div>
-    <!-- Big preview -->
     <div class="flex-1 flex items-center justify-center p-4 overflow-hidden">
-      <div id="fs-preview" class="character-preview"></div>
+      <template x-if="char">
+        <div class="character-preview"
+             x-data="characterPreview({ getOverrideData: () => previewData() })" x-effect="render()"></div>
+      </template>
     </div>
-    <!-- Big action buttons -->
     <div class="flex flex-col gap-3 px-6 pb-6 sm:flex-row sm:justify-center sm:gap-4 sm:pb-8">
-      <button id="btn-fs-dress" class="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white font-display text-lg py-4 px-8 rounded-2xl shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2">
+      <button @click="dress()"
+              class="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white font-display text-lg py-4 px-8 rounded-2xl shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2">
         👗 Vestir
       </button>
-      <button id="btn-fs-edit" class="w-full sm:w-auto bg-white border-2 border-primary-light text-primary-dark font-display text-lg py-4 px-8 rounded-2xl shadow active:scale-95 transition-all flex items-center justify-center gap-2">
+      <button @click="edit()"
+              class="w-full sm:w-auto bg-white border-2 border-primary-light text-primary-dark font-display text-lg py-4 px-8 rounded-2xl shadow active:scale-95 transition-all flex items-center justify-center gap-2">
         ✏️ Editar
       </button>
-      <button id="btn-fs-delete" class="w-full sm:w-auto bg-red-50 border-2 border-red-200 text-red-500 font-display text-base py-3 px-6 rounded-2xl active:scale-95 transition-all flex items-center justify-center gap-2">
+      <button @click="del()"
+              class="w-full sm:w-auto bg-red-50 border-2 border-red-200 text-red-500 font-display text-base py-3 px-6 rounded-2xl active:scale-95 transition-all flex items-center justify-center gap-2">
         🗑️ Apagar
       </button>
     </div>
   </div>
 
-  <!-- Confirm Dialog -->
-  <div class="dialog-overlay hidden fixed inset-0 bg-black/40 flex items-center justify-center z-[200]" id="dialog-overlay">
+  <!-- ============================================ -->
+  <!-- MODAL (confirm + prompt)                      -->
+  <!-- ============================================ -->
+  <div x-data="modal" x-show="state.open" x-effect="onOpenChange()" x-cloak
+       class="fixed inset-0 bg-black/40 flex items-center justify-center z-[200]">
     <div class="bg-white rounded-xl3 p-6 sm:p-7 text-center max-w-xs w-[90%] shadow-2xl animate__animated animate__bounceIn">
-      <p class="font-display text-lg text-primary-dark mb-5" id="dialog-message"></p>
+      <p class="font-display text-lg text-primary-dark mb-4" x-text="state.message"></p>
+      <template x-if="state.type === 'prompt'">
+        <input type="text" x-model="state.value" :placeholder="state.placeholder" maxlength="20"
+               x-ref="input" @keydown="submitOnEnter($event)"
+               class="w-full h-11 px-4 border-2 border-primary-light rounded-xl2 text-base font-body text-primary-dark outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 mb-4">
+      </template>
       <div class="flex gap-3 justify-center">
-        <button class="bg-white border-2 border-primary-light text-primary-dark font-display text-sm px-5 py-2.5 rounded-xl2 active:scale-95 transition-all" id="dialog-cancel">Nao</button>
-        <button class="bg-red-500 text-white font-display text-sm px-5 py-2.5 rounded-xl2 shadow active:scale-95 transition-all" id="dialog-confirm">Sim</button>
+        <button @click="state.onCancel?.()"
+                class="bg-white border-2 border-primary-light text-primary-dark font-display text-sm px-5 py-2.5 rounded-xl2 active:scale-95 transition-all"
+                x-text="state.cancelLabel"></button>
+        <button @click="state.onConfirm?.()"
+                :class="state.confirmClass"
+                class="font-display text-sm px-5 py-2.5 rounded-xl2 shadow active:scale-95 transition-all"
+                x-text="state.confirmLabel"></button>
       </div>
     </div>
   </div>
 
-  <!-- Name Input Dialog -->
-  <div class="dialog-overlay hidden fixed inset-0 bg-black/40 flex items-center justify-center z-[200]" id="name-dialog-overlay">
-    <div class="bg-white rounded-xl3 p-6 sm:p-7 text-center max-w-xs w-[90%] shadow-2xl animate__animated animate__bounceIn">
-      <p class="font-display text-lg text-primary-dark mb-4">De um nome para este look:</p>
-      <input type="text" id="look-name-input" class="w-full h-11 px-4 border-2 border-primary-light rounded-xl2 text-base font-body text-primary-dark outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 mb-4" placeholder="Ex: Princesa" maxlength="20">
-      <div class="flex gap-3 justify-center">
-        <button class="bg-white border-2 border-primary-light text-primary-dark font-display text-sm px-5 py-2.5 rounded-xl2 active:scale-95 transition-all" id="name-dialog-cancel">Cancelar</button>
-        <button class="bg-primary hover:bg-primary-dark text-white font-display text-sm px-5 py-2.5 rounded-xl2 shadow active:scale-95 transition-all" id="name-dialog-confirm">Salvar</button>
-      </div>
-    </div>
-  </div>
+  <!-- ============================================ -->
+  <!-- SCRIPTS                                       -->
+  <!-- ============================================ -->
 
-  <!-- Konva.js -->
-  <script src="https://unpkg.com/konva@9/konva.min.js"></script>
-  <!-- interact.js -->
-  <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
-  <!-- canvas-confetti -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <!-- External libs -->
+  <script defer src="https://unpkg.com/konva@9/konva.min.js"></script>
+  <script defer src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
-  <!-- App modules -->
-  <script src="js/storage.js"></script>
-  <script src="js/catalog.js"></script>
-  <script src="js/config-loader.js"></script>
-  <script src="js/renderer.js"></script>
-  <script src="js/color-bar.js"></script>
-  <script src="js/character-creator.js"></script>
-  <script src="js/wardrobe.js"></script>
-  <script src="js/drag-drop.js"></script>
-  <script src="js/app.js"></script>
-  <script>
-    // PWA Install
-    let deferredPrompt = null;
-    function showInstallButtons() {
-      document.getElementById('btn-install')?.classList.remove('hidden');
-      document.getElementById('btn-install-menu')?.classList.remove('hidden');
-    }
-    function hideInstallButtons() {
-      document.getElementById('btn-install')?.classList.add('hidden');
-      document.getElementById('btn-install-menu')?.classList.add('hidden');
-    }
-    async function promptInstall() {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      const result = await deferredPrompt.userChoice;
-      if (result.outcome === 'accepted') hideInstallButtons();
-      deferredPrompt = null;
-    }
+  <!-- Services (no Alpine needed) -->
+  <script defer src="js/services/storage.js"></script>
+  <script defer src="js/services/catalog.js"></script>
+  <script defer src="js/services/svg-utils.js"></script>
+  <script defer src="js/services/config-loader.js"></script>
+  <script defer src="js/services/renderer.js"></script>
+  <script defer src="js/services/drag-drop.js"></script>
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      showInstallButtons();
-    });
-    document.getElementById('btn-install')?.addEventListener('click', promptInstall);
-    document.getElementById('btn-install-menu')?.addEventListener('click', promptInstall);
-    window.addEventListener('appinstalled', () => { hideInstallButtons(); deferredPrompt = null; });
+  <!-- Stores -->
+  <script defer src="js/stores/app-store.js"></script>
+  <script defer src="js/stores/character-store.js"></script>
+  <script defer src="js/stores/install-store.js"></script>
 
-    // Hamburger menu
-    document.getElementById('btn-hamburger')?.addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.remove('hidden');
-    });
-    document.getElementById('btn-close-menu')?.addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.add('hidden');
-    });
-    document.getElementById('mobile-menu-backdrop')?.addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.add('hidden');
-    });
+  <!-- Widgets -->
+  <script defer src="js/components/widgets/modal.js"></script>
+  <script defer src="js/components/widgets/color-picker.js"></script>
+  <script defer src="js/components/widgets/item-grid.js"></script>
+  <script defer src="js/components/widgets/category-tabs.js"></script>
+  <script defer src="js/components/widgets/character-preview.js"></script>
+  <script defer src="js/components/widgets/mobile-panel.js"></script>
+  <script defer src="js/components/widgets/free-position.js"></script>
+  <script defer src="js/components/widgets/step-dots.js"></script>
+  <script defer src="js/components/widgets/scroll-row.js"></script>
+  <script defer src="js/components/widgets/color-bar.js"></script>
 
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
-  </script>
+  <!-- Screens -->
+  <script defer src="js/components/screens/home.js"></script>
+  <script defer src="js/components/screens/creator.js"></script>
+  <script defer src="js/components/screens/wardrobe.js"></script>
+  <script defer src="js/components/screens/done.js"></script>
+  <script defer src="js/components/screens/fullscreen.js"></script>
+
+  <!-- Bootstrap (registers alpine:init listener BEFORE Alpine fires it) -->
+  <script defer src="js/main.js"></script>
+
+  <!-- Alpine LAST so all alpine:init listeners are already attached -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 </html>

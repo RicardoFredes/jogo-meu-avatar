@@ -27,8 +27,7 @@
       "name": "Laco",
       "asset": "assets/accessories/head/bow-v2.svg",
       "thumbnail": "assets/accessories/head/thumbs/bow-v2-thumb.png",
-      "colorable": true,
-      "colorPalette": "clothing-colors",
+      "defaultColor": "#E91E63",
       "size": {
         "width": 600,
         "height": 800
@@ -57,8 +56,7 @@
       "name": "Chapeu de Bruxa",
       "asset": "assets/accessories/head/witch-hat-v2.svg",
       "thumbnail": "assets/accessories/head/thumbs/witch-hat-v2-thumb.png",
-      "colorable": true,
-      "colorPalette": "clothing-colors",
+      "defaultColor": "#4A148C",
       "size": {
         "width": 600,
         "height": 800
@@ -73,8 +71,7 @@
       "name": "Bone",
       "asset": "assets/accessories/head/cap-v2.svg",
       "thumbnail": "assets/accessories/head/thumbs/cap-v2-thumb.png",
-      "colorable": true,
-      "colorPalette": "clothing-colors",
+      "defaultColor": "#1976D2",
       "size": {
         "width": 600,
         "height": 800
@@ -89,8 +86,7 @@
       "name": "Flor",
       "asset": "assets/accessories/head/flower-v2.svg",
       "thumbnail": "assets/accessories/head/thumbs/flower-v2-thumb.png",
-      "colorable": true,
-      "colorPalette": "clothing-colors",
+      "defaultColor": "#FF4081",
       "size": {
         "width": 600,
         "height": 800
@@ -105,8 +101,7 @@
       "name": "Chapeu de Festa",
       "asset": "assets/accessories/head/party-hat-v2.svg",
       "thumbnail": "assets/accessories/head/thumbs/party-hat-v2-thumb.png",
-      "colorable": true,
-      "colorPalette": "clothing-colors",
+      "defaultColor": "#F50057",
       "size": {
         "width": 600,
         "height": 800
@@ -121,8 +116,7 @@
       "name": "Orelhas de Gato",
       "asset": "assets/accessories/head/cat-ears-v2.svg",
       "thumbnail": "assets/accessories/head/thumbs/cat-ears-v2-thumb.png",
-      "colorable": true,
-      "colorPalette": "clothing-colors",
+      "defaultColor": "#2C2C2C",
       "size": {
         "width": 600,
         "height": 800

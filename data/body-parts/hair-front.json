@@ -9,20 +9,6 @@
   "colorPalette": "hair-colors",
   "items": [
     {
-      "id": "sem-franja",
-      "name": "Sem Franja",
-      "asset": "assets/hair/front/sem-franja.svg",
-      "size": {
-        "width": 10,
-        "height": 10
-      },
-      "offset": {
-        "x": 0,
-        "y": 0
-      },
-      "thumbnail": "assets/hair/front/thumbs/sem-franja-thumb.png"
-    },
-    {
       "id": "franja-ondulada",
       "name": "Ondulada",
       "asset": "assets/hair/front/franja-ondulada.svg",

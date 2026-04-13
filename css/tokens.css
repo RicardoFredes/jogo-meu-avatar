@@ -1,0 +1,82 @@
+/* ============================================
+   DESIGN TOKENS
+   Single source of truth for colors, spacing, etc.
+   ============================================ */
+
+:root {
+  /* Brand colors */
+  --c-primary: #9B59B6;
+  --c-primary-light: #C39BD3;
+  --c-primary-dark: #7D3C98;
+  --c-primary-deepest: #4A235A;
+
+  --c-secondary: #E8A0BF;
+  --c-accent: #F39C12;
+  --c-accent-glow: #FFD700;
+
+  --c-pink: #E91E90;
+
+  /* Surfaces */
+  --c-bg: #F5E6FF;
+  --c-card: #FFF0F5;
+  --c-surface: #F9F0FF;
+  --c-surface-hover: #F0DFFF;
+  --c-surface-alt: #F5E6FF;
+
+  /* States */
+  --c-success: #2ECC71;
+  --c-danger: #E74C3C;
+  --c-danger-soft: #FFE0E0;
+  --c-warning-soft: #FFF3E0;
+
+  /* Ink */
+  --c-ink: #4A235A;
+  --c-ink-soft: #7D3C98;
+  --c-ink-muted: #999;
+
+  /* Borders */
+  --c-border: #E0D0F0;
+  --c-border-strong: #C39BD3;
+
+  /* Spacing */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 50%;
+
+  /* Fonts */
+  --font-display: 'Fredoka', sans-serif;
+  --font-body: 'Nunito', sans-serif;
+  --font-logo: 'Pacifico', cursive;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 3px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.15);
+  --shadow-glow-gold: 0 0 12px rgba(255, 215, 0, 0.5);
+  --shadow-glow-primary: 0 0 12px rgba(155, 89, 182, 0.4);
+
+  /* Timing */
+  --duration-fast: 0.15s;
+  --duration-base: 0.25s;
+  --duration-slow: 0.3s;
+  --ease: ease-out;
+
+  /* Z-index scale */
+  --z-panel: 25;
+  --z-overlay: 30;
+  --z-fixed-ui: 60;
+  --z-fullscreen: 150;
+  --z-menu: 180;
+  --z-modal: 200;
+}

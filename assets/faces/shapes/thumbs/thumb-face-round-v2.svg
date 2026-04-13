@@ -1,8 +1,0 @@
-<svg viewBox="155 176 291 243" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-  <!-- Head + ears - fill=#FFFFFF stroke=#C0C0C0 for visible contour + tinting -->
-  <path d="M191 268C176.641 268 165 279.641 165 294C165 308.359 176.641 320 191 320H217V268H191Z" fill="#FFFFFF" stroke="#C0C0C0" stroke-width="8"/>
-  <path d="M410 268C424.359 268 436 279.641 436 294C436 308.359 424.359 320 410 320H384V268H410Z" fill="#FFFFFF" stroke="#C0C0C0" stroke-width="8"/>
-  <path d="M325 186C371.392 186 409 223.608 409 270V310C409 356.392 371.392 394 325 394H275C228.608 394 191 356.392 191 310V270C191 223.608 228.608 186 275 186H325Z" fill="#FFFFFF" stroke="#C0C0C0" stroke-width="8"/>
-
-</svg>

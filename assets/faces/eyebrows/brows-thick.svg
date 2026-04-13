@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 20">
-  <!-- Left eyebrow - thick bold arch -->
-  <path d="M10 15 Q22 3 34 12" fill="none" stroke="#3B2314" stroke-width="3.5" stroke-linecap="round"/>
-  <!-- Right eyebrow - thick bold arch -->
-  <path d="M46 12 Q58 3 70 15" fill="none" stroke="#3B2314" stroke-width="3.5" stroke-linecap="round"/>
-</svg>

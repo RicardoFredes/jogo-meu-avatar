@@ -1,9 +1,0 @@
-<svg viewBox="72 55 256 170" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-
-  <path d="M85 200 C82 160, 90 110, 120 88 C150 72, 200 65, 250 72 C300 82, 318 110, 318 160 L315 200 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
-  <!-- Side-swept -->
-  <path d="M88 194 L92 210 C130 198, 180 190, 220 190 C260 192, 300 200, 312 210 L315 194 L310 212 C285 200, 245 195, 210 196 C175 198, 125 205, 92 215 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="2"/>
-
-
-</svg>

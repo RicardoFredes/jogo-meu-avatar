@@ -13,8 +13,6 @@
       "name": "Oculos",
       "asset": "assets/accessories/face/glasses-round-v2.svg",
       "thumbnail": "assets/accessories/face/thumbs/glasses-round-v2-thumb.png",
-      "colorable": true,
-      "colorPalette": "clothing-colors",
       "size": {
         "width": 600,
         "height": 800
@@ -29,8 +27,7 @@
       "name": "Oculos Estrela",
       "asset": "assets/accessories/face/glasses-star-v2.svg",
       "thumbnail": "assets/accessories/face/thumbs/glasses-star-v2-thumb.png",
-      "colorable": true,
-      "colorPalette": "clothing-colors",
+      "defaultColor": "#FFD700",
       "size": {
         "width": 600,
         "height": 800
@@ -45,8 +42,6 @@
       "name": "Oculos de Sol",
       "asset": "assets/accessories/face/sunglasses-v2.svg",
       "thumbnail": "assets/accessories/face/thumbs/sunglasses-v2-thumb.png",
-      "colorable": true,
-      "colorPalette": "clothing-colors",
       "size": {
         "width": 600,
         "height": 800

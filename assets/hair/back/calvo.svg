@@ -1,9 +1,0 @@
-<svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-  <!-- Calvo: bem curto, so no topo -->
-  <path d="M220 188 C248 180, 352 180, 380 188
-    L385 240 C385 255, 372 262, 358 260
-    L300 252 L242 260 C228 262, 215 255, 215 240 Z"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
-
-</svg>

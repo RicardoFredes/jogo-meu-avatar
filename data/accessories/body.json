@@ -27,8 +27,7 @@
       "name": "Gravata Borboleta",
       "asset": "assets/accessories/body/bowtie-v2.svg",
       "thumbnail": "assets/accessories/body/thumbs/bowtie-v2-thumb.png",
-      "colorable": true,
-      "colorPalette": "clothing-colors",
+      "defaultColor": "#D32F2F",
       "size": {
         "width": 600,
         "height": 800
@@ -43,8 +42,7 @@
       "name": "Capa",
       "asset": "assets/accessories/body/cape-v2.svg",
       "thumbnail": "assets/accessories/body/thumbs/cape-v2-thumb.png",
-      "colorable": true,
-      "colorPalette": "clothing-colors",
+      "defaultColor": "#C62828",
       "size": {
         "width": 600,
         "height": 800

@@ -105,34 +105,6 @@
         "y": 110
       },
       "thumbnail": "assets/hair/back/thumbs/trancas-thumb.png"
-    },
-    {
-      "id": "careca",
-      "name": "Careca",
-      "asset": "assets/hair/back/careca.svg",
-      "size": {
-        "width": 10,
-        "height": 10
-      },
-      "offset": {
-        "x": 0,
-        "y": 0
-      },
-      "thumbnail": "assets/hair/back/thumbs/careca-thumb.png"
-    },
-    {
-      "id": "bigode",
-      "name": "bigode",
-      "asset": "assets/faces/hair-back/bigode.svg",
-      "thumbnail": "assets/faces/hair-back/thumbs/bigode-thumb.png",
-      "size": {
-        "width": 600,
-        "height": 800
-      },
-      "offset": {
-        "x": 0,
-        "y": 110
-      }
     }
   ]
 }
