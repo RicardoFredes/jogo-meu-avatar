@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#9B59B6">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -295,7 +295,6 @@
 
                       <!-- Items group -->
                       <div class="option-group">
-                        <div class="option-group-title" x-text="cat.label"></div>
                         <div class="option-items">
                           <template x-if="optional">
                             <div class="option-item option-none"
@@ -398,8 +397,11 @@
                         <color-bar></color-bar>
                       </template>
                       <div class="option-group">
-                        <div class="option-group-title" x-text="cat.label"></div>
-                        <scroll-row>
+                        <!-- `scroll-bleed` keeps this track aligned with the
+                             color-bar above it: both run edge-to-edge inside
+                             the padded panel instead of being inset by the
+                             panel's 24px lateral padding. -->
+                        <scroll-row class="scroll-bleed">
                           <template x-if="optional">
                             <div class="option-item option-none"
                                  :class="{ selected: isNoneSelected(cat) }"
@@ -617,54 +619,68 @@
       </div>
     </div>
 
-    <!-- Mobile navigation bar (2-level: groups ↔ leaves + back).
-         Two <scroll-row> bars stacked in the same grid cell; the
-         inactive one is translated out of view so changing level
-         produces an overlay slide (one leaves, the other enters). -->
-    <div class="sm:hidden studio-tab-stack bg-white/90 backdrop-blur-sm shadow-[0_-2px_8px_rgba(0,0,0,0.06)] shrink-0"
-         :class="{ 'is-hidden': mobilePanelOpen }">
-      <!-- Level 0: groups -->
-      <scroll-row class="cat-bar studio-tab-level studio-tab-level--groups"
-                  :class="{ 'is-active': currentLevel === 'groups' }">
-        <div style="display:contents"
-             x-data="categoryTabs({
-               getTabs: () => groupTabs,
-               getIsActive: () => false,
-               onSelect: (tab) => selectGroup(tab.groupId)
-             })">
-          <template x-for="tab in tabs" :key="tab.key">
-            <button class="category-tab" @click="select(tab)">
-              <span class="tab-icon" x-text="tab.icon"></span>
-              <span x-text="tab.label"></span>
-            </button>
-          </template>
-        </div>
-      </scroll-row>
+    <!-- Mobile navigation shell (2-level: groups ↔ leaves).
+         The wrapper is position:relative so the floating "Voltar" pill
+         can anchor above the tab-stack via bottom:100%. Two <scroll-row>
+         bars stacked in the same grid cell; the inactive one is
+         translated out of view so changing level produces an overlay
+         slide (one leaves, the other enters). -->
+    <div class="sm:hidden studio-tab-shelf shrink-0">
+      <!-- Floating back button: sits above the tab-stack and is only
+           visible while the submenu (leaves) is active and the items
+           sheet isn't up (keeping it in sync with the tab-stack's own
+           slide-down animation). -->
+      <button class="studio-back-float"
+              x-show="currentLevel === 'leaves' && !mobilePanelOpen"
+              x-transition.opacity.duration.200ms
+              @click="backToGroups()"
+              x-cloak>
+        <span class="tab-icon" aria-hidden="true">←</span>
+        <span>Voltar</span>
+      </button>
 
-      <!-- Level 1: leaves (with back button) -->
-      <scroll-row class="cat-bar studio-tab-level studio-tab-level--leaves"
-                  :class="{ 'is-active': currentLevel === 'leaves' }">
-        <button class="category-tab cat-back" @click="backToGroups()">
-          <span class="tab-icon">←</span>
-          <span>Voltar</span>
-        </button>
-        <div style="display:contents"
-             x-data="categoryTabs({
-               getTabs: () => leafTabs,
-               getActiveKey: () => activeKey,
-               getIsActive: (tab) => tab.key === activeKey && mobilePanelOpen,
-               onSelect: (tab) => selectLeaf(tab)
-             })">
-          <template x-for="tab in tabs" :key="tab.key">
-            <button class="category-tab"
-                    :class="{ active: isActive(tab) }"
-                    @click="select(tab)">
-              <span class="tab-icon" x-text="tab.icon"></span>
-              <span x-text="tab.label"></span>
-            </button>
-          </template>
-        </div>
-      </scroll-row>
+      <div class="studio-tab-stack bg-white/90 backdrop-blur-sm shadow-[0_-2px_8px_rgba(0,0,0,0.06)]"
+           :class="{ 'is-hidden': mobilePanelOpen }">
+        <!-- Level 0: groups -->
+        <scroll-row class="cat-bar studio-tab-level studio-tab-level--groups"
+                    :class="{ 'is-active': currentLevel === 'groups' }">
+          <div style="display:contents"
+               x-data="categoryTabs({
+                 getTabs: () => groupTabs,
+                 getIsActive: () => false,
+                 onSelect: (tab) => selectGroup(tab.groupId)
+               })">
+            <template x-for="tab in tabs" :key="tab.key">
+              <button class="category-tab" @click="select(tab)">
+                <span class="tab-icon" x-text="tab.icon"></span>
+                <span x-text="tab.label"></span>
+              </button>
+            </template>
+          </div>
+        </scroll-row>
+
+        <!-- Level 1: leaves (back button now lives outside, as the
+             floating pill above). -->
+        <scroll-row class="cat-bar studio-tab-level studio-tab-level--leaves"
+                    :class="{ 'is-active': currentLevel === 'leaves' }">
+          <div style="display:contents"
+               x-data="categoryTabs({
+                 getTabs: () => leafTabs,
+                 getActiveKey: () => activeKey,
+                 getIsActive: (tab) => tab.key === activeKey && mobilePanelOpen,
+                 onSelect: (tab) => selectLeaf(tab)
+               })">
+            <template x-for="tab in tabs" :key="tab.key">
+              <button class="category-tab"
+                      :class="{ active: isActive(tab) }"
+                      @click="select(tab)">
+                <span class="tab-icon" x-text="tab.icon"></span>
+                <span x-text="tab.label"></span>
+              </button>
+            </template>
+          </div>
+        </scroll-row>
+      </div>
     </div>
 
   </div>

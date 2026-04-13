@@ -46,6 +46,17 @@
   --sp-5: 20px;
   --sp-6: 24px;
 
+  /* Safe-inset tokens for elements fixed/anchored near the viewport
+     edges. Rounded corners on iPhone cut into hit-targets placed right
+     against the edge, and the home-indicator zone eats the bottom few
+     px. `max()` gives us the explicit baseline (24/32) while still
+     growing on devices that report a larger env() value (iPhones in
+     landscape, or portrait phones with a larger home indicator zone).
+     Requires <meta viewport-fit=cover> to receive real env values. */
+  --sp-safe-x: max(24px, env(safe-area-inset-left));
+  --sp-safe-x-right: max(24px, env(safe-area-inset-right));
+  --sp-safe-bottom: max(32px, env(safe-area-inset-bottom));
+
   /* Radius */
   --radius-sm: 8px;
   --radius-md: 10px;

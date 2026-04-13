@@ -76,7 +76,10 @@ html, body {
 .creator-desktop-sidebar { display: none; }
 
 .mobile-panel-content {
-  padding: var(--sp-4) var(--sp-5);
+  /* Scrollable content inside the slide-up sheets (studio + creator).
+     Bottom inset keeps the last row clear of the iPhone home-indicator
+     zone; lateral inset keeps hit-targets away from the rounded corner. */
+  padding: var(--sp-4) var(--sp-safe-x-right) var(--sp-safe-bottom) var(--sp-safe-x);
 }
 
 .creator-mobile-panel {
@@ -139,11 +142,13 @@ html, body {
 
 .creator-floating-nav {
   position: absolute;
-  bottom: var(--sp-3);
+  /* Anchor to the safe-area baseline so the pills don't sit on top of
+     the iPhone home-indicator or get clipped by the rounded corner. */
+  bottom: var(--sp-safe-bottom);
   left: 0; right: 0;
   display: flex;
   justify-content: space-between;
-  padding: 0 var(--sp-3);
+  padding: 0 var(--sp-safe-x-right) 0 var(--sp-safe-x);
   pointer-events: none;
   z-index: 20;
 }
@@ -183,6 +188,8 @@ html, body {
     font-size: 22px;
   }
   .creator-floating-nav {
+    /* Desktop sits well inside the viewport — no iOS corners to dodge,
+       so we use the original, tighter values. */
     bottom: var(--sp-4);
     padding: 0 var(--sp-5);
   }
@@ -242,6 +249,44 @@ html, body {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
 }
+
+/* Shelf wraps the tab-stack + the floating back button. position:
+   relative is what lets `.studio-back-float` anchor itself above the
+   stack with `bottom: 100%`. */
+.studio-tab-shelf {
+  position: relative;
+}
+
+/* Floating "Voltar" pill sitting right above the tab-stack on mobile.
+   It only renders when the leaves level is active AND the items panel
+   isn't open — in both of those other states the tab-stack itself
+   slides down, so the back button follows suit to avoid a ghost pill
+   floating over the preview. */
+.studio-back-float {
+  position: absolute;
+  bottom: 100%;            /* anchored to the top edge of the shelf */
+  left: var(--sp-safe-x);
+  margin-bottom: var(--sp-2);
+  z-index: var(--z-fixed-ui);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: var(--radius-2xl);
+  background: var(--c-warning-soft);
+  color: var(--c-accent);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: transform var(--duration-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+.studio-back-float:active { transform: scale(0.92); }
+.studio-back-float .tab-icon { font-size: 1.1rem; line-height: 1; }
 
 /* Mobile studio tab stack: shell wrapping the two level bars (groups
    and leaves). Collapses and slides down out of view when a panel is
@@ -640,11 +685,12 @@ html, body {
 /* Divider between category groups in the creator panel.
    Only drawn above categories that start a new color-bar group — so
    siblings that share a palette (e.g. hair-back + hair-front, or
-   facial-hair + mustache via sharedColorGroup) stay together. */
+   facial-hair + mustache via sharedColorGroup) stay together.
+   No padding-top because the category label was removed; the content
+   below (color-bar or scroll-row) already has its own top spacing. */
 .creator-cat-group + .creator-cat-group.group-start {
   border-top: 1px solid var(--c-border);
-  margin-top: var(--sp-4);
-  padding-top: var(--sp-3);
+  margin-top: var(--sp-3);
 }
 
 .inline-color-bar {
@@ -836,8 +882,13 @@ scroll-row {
    shift the element leftward instead of extending it on both
    sides. */
 scroll-row.scroll-bleed {
-  margin-inline: calc(-1 * var(--sp-5));
-  width: calc(100% + var(--sp-5) * 2);
+  /* Cancels the ancestor's safe lateral padding (see .mobile-panel-content)
+     so the horizontal scroll track reaches edge-to-edge while the items
+     inside still align with the padded content. Left/right differ
+     because safe-area insets can be asymmetric (iPhone landscape). */
+  margin-left: calc(-1 * var(--sp-safe-x));
+  margin-right: calc(-1 * var(--sp-safe-x-right));
+  width: calc(100% + var(--sp-safe-x) + var(--sp-safe-x-right));
 }
 scroll-row::-webkit-scrollbar { display: none; }
 
@@ -878,7 +929,10 @@ scroll-row .option-item.color-swatch {
    always do) but falls back to start-alignment when overflowing so
    the first tab never gets clipped off-screen. */
 scroll-row.cat-bar {
-  padding: var(--sp-1) var(--sp-4);
+  /* Mobile-only bar anchored at the bottom of the studio. Horizontal
+     inset uses the safe token so tabs never slide under a rounded
+     corner; bottom inset lifts them above the home-indicator zone. */
+  padding: var(--sp-1) var(--sp-safe-x-right) var(--sp-safe-bottom) var(--sp-safe-x);
   margin: 0;
   justify-content: safe center;
 }
