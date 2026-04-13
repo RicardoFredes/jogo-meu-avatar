@@ -3,6 +3,30 @@
    Tokens defined in tokens.css
    ============================================ */
 
+/* Global mobile hardening. The app runs as a PWA and uses its own
+   scroll containers internally — the page itself should never scroll,
+   bounce, or pull-to-refresh, since kids easily trigger those by
+   accident and end up outside the app (or on a weirdly scrolled page).
+   - overflow:hidden on html/body keeps the page locked in place.
+   - overscroll-behavior:none kills rubber-band / pull-to-refresh.
+   - touch-action:pan-y allows vertical pans inside scrollers with
+     their own overflow, while blocking horizontal page gestures and
+     pinch-zoom (scroll-row still works: its overflow-x:auto tells the
+     browser the gesture belongs to the inner element).
+   - user-select/tap-highlight off so taps don't accidentally select
+     text or flash blue. */
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: pan-y;
+}
+
 /* Screen management - Alpine toggles x-show; kept for legacy .screen class compat */
 .screen { display: none !important; }
 .screen.active { display: flex !important; }
