@@ -2,6 +2,77 @@
    WARDROBE - Dress-up screen with drag & drop
    ============================================ */
 
+const EXTRA_COLORS_WARDROBE = [
+  '#FF0000','#FF4444','#FF6B6B','#FF8C00','#FFA500','#FFD700',
+  '#FFFF00','#ADFF2F','#32CD32','#00C853','#00897B','#00BCD4',
+  '#03A9F4','#2196F3','#1565C0','#3F51B5','#673AB7','#9C27B0',
+  '#E040FB','#FF4081','#F50057','#E91E63','#AD1457','#880E4F',
+  '#795548','#A1887F','#D7CCC8','#9E9E9E','#607D8B','#455A64',
+  '#F5F5F5','#E0E0E0','#BDBDBD','#757575','#424242','#222222',
+];
+
+function openColorPickerModal(currentColorId, onSelect) {
+  document.querySelector('.color-picker-overlay')?.remove();
+  let selectedHex = (currentColorId && currentColorId.startsWith('#')) ? currentColorId : null;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'color-picker-overlay';
+
+  const modal = document.createElement('div');
+  modal.className = 'color-picker-modal';
+
+  const header = document.createElement('div');
+  header.className = 'color-picker-header';
+  header.innerHTML = '<h3>Escolha uma cor</h3>';
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'color-picker-close';
+  closeBtn.textContent = '✕';
+  closeBtn.addEventListener('click', () => overlay.remove());
+  header.appendChild(closeBtn);
+  modal.appendChild(header);
+
+  const grid = document.createElement('div');
+  grid.className = 'color-picker-grid';
+  EXTRA_COLORS_WARDROBE.forEach(hex => {
+    const swatch = document.createElement('div');
+    swatch.className = 'cp-swatch' + (selectedHex === hex ? ' selected' : '');
+    swatch.style.backgroundColor = hex;
+    if (['#F5F5F5','#E0E0E0','#BDBDBD','#D7CCC8'].includes(hex)) {
+      swatch.style.border = '3px solid #CCC';
+    }
+    swatch.addEventListener('click', () => {
+      selectedHex = hex;
+      grid.querySelectorAll('.cp-swatch').forEach(s => s.classList.remove('selected'));
+      swatch.classList.add('selected');
+    });
+    grid.appendChild(swatch);
+  });
+  modal.appendChild(grid);
+
+  const footer = document.createElement('div');
+  footer.className = 'color-picker-footer';
+  const cancelBtn = document.createElement('button');
+  cancelBtn.className = 'cp-btn-cancel';
+  cancelBtn.textContent = 'Cancelar';
+  cancelBtn.addEventListener('click', () => overlay.remove());
+  const selectBtn = document.createElement('button');
+  selectBtn.className = 'cp-btn-select';
+  selectBtn.textContent = 'Selecionar';
+  selectBtn.addEventListener('click', () => {
+    if (selectedHex) onSelect(selectedHex);
+    overlay.remove();
+  });
+  footer.appendChild(cancelBtn);
+  footer.appendChild(selectBtn);
+  modal.appendChild(footer);
+
+  overlay.appendChild(modal);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.remove();
+  });
+  document.body.appendChild(overlay);
+}
+
 const Wardrobe = (() => {
   let characterId = null;
   let charData = null;
@@ -20,12 +91,19 @@ const Wardrobe = (() => {
     renderCategoryTabs();
     renderCharacter();
 
-    // Select first category tab
+    // Don't auto-select category on mobile (panel starts closed)
+    renderMobileCategoryBar();
+
+    // Desktop: select first category
     const config = Catalog.getUiConfig();
-    if (config.wardrobeCategories.length > 0) {
+    if (config.wardrobeCategories.length > 0 && window.innerWidth >= 640) {
       const first = config.wardrobeCategories[0];
       selectCategories(first.categories || [first.category]);
     }
+
+    // Close mobile panel button
+    const closeBtn = document.getElementById('btn-close-mobile-panel');
+    if (closeBtn) closeBtn.addEventListener('click', closeMobilePanel);
   }
 
   function renderCategoryTabs() {
@@ -34,7 +112,6 @@ const Wardrobe = (() => {
     tabsContainer.innerHTML = '';
 
     config.wardrobeCategories.forEach(wc => {
-      // Support single category or array of categories per tab
       const catIds = wc.categories || [wc.category];
       const firstCat = Catalog.getCategory(catIds[0]);
       if (!firstCat) return;
@@ -46,6 +123,154 @@ const Wardrobe = (() => {
       tab.addEventListener('click', () => selectCategories(catIds));
       tabsContainer.appendChild(tab);
     });
+  }
+
+  function renderMobileCategoryBar() {
+    const config = Catalog.getUiConfig();
+    const bar = document.getElementById('mobile-category-bar');
+    if (!bar) return;
+    bar.innerHTML = '';
+
+    config.wardrobeCategories.forEach(wc => {
+      const catIds = wc.categories || [wc.category];
+      const firstCat = Catalog.getCategory(catIds[0]);
+      if (!firstCat) return;
+
+      const tab = document.createElement('button');
+      tab.className = 'category-tab';
+      tab.dataset.categories = JSON.stringify(catIds);
+      tab.innerHTML = `<span class="tab-icon">${wc.icon}</span>${wc.label}`;
+      tab.addEventListener('click', () => openMobilePanel(catIds, wc.label));
+      bar.appendChild(tab);
+    });
+  }
+
+  function reattachColorEvents(mobileContainer, desktopContainer, titleEl) {
+    // Re-attach swatch clicks
+    mobileContainer.querySelectorAll('.color-swatch').forEach(swatch => {
+      const clone = swatch.cloneNode(true);
+      swatch.parentNode.replaceChild(clone, swatch);
+      clone.addEventListener('click', () => {
+        desktopContainer.querySelector(`.color-swatch[title="${clone.title}"]`)?.click();
+        setTimeout(() => openMobilePanel(currentTabCatIds, titleEl.textContent), 50);
+      });
+    });
+    // Re-attach "+" button
+    mobileContainer.querySelectorAll('.color-more-btn').forEach(btn => {
+      const clone = btn.cloneNode(true);
+      btn.parentNode.replaceChild(clone, btn);
+      clone.addEventListener('click', () => {
+        const cat = Catalog.getCategory(currentCategoryId);
+        const equipped = cat?.type === 'body-part'
+          ? charData.parts?.[cat.category]
+          : charData.outfit?.[cat?.slotId];
+        openColorPickerModal(equipped?.colorId, (hex) => {
+          if (equipped) equipped.colorId = hex;
+          if (cat?.sharedColorGroup) {
+            const siblings = Catalog.getCategoriesByColorGroup(cat.sharedColorGroup);
+            for (const sib of siblings) {
+              const partData = charData.parts?.[sib.category];
+              if (partData) partData.colorId = hex;
+            }
+          }
+          if (cat?.type === 'body-part') {
+            Storage.saveCharacter(charData);
+          } else {
+            Storage.updateCharacterOutfit(characterId, charData.outfit);
+          }
+          renderCharacter();
+          openMobilePanel(currentTabCatIds, titleEl.textContent);
+        });
+      });
+    });
+  }
+
+  function openMobilePanel(catIds, label) {
+    selectCategories(catIds);
+
+    const panel = document.getElementById('mobile-items-panel');
+    const titleEl = document.getElementById('mobile-panel-title');
+    const mobileGrid = document.getElementById('mobile-items-grid');
+    const mobileColorBar = document.getElementById('mobile-color-bar');
+
+    if (titleEl) titleEl.textContent = label;
+
+    // Copy items from desktop grid to mobile grid
+    const desktopGrid = document.getElementById('items-grid');
+    if (mobileGrid && desktopGrid) {
+      mobileGrid.innerHTML = desktopGrid.innerHTML;
+      // Re-attach click events
+      mobileGrid.querySelectorAll('.item-thumbnail').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          const itemId = thumb.dataset.itemId;
+          const catId = thumb.dataset.categoryId;
+          const cat = Catalog.getCategory(catId);
+          const equippedItemId = cat.type === 'body-part'
+            ? (charData.parts?.[cat.category]?.itemId || null)
+            : (charData.outfit[cat.slotId]?.itemId || null);
+          if (equippedItemId === itemId) {
+            unequipSlot(cat.slotId);
+          } else {
+            equipItem(itemId, cat);
+          }
+          // Refresh mobile panel
+          openMobilePanel(currentTabCatIds, titleEl.textContent);
+        });
+      });
+    }
+
+    // Copy color bar
+    const desktopColorBar = document.getElementById('color-bar');
+    if (mobileColorBar && desktopColorBar && !desktopColorBar.classList.contains('hidden')) {
+      mobileColorBar.classList.remove('hidden');
+      const mobileColorOpts = document.getElementById('mobile-color-options');
+      const desktopColorOpts = document.getElementById('color-options');
+      if (mobileColorOpts && desktopColorOpts) {
+        mobileColorOpts.innerHTML = desktopColorOpts.innerHTML;
+        reattachColorEvents(mobileColorOpts, desktopColorOpts, titleEl);
+      }
+    } else if (mobileColorBar) {
+      mobileColorBar.classList.add('hidden');
+    }
+
+    // Re-attach color events in inline color bars (multi-cat tabs in mobile grid)
+    if (mobileGrid) {
+      const desktopGrid = document.getElementById('items-grid');
+      mobileGrid.querySelectorAll('.option-group').forEach((group, i) => {
+        const desktopGroup = desktopGrid?.querySelectorAll('.option-group')[i];
+        if (group.querySelector('.color-row') && desktopGroup) {
+          reattachColorEvents(group, desktopGroup, titleEl);
+        }
+      });
+    }
+
+    // Highlight active tab
+    const bar = document.getElementById('mobile-category-bar');
+    if (bar) {
+      bar.querySelectorAll('.category-tab').forEach(t => {
+        const tabCats = JSON.parse(t.dataset.categories || '[]');
+        t.classList.toggle('active', JSON.stringify(tabCats) === JSON.stringify(currentTabCatIds));
+      });
+    }
+
+    panel.classList.remove('hidden');
+
+    // Scale down preview so panel doesn't cover character
+    const previewArea = document.querySelector('.wardrobe-preview-area');
+    if (previewArea) previewArea.classList.add('panel-open');
+  }
+
+  function closeMobilePanel() {
+    const panel = document.getElementById('mobile-items-panel');
+    if (panel) panel.classList.add('hidden');
+
+    // Restore preview scale
+    const previewArea = document.querySelector('.wardrobe-preview-area');
+    if (previewArea) previewArea.classList.remove('panel-open');
+
+    // Deselect mobile tabs
+    const bar = document.getElementById('mobile-category-bar');
+    if (bar) bar.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
   }
 
   function selectCategories(categoryIds) {
@@ -168,45 +393,56 @@ const Wardrobe = (() => {
     const palette = Catalog.getColorPalette(paletteId);
     if (palette.length === 0) return;
 
-    const bar = document.createElement('div');
-    bar.className = 'inline-color-bar';
-    bar.style.cssText = 'grid-column:1/-1;display:flex;align-items:center;gap:6px;padding:4px 0;flex-wrap:wrap;';
+    const wrapper = document.createElement('div');
+    wrapper.className = 'option-group';
+    wrapper.style.cssText = 'grid-column:1/-1;margin-bottom:4px;padding:8px 10px;';
 
-    const label = document.createElement('span');
-    label.textContent = 'Cor:';
-    label.style.cssText = 'font-family:var(--font-display);font-size:0.75rem;color:var(--text-secondary);';
-    bar.appendChild(label);
+    const colorItems = document.createElement('div');
+    colorItems.className = 'option-items color-row';
+
+    function applyColorInline(colorId) {
+      equipped.colorId = colorId;
+      if (cat.sharedColorGroup) {
+        const siblings = Catalog.getCategoriesByColorGroup(cat.sharedColorGroup);
+        for (const sib of siblings) {
+          const partData = charData.parts?.[sib.category];
+          if (partData) partData.colorId = colorId;
+        }
+      }
+      if (cat.type === 'body-part') {
+        Storage.saveCharacter(charData);
+      } else {
+        Storage.updateCharacterOutfit(characterId, charData.outfit);
+      }
+      renderCharacter();
+      wrapper.querySelectorAll('.color-swatch').forEach(o => o.classList.remove('selected'));
+    }
 
     palette.forEach(c => {
-      const opt = document.createElement('div');
-      opt.className = 'color-option' + (equipped.colorId === c.id ? ' selected' : '');
-      opt.style.backgroundColor = c.hex;
-      opt.title = c.name;
-      opt.addEventListener('click', () => {
-        equipped.colorId = c.id;
-        // Sync shared color group
-        if (cat.sharedColorGroup) {
-          const siblings = Catalog.getCategoriesByColorGroup(cat.sharedColorGroup);
-          for (const sib of siblings) {
-            const partData = charData.parts?.[sib.category];
-            if (partData) partData.colorId = c.id;
-          }
-        }
-        if (cat.type === 'body-part') {
-          Storage.saveCharacter(charData);
-        } else {
-          Storage.updateCharacterOutfit(characterId, charData.outfit);
-        }
-        renderCharacter();
-        // Update all color bars in the grid (for shared group)
-        grid.querySelectorAll('.inline-color-bar .color-option').forEach(o => {
-          o.classList.toggle('selected', o.title === c.name);
-        });
+      const swatch = document.createElement('div');
+      swatch.className = 'option-item color-swatch' + (equipped.colorId === c.id ? ' selected' : '');
+      swatch.style.backgroundColor = c.hex;
+      swatch.title = c.name;
+      swatch.addEventListener('click', () => {
+        applyColorInline(c.id);
+        swatch.classList.add('selected');
       });
-      bar.appendChild(opt);
+      colorItems.appendChild(swatch);
     });
 
-    grid.appendChild(bar);
+    const moreBtn = document.createElement('div');
+    moreBtn.className = 'color-more-btn';
+    moreBtn.textContent = '+';
+    moreBtn.title = 'Mais cores';
+    moreBtn.addEventListener('click', () => {
+      openColorPickerModal(equipped.colorId, (hex) => {
+        applyColorInline(hex);
+      });
+    });
+    colorItems.appendChild(moreBtn);
+
+    wrapper.appendChild(colorItems);
+    grid.appendChild(wrapper);
   }
 
   function updateColorBarMulti(cats) {
@@ -334,28 +570,44 @@ const Wardrobe = (() => {
 
     colorBar.classList.remove('hidden');
     colorOptions.innerHTML = '';
+    colorOptions.className = 'option-items color-row';
 
     const paletteId = cat.colorPalette || (item && item.colorPalette) || 'clothing-colors';
     const palette = Catalog.getColorPalette(paletteId);
 
+    function applyColorGlobal(colorId) {
+      equipped.colorId = colorId;
+      if (cat.type === 'body-part') {
+        Storage.saveCharacter(charData);
+      } else {
+        Storage.updateCharacterOutfit(characterId, charData.outfit);
+      }
+      renderCharacter();
+      colorOptions.querySelectorAll('.color-swatch').forEach(o => o.classList.remove('selected'));
+    }
+
     palette.forEach(c => {
-      const opt = document.createElement('div');
-      opt.className = 'color-option' + (equipped.colorId === c.id ? ' selected' : '');
-      opt.style.backgroundColor = c.hex;
-      opt.title = c.name;
-      opt.addEventListener('click', () => {
-        equipped.colorId = c.id;
-        if (cat.type === 'body-part') {
-          Storage.saveCharacter(charData);
-        } else {
-          Storage.updateCharacterOutfit(characterId, charData.outfit);
-        }
-        renderCharacter();
-        colorOptions.querySelectorAll('.color-option').forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
+      const swatch = document.createElement('div');
+      swatch.className = 'option-item color-swatch' + (equipped.colorId === c.id ? ' selected' : '');
+      swatch.style.backgroundColor = c.hex;
+      swatch.title = c.name;
+      swatch.addEventListener('click', () => {
+        applyColorGlobal(c.id);
+        swatch.classList.add('selected');
       });
-      colorOptions.appendChild(opt);
+      colorOptions.appendChild(swatch);
     });
+
+    const moreBtn = document.createElement('div');
+    moreBtn.className = 'color-more-btn';
+    moreBtn.textContent = '+';
+    moreBtn.title = 'Mais cores';
+    moreBtn.addEventListener('click', () => {
+      openColorPickerModal(equipped.colorId, (hex) => {
+        applyColorGlobal(hex);
+      });
+    });
+    colorOptions.appendChild(moreBtn);
   }
 
   async function renderCharacter() {

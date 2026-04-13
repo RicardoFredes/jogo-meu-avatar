@@ -74,30 +74,61 @@ const CharacterCreator = (() => {
 
     renderStep();
     updatePreview();
+
+    // On mobile, scale down preview so panel doesn't cover it
+    if (window.innerWidth < 640) {
+      const previewArea = document.querySelector('.creator-preview-area');
+      if (previewArea) previewArea.classList.add('panel-open');
+    }
+  }
+
+  function cleanup() {
+    const previewArea = document.querySelector('.creator-preview-area');
+    if (previewArea) previewArea.classList.remove('panel-open');
   }
 
   function renderStep() {
     const step = steps[currentStep];
     const panel = document.getElementById('options-panel');
+    const mobilePanel = document.getElementById('mobile-options-panel');
     const title = document.getElementById('step-title');
+    const panelTitle = document.getElementById('creator-panel-title');
     const indicator = document.getElementById('step-indicator');
-    const prevBtn = document.getElementById('btn-prev-step');
-    const nextBtn = document.getElementById('btn-next-step');
 
     title.textContent = step.label;
+    if (panelTitle) panelTitle.textContent = step.label;
     indicator.textContent = `${currentStep + 1}/${steps.length}`;
-    prevBtn.disabled = currentStep === 0;
+
+    const isFirst = currentStep === 0;
     const isLast = currentStep === steps.length - 1;
-    nextBtn.textContent = isLast ? '✓' : '→';
-    nextBtn.classList.toggle('creator-float-save', isLast);
 
+    // Update all prev/next buttons (mobile panel + desktop floating)
+    document.querySelectorAll('#btn-prev-step, #btn-prev-step-desktop').forEach(btn => {
+      btn.disabled = isFirst;
+    });
+    document.querySelectorAll('#btn-next-step, #btn-next-step-desktop').forEach(btn => {
+      btn.textContent = isLast ? '✓' : '→';
+      btn.classList.toggle('creator-panel-nav-save', isLast);
+      btn.classList.toggle('creator-float-save', isLast);
+    });
+
+    // Render into desktop panel
     panel.innerHTML = '';
-
     if (step.id === 'basics') renderBasicsStep(panel);
     else if (step.id === 'skin') renderSkinStep(panel);
     else if (step.id === 'review') renderReviewStep(panel);
     else if (step.dataSource) renderCategoryStep(panel, [step.dataSource], step.optional);
     else if (step.dataSources) renderCategoryStep(panel, step.dataSources, step.optional);
+
+    // Render into mobile panel
+    if (mobilePanel) {
+      mobilePanel.innerHTML = '';
+      if (step.id === 'basics') renderBasicsStep(mobilePanel);
+      else if (step.id === 'skin') renderSkinStep(mobilePanel);
+      else if (step.id === 'review') renderReviewStep(mobilePanel);
+      else if (step.dataSource) renderCategoryStep(mobilePanel, [step.dataSource], step.optional);
+      else if (step.dataSources) renderCategoryStep(mobilePanel, step.dataSources, step.optional);
+    }
   }
 
   function renderBasicsStep(panel) {
@@ -228,39 +259,132 @@ const CharacterCreator = (() => {
         const colors = Catalog.getColorPalette(cat.colorPalette);
         const colorGroup = document.createElement('div');
         colorGroup.className = 'option-group';
-        const colorLabel = colorGroupId ? 'Cor' : 'Cor';
-        colorGroup.innerHTML = `<div class="option-group-title">${colorLabel}</div>`;
+        colorGroup.innerHTML = `<div class="option-group-title">Cor</div>`;
         const colorItems = document.createElement('div');
-        colorItems.className = 'option-items';
+        colorItems.className = 'option-items color-row';
 
         const currentColorId = currentPartData?.colorId || null;
 
+        function applyColor(colorId) {
+          if (!charData.parts[catId]) charData.parts[catId] = {};
+          charData.parts[catId].colorId = colorId;
+          const syncGroup = colorGroupId
+            ? Catalog.getCategoriesByColorGroup(colorGroupId).map(c => c.category)
+            : (catId === 'hair-back' || catId === 'hair-front') ? ['hair-back', 'hair-front'] : [];
+          for (const syncId of syncGroup) {
+            if (charData.parts[syncId]) charData.parts[syncId].colorId = colorId;
+          }
+          updatePreview();
+          colorGroup.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+        }
+
+        // Main palette swatches
         colors.forEach(c => {
           const swatch = document.createElement('div');
           swatch.className = 'option-item color-swatch' + (currentColorId === c.id ? ' selected' : '');
           swatch.style.backgroundColor = c.hex;
           swatch.title = c.name;
           swatch.addEventListener('click', () => {
-            if (!charData.parts[catId]) charData.parts[catId] = {};
-            charData.parts[catId].colorId = c.id;
-            // Sync color across shared group or hair pair
-            const syncGroup = colorGroupId
-              ? Catalog.getCategoriesByColorGroup(colorGroupId).map(c => c.category)
-              : (catId === 'hair-back' || catId === 'hair-front') ? ['hair-back', 'hair-front'] : [];
-            for (const syncId of syncGroup) {
-              if (charData.parts[syncId]) charData.parts[syncId].colorId = c.id;
-            }
-            updatePreview();
-            colorItems.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+            applyColor(c.id);
             swatch.classList.add('selected');
           });
           colorItems.appendChild(swatch);
         });
 
+        // "+" button opens fullscreen color picker modal
+        const moreBtn = document.createElement('div');
+        moreBtn.className = 'color-more-btn';
+        moreBtn.textContent = '+';
+        moreBtn.title = 'Mais cores';
+        moreBtn.addEventListener('click', () => {
+          openColorPickerModal(currentColorId, (hex) => {
+            applyColor(hex);
+            colorGroup.querySelector(`.color-swatch[title="${hex}"]`)?.classList.add('selected');
+          });
+        });
+        colorItems.appendChild(moreBtn);
+
         colorGroup.appendChild(colorItems);
         panel.appendChild(colorGroup);
       }
     }
+  }
+
+  const EXTRA_COLORS = [
+    '#FF0000','#FF4444','#FF6B6B','#FF8C00','#FFA500','#FFD700',
+    '#FFFF00','#ADFF2F','#32CD32','#00C853','#00897B','#00BCD4',
+    '#03A9F4','#2196F3','#1565C0','#3F51B5','#673AB7','#9C27B0',
+    '#E040FB','#FF4081','#F50057','#E91E63','#AD1457','#880E4F',
+    '#795548','#A1887F','#D7CCC8','#9E9E9E','#607D8B','#455A64',
+    '#F5F5F5','#E0E0E0','#BDBDBD','#757575','#424242','#222222',
+  ];
+
+  function openColorPickerModal(currentColorId, onSelect) {
+    // Remove existing overlay
+    document.querySelector('.color-picker-overlay')?.remove();
+
+    let selectedHex = (currentColorId && currentColorId.startsWith('#')) ? currentColorId : null;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'color-picker-overlay';
+
+    const modal = document.createElement('div');
+    modal.className = 'color-picker-modal';
+
+    // Header
+    const header = document.createElement('div');
+    header.className = 'color-picker-header';
+    header.innerHTML = '<h3>Escolha uma cor</h3>';
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'color-picker-close';
+    closeBtn.textContent = '✕';
+    closeBtn.addEventListener('click', () => overlay.remove());
+    header.appendChild(closeBtn);
+    modal.appendChild(header);
+
+    // Grid
+    const grid = document.createElement('div');
+    grid.className = 'color-picker-grid';
+    EXTRA_COLORS.forEach(hex => {
+      const swatch = document.createElement('div');
+      swatch.className = 'cp-swatch' + (selectedHex === hex ? ' selected' : '');
+      swatch.style.backgroundColor = hex;
+      if (hex === '#F5F5F5' || hex === '#E0E0E0' || hex === '#BDBDBD') {
+        swatch.style.border = '3px solid #CCC';
+      }
+      swatch.addEventListener('click', () => {
+        selectedHex = hex;
+        grid.querySelectorAll('.cp-swatch').forEach(s => s.classList.remove('selected'));
+        swatch.classList.add('selected');
+      });
+      grid.appendChild(swatch);
+    });
+    modal.appendChild(grid);
+
+    // Footer
+    const footer = document.createElement('div');
+    footer.className = 'color-picker-footer';
+    const cancelBtn = document.createElement('button');
+    cancelBtn.className = 'cp-btn-cancel';
+    cancelBtn.textContent = 'Cancelar';
+    cancelBtn.addEventListener('click', () => overlay.remove());
+    const selectBtn = document.createElement('button');
+    selectBtn.className = 'cp-btn-select';
+    selectBtn.textContent = 'Selecionar';
+    selectBtn.addEventListener('click', () => {
+      if (selectedHex) onSelect(selectedHex);
+      overlay.remove();
+    });
+    footer.appendChild(cancelBtn);
+    footer.appendChild(selectBtn);
+    modal.appendChild(footer);
+
+    overlay.appendChild(modal);
+    // Close on backdrop click
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.remove();
+    });
+    document.body.appendChild(overlay);
   }
 
   function renderReviewStep(panel) {
@@ -344,13 +468,17 @@ const CharacterCreator = (() => {
     if (typeof confetti === 'function') {
       confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
     }
-    App.showDone(saved);
+    // Go directly to wardrobe
+    App.showScreen('wardrobe');
+    Wardrobe.init(saved.id);
+    DragDrop.initDropZone();
   }
 
   return {
     init,
     nextStep,
     prevStep,
+    cleanup,
     getCurrentCharData: () => charData,
   };
 })();

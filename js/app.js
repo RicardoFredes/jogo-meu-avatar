@@ -62,10 +62,15 @@ const App = (() => {
       }
     });
 
-    // Creator navigation
-    document.getElementById('btn-next-step').addEventListener('click', () => CharacterCreator.nextStep());
-    document.getElementById('btn-prev-step').addEventListener('click', () => CharacterCreator.prevStep());
+    // Creator navigation - all prev/next buttons (mobile panel + desktop floating)
+    document.querySelectorAll('#btn-next-step, #btn-next-step-desktop').forEach(btn => {
+      btn.addEventListener('click', () => CharacterCreator.nextStep());
+    });
+    document.querySelectorAll('#btn-prev-step, #btn-prev-step-desktop').forEach(btn => {
+      btn.addEventListener('click', () => CharacterCreator.prevStep());
+    });
     document.getElementById('btn-creator-back').addEventListener('click', () => {
+      CharacterCreator.cleanup();
       showScreen('home');
       renderHomeCharacters();
     });

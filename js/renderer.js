@@ -301,7 +301,7 @@ const Renderer = (() => {
     return layers;
   }
 
-  // Render into a Konva stage
+  // Render into a Konva stage (keeps old visible until new is ready)
   async function renderToStage(containerId, charData, scale = 1) {
     const shape = Catalog.getBodyShape(charData.body.shapeId);
     if (!shape) return null;
@@ -309,9 +309,15 @@ const Renderer = (() => {
     const w = shape.dimensions.width * scale;
     const h = shape.dimensions.height * scale;
 
-    // Clear previous stage
     const container = document.getElementById(containerId);
     if (!container) return null;
+
+    // Build layers and load all images BEFORE touching the DOM
+    const layerList = buildLayerList(charData);
+    const imagePromises = layerList.map(l => loadColorizedImage(l.assetUrl, l.color, l.tintColor));
+    const images = await Promise.all(imagePromises);
+
+    // Now that everything is loaded, create the stage and swap instantly
     container.innerHTML = '';
     container.style.width = w + 'px';
     container.style.height = h + 'px';
@@ -324,12 +330,6 @@ const Renderer = (() => {
 
     const layer = new Konva.Layer();
     stage.add(layer);
-
-    const layerList = buildLayerList(charData);
-
-    // Load all images in parallel
-    const imagePromises = layerList.map(l => loadColorizedImage(l.assetUrl, l.color, l.tintColor));
-    const images = await Promise.all(imagePromises);
 
     for (let i = 0; i < layerList.length; i++) {
       const img = images[i];

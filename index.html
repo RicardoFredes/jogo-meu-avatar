@@ -57,15 +57,40 @@
 
   <!-- Home Screen -->
   <div id="home-screen" class="screen fixed inset-0 flex flex-col">
-    <header class="flex flex-wrap items-center justify-center gap-2 px-4 py-3 sm:py-4 bg-white/80 backdrop-blur-sm shadow-sm">
+    <header class="flex items-center justify-between px-4 py-3 sm:py-4 bg-white/80 backdrop-blur-sm shadow-sm">
       <h1 class="font-logo text-2xl sm:text-3xl text-primary drop-shadow">Lauren Fashion</h1>
-      <p class="font-display text-sm text-secondary hidden sm:block">Crie, Vista e Brilhe!</p>
-      <div class="flex items-center gap-2 ml-auto">
-        <button id="btn-install" class="hidden bg-accent text-white font-display text-sm px-4 py-2 rounded-xl shadow-md hover:shadow-lg active:scale-95 transition-all">Instalar App</button>
-        <button id="btn-debug-clear" class="text-xs text-primary-light/40 hover:text-primary-light/70 transition">Reset</button>
-        <span class="text-xs font-display text-primary-light/50">v0.6.0</span>
+      <!-- Desktop: inline items -->
+      <div class="hidden sm:flex items-center gap-3">
+        <p class="font-display text-sm text-secondary">Crie, Vista e Brilhe!</p>
+        <button id="btn-install" class="hidden bg-accent text-white font-display text-sm px-4 py-2 rounded-xl shadow-md active:scale-95 transition-all">Instalar App</button>
+        <span class="text-xs font-display text-primary-light/50">v1.0.0</span>
       </div>
+      <!-- Mobile: hamburger -->
+      <button id="btn-hamburger" class="sm:hidden w-10 h-10 flex items-center justify-center text-primary text-xl rounded-lg active:bg-purple-50 transition">☰</button>
     </header>
+
+    <!-- Mobile menu overlay -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-[180] flex">
+      <div class="flex-1 bg-black/30" id="mobile-menu-backdrop"></div>
+      <div class="w-64 bg-white shadow-[-4px_0_20px_rgba(0,0,0,0.15)] flex flex-col animate__animated animate__slideInRight animate__faster">
+        <div class="flex items-center justify-between px-4 py-3 border-b border-purple-100">
+          <h2 class="font-logo text-xl text-primary">Lauren Fashion</h2>
+          <button id="btn-close-menu" class="w-8 h-8 rounded-full text-primary-light flex items-center justify-center">✕</button>
+        </div>
+        <div class="flex-1 flex flex-col gap-2 p-4">
+          <p class="font-display text-sm text-secondary mb-2">Crie, Vista e Brilhe! ✨</p>
+          <button id="btn-install-menu" class="hidden bg-accent hover:bg-amber-500 text-white font-display text-base py-3 px-4 rounded-xl shadow active:scale-95 transition-all w-full">
+            📲 Instalar App
+          </button>
+          <button id="btn-debug-clear" class="text-left text-sm text-primary-light/60 hover:text-primary-light py-2 px-1 transition">
+            🔄 Resetar dados
+          </button>
+        </div>
+        <div class="px-4 py-3 border-t border-purple-100">
+          <span class="font-display text-xs text-primary-light/40">Versao v1.0.0</span>
+        </div>
+      </div>
+    </div>
     <main class="flex-1 flex flex-col items-center px-4 py-4 sm:py-6 gap-4 sm:gap-6 overflow-y-auto">
       <button id="btn-new-character" class="bg-primary hover:bg-primary-dark text-white font-display text-lg sm:text-xl px-8 py-4 rounded-xl3 shadow-lg hover:shadow-xl active:scale-95 transition-all flex items-center gap-2">
         <span class="text-2xl">+</span>
@@ -81,7 +106,7 @@
 
   <!-- Creator Screen -->
   <div id="creator-screen" class="screen fixed inset-0 flex flex-col">
-    <!-- Compact header: back + title + step indicator -->
+    <!-- Header -->
     <header class="flex items-center gap-2 px-2 py-1 sm:px-4 sm:py-2 bg-white/80 backdrop-blur-sm shadow-sm shrink-0 z-10">
       <button class="text-primary-light text-xs sm:text-sm shrink-0 px-1" id="btn-creator-back">← Sair</button>
       <div class="flex-1 text-center min-w-0">
@@ -90,17 +115,33 @@
       <span class="font-display text-[10px] sm:text-xs text-primary-light bg-lauren-bg px-2 py-0.5 rounded-full shrink-0" id="step-indicator">1/8</span>
     </header>
 
-    <!-- Content: preview + options (full height) -->
+    <!-- Main area -->
     <div class="creator-body flex-1 overflow-hidden relative">
-      <div class="preview-panel creator-preview-area">
+      <!-- Sidebar (visible on desktop/landscape, hidden on portrait mobile) -->
+      <div class="creator-desktop-sidebar flex-col overflow-hidden">
+        <div class="flex-1 overflow-y-auto p-3 pb-16" id="options-panel"></div>
+      </div>
+
+      <!-- Preview takes full space on mobile -->
+      <div class="creator-preview-area">
         <div id="creator-preview" class="character-preview"></div>
       </div>
-      <div class="creator-options-area" id="options-panel"></div>
 
-      <!-- Floating nav buttons -->
-      <div class="creator-floating-nav">
-        <button class="creator-float-btn creator-float-prev disabled:opacity-30" id="btn-prev-step" disabled>←</button>
-        <button class="creator-float-btn creator-float-next" id="btn-next-step">→</button>
+      <!-- Mobile: options overlay (always visible, slides up) -->
+      <div id="creator-mobile-panel" class="creator-mobile-panel">
+        <!-- Panel header with nav buttons -->
+        <div class="flex items-center justify-between px-3 py-2 border-b border-purple-100 shrink-0">
+          <button class="creator-panel-nav-btn disabled:opacity-30" id="btn-prev-step" disabled>←</button>
+          <h3 id="creator-panel-title" class="font-display text-sm text-primary-dark flex-1 text-center">Opcoes</h3>
+          <button class="creator-panel-nav-btn creator-panel-nav-next" id="btn-next-step">→</button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-3" id="mobile-options-panel"></div>
+      </div>
+
+      <!-- Desktop only: floating nav (hidden on mobile since buttons are in panel) -->
+      <div class="creator-floating-nav hidden sm:flex">
+        <button class="creator-float-btn creator-float-prev disabled:opacity-30" id="btn-prev-step-desktop" disabled>←</button>
+        <button class="creator-float-btn creator-float-next" id="btn-next-step-desktop">→</button>
       </div>
     </div>
   </div>
@@ -120,49 +161,89 @@
 
   <!-- Wardrobe Screen -->
   <div id="wardrobe-screen" class="screen fixed inset-0 flex flex-col">
-    <header class="flex items-center justify-between px-3 py-2 sm:px-4 sm:py-3 bg-white/90 backdrop-blur-sm shadow-sm">
-      <button class="btn btn-back text-primary-light text-sm" id="btn-wardrobe-back">← Voltar</button>
-      <h2 class="font-display text-base sm:text-lg text-primary-dark">Guarda-Roupa</h2>
-      <button class="bg-accent text-white font-display text-xs px-3 py-1.5 rounded-lg shadow active:scale-95 transition-all" id="btn-my-looks">Meus Looks</button>
+    <!-- Compact header -->
+    <header class="flex items-center justify-between px-2 py-1.5 sm:px-4 sm:py-2 bg-white/90 backdrop-blur-sm shadow-sm shrink-0 z-10">
+      <button class="text-primary-light text-xs sm:text-sm px-1" id="btn-wardrobe-back">← Sair</button>
+      <h2 class="font-display text-sm sm:text-lg text-primary-dark">Guarda-Roupa</h2>
+      <div class="flex gap-1.5">
+        <button class="bg-red-100 text-red-500 font-display text-[10px] sm:text-xs px-2 py-1 rounded-lg active:scale-95 transition-all" id="btn-clear-outfit">Tirar</button>
+        <button class="bg-accent text-white font-display text-[10px] sm:text-xs px-2 py-1 rounded-lg shadow active:scale-95 transition-all" id="btn-save-look">Salvar</button>
+        <button class="bg-purple-100 text-primary font-display text-[10px] sm:text-xs px-2 py-1 rounded-lg active:scale-95 transition-all" id="btn-my-looks">Looks</button>
+      </div>
     </header>
-    <div class="wardrobe-body flex-1 flex flex-col overflow-hidden">
-      <!-- Mobile: horizontal tabs, Desktop/Landscape: vertical sidebar -->
-      <nav class="category-tabs flex gap-1 px-2 py-1 bg-purple-50/50 overflow-x-auto shrink-0" id="category-tabs"></nav>
-      <div class="flex-1 flex flex-col px-2 py-1 sm:p-2 overflow-hidden">
-        <div class="color-bar hidden flex items-center gap-2 px-1 py-1.5 shrink-0" id="color-bar">
-          <span class="font-display text-xs text-primary-light">Cor:</span>
-          <div class="flex gap-1.5 flex-wrap" id="color-options"></div>
-        </div>
-        <div class="items-grid flex-1 grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-1.5 sm:gap-2 overflow-y-auto p-1 content-start" id="items-grid"></div>
-        <p class="drag-hint text-center font-display text-xs text-primary-light/50 py-1" id="drag-hint">Toque para vestir!</p>
-        <!-- Free position controls -->
-        <div id="free-pos-panel" class="hidden bg-white/80 backdrop-blur rounded-xl p-2 mx-1 mb-1 shadow-sm">
-          <div class="flex items-center gap-3 flex-wrap">
-            <span class="font-display text-xs text-primary-dark">Ajustar:</span>
-            <div class="flex items-center gap-1">
-              <button class="free-pos-btn" data-action="left" title="Mover esquerda">←</button>
-              <button class="free-pos-btn" data-action="right" title="Mover direita">→</button>
-              <button class="free-pos-btn" data-action="up" title="Mover cima">↑</button>
-              <button class="free-pos-btn" data-action="down" title="Mover baixo">↓</button>
+
+    <!-- Main area: canvas takes full space -->
+    <div class="wardrobe-main flex-1 relative overflow-hidden">
+      <!-- Desktop sidebar (hidden on mobile) -->
+      <div class="wardrobe-desktop-sidebar hidden sm:flex">
+        <nav class="category-tabs flex flex-col gap-1 px-1 py-2 bg-purple-50/50 overflow-y-auto w-20 shrink-0" id="category-tabs"></nav>
+        <div class="wardrobe-items-sidebar flex-1 flex flex-col p-2 overflow-hidden">
+          <div class="color-bar hidden flex items-center gap-2 px-1 py-1.5 shrink-0" id="color-bar">
+            <span class="font-display text-xs text-primary-light">Cor:</span>
+            <div class="flex gap-1.5 flex-wrap" id="color-options"></div>
+          </div>
+          <div class="items-grid flex-1 grid grid-cols-4 md:grid-cols-5 gap-2 overflow-y-auto p-1 content-start" id="items-grid"></div>
+          <!-- Free position controls -->
+          <div id="free-pos-panel" class="hidden bg-white/80 backdrop-blur rounded-xl p-2 mt-1 shadow-sm">
+            <div class="flex items-center gap-3 flex-wrap">
+              <span class="font-display text-xs text-primary-dark">Ajustar:</span>
+              <div class="flex items-center gap-1">
+                <button class="free-pos-btn" data-action="left">←</button>
+                <button class="free-pos-btn" data-action="right">→</button>
+                <button class="free-pos-btn" data-action="up">↑</button>
+                <button class="free-pos-btn" data-action="down">↓</button>
+              </div>
+              <div class="h-4 w-px bg-purple-200"></div>
+              <div class="flex items-center gap-1">
+                <button class="free-pos-btn" data-action="smaller">−</button>
+                <span id="free-pos-scale" class="font-mono text-xs text-primary-dark min-w-[32px] text-center">100%</span>
+                <button class="free-pos-btn" data-action="bigger">+</button>
+              </div>
+              <button class="free-pos-btn text-red-400" data-action="reset">↺</button>
             </div>
-            <div class="h-4 w-px bg-purple-200"></div>
-            <div class="flex items-center gap-1">
-              <button class="free-pos-btn" data-action="smaller" title="Menor">−</button>
-              <span id="free-pos-scale" class="font-mono text-xs text-primary-dark min-w-[32px] text-center">100%</span>
-              <button class="free-pos-btn" data-action="bigger" title="Maior">+</button>
-            </div>
-            <button class="free-pos-btn text-red-400" data-action="reset" title="Resetar posicao">↺</button>
           </div>
         </div>
       </div>
-      <div class="wardrobe-preview-area flex items-center justify-center p-2 sm:p-3 bg-gradient-to-b from-lauren-bg to-lauren-card relative">
+
+      <!-- Character preview (full area on mobile, right side on desktop) -->
+      <div class="wardrobe-preview-area">
         <div id="wardrobe-character" class="character-preview drop-zone"></div>
       </div>
+
+      <!-- Mobile: items overlay panel (slides up from bottom) -->
+      <div id="mobile-items-panel" class="wardrobe-mobile-panel hidden">
+        <div class="flex items-center justify-between px-3 py-2 border-b border-purple-100">
+          <h3 id="mobile-panel-title" class="font-display text-sm text-primary-dark">Categoria</h3>
+          <button id="btn-close-mobile-panel" class="w-8 h-8 rounded-full bg-purple-50 text-primary text-sm flex items-center justify-center active:scale-90 transition">✕</button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-2">
+          <div id="mobile-color-bar" class="hidden flex items-center gap-2 px-1 py-1.5 mb-2">
+            <span class="font-display text-xs text-primary-light">Cor:</span>
+            <div class="flex gap-1.5 flex-wrap" id="mobile-color-options"></div>
+          </div>
+          <div id="mobile-items-grid" class="grid grid-cols-4 gap-2 content-start"></div>
+          <!-- Free position (mobile) -->
+          <div id="mobile-free-pos-panel" class="hidden bg-white/80 backdrop-blur rounded-xl p-2 mt-2 shadow-sm">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="font-display text-xs text-primary-dark">Ajustar:</span>
+              <button class="free-pos-btn" data-action="left">←</button>
+              <button class="free-pos-btn" data-action="right">→</button>
+              <button class="free-pos-btn" data-action="up">↑</button>
+              <button class="free-pos-btn" data-action="down">↓</button>
+              <button class="free-pos-btn" data-action="smaller">−</button>
+              <span id="mobile-free-pos-scale" class="font-mono text-xs min-w-[32px] text-center">100%</span>
+              <button class="free-pos-btn" data-action="bigger">+</button>
+              <button class="free-pos-btn text-red-400" data-action="reset">↺</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <footer class="flex justify-between px-4 py-2 sm:py-3 bg-white/90 backdrop-blur-sm shadow-[0_-2px_8px_rgba(0,0,0,0.06)]">
-      <button class="bg-red-500 hover:bg-red-600 text-white font-display text-xs sm:text-sm px-4 py-2 rounded-xl2 active:scale-95 transition-all" id="btn-clear-outfit">Tirar Tudo</button>
-      <button class="bg-primary hover:bg-primary-dark text-white font-display text-xs sm:text-sm px-4 py-2 rounded-xl2 shadow-md active:scale-95 transition-all" id="btn-save-look">Salvar Look ⭐</button>
-    </footer>
+
+    <!-- Mobile: category buttons at bottom -->
+    <nav id="mobile-category-bar" class="sm:hidden flex gap-1 px-2 py-1.5 bg-white/90 backdrop-blur-sm shadow-[0_-2px_8px_rgba(0,0,0,0.06)] overflow-x-auto shrink-0">
+      <!-- Filled dynamically -->
+    </nav>
 
     <!-- Looks Sidebar -->
     <div class="looks-sidebar hidden fixed right-0 top-0 bottom-0 w-64 sm:w-72 bg-white/95 backdrop-blur-sm shadow-[-4px_0_20px_rgba(0,0,0,0.1)] z-50 flex flex-col" id="looks-sidebar">
@@ -242,22 +323,42 @@
   <script>
     // PWA Install
     let deferredPrompt = null;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      document.getElementById('btn-install').classList.remove('hidden');
-    });
-    document.getElementById('btn-install').addEventListener('click', async () => {
+    function showInstallButtons() {
+      document.getElementById('btn-install')?.classList.remove('hidden');
+      document.getElementById('btn-install-menu')?.classList.remove('hidden');
+    }
+    function hideInstallButtons() {
+      document.getElementById('btn-install')?.classList.add('hidden');
+      document.getElementById('btn-install-menu')?.classList.add('hidden');
+    }
+    async function promptInstall() {
       if (!deferredPrompt) return;
       deferredPrompt.prompt();
       const result = await deferredPrompt.userChoice;
-      if (result.outcome === 'accepted') document.getElementById('btn-install').classList.add('hidden');
+      if (result.outcome === 'accepted') hideInstallButtons();
       deferredPrompt = null;
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      showInstallButtons();
     });
-    window.addEventListener('appinstalled', () => {
-      document.getElementById('btn-install').classList.add('hidden');
-      deferredPrompt = null;
+    document.getElementById('btn-install')?.addEventListener('click', promptInstall);
+    document.getElementById('btn-install-menu')?.addEventListener('click', promptInstall);
+    window.addEventListener('appinstalled', () => { hideInstallButtons(); deferredPrompt = null; });
+
+    // Hamburger menu
+    document.getElementById('btn-hamburger')?.addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.remove('hidden');
     });
+    document.getElementById('btn-close-menu')?.addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.add('hidden');
+    });
+    document.getElementById('mobile-menu-backdrop')?.addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.add('hidden');
+    });
+
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
   </script>
 </body>
