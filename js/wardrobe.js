@@ -192,36 +192,26 @@ const Wardrobe = (() => {
             : charData.outfit[slotId];
           const palette = Catalog.getColorPalette(cat.colorPalette || 'clothing-colors');
           if (palette.length > 0) {
-            const colorRow = document.createElement('div');
-            colorRow.style.cssText = 'grid-column:1/-1;display:flex;align-items:center;gap:5px;padding:4px 0;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;';
-            const colorLabel = document.createElement('span');
-            colorLabel.style.cssText = 'font-family:Fredoka,sans-serif;font-size:0.65rem;color:#999;flex-shrink:0;';
-            colorLabel.textContent = 'Cor:';
-            colorRow.appendChild(colorLabel);
-
-            palette.forEach(c => {
-              const swatch = document.createElement('div');
-              swatch.className = 'color-option' + (equipped?.colorId === c.id ? ' selected' : '');
-              swatch.style.backgroundColor = c.hex;
-              swatch.title = c.name;
-              swatch.addEventListener('click', () => {
-                if (equipped) equipped.colorId = c.id;
-                else if (cat.type === 'body-part') {
+            const bar = buildColorBar({
+              palette,
+              currentColorId: equipped?.colorId || null,
+              onSelect(colorId) {
+                if (equipped) {
+                  equipped.colorId = colorId;
+                } else if (cat.type === 'body-part') {
                   if (!charData.parts[cat.category]) charData.parts[cat.category] = {};
-                  charData.parts[cat.category].colorId = c.id;
+                  charData.parts[cat.category].colorId = colorId;
                 } else {
                   if (!charData.outfit[slotId]) charData.outfit[slotId] = {};
-                  charData.outfit[slotId].colorId = c.id;
+                  charData.outfit[slotId].colorId = colorId;
                 }
                 if (cat.type === 'body-part') Storage.saveCharacter(charData);
                 else Storage.updateCharacterOutfit(characterId, charData.outfit);
                 renderCharacter();
-                colorRow.querySelectorAll('.color-option').forEach(o => o.classList.remove('selected'));
-                swatch.classList.add('selected');
-              });
-              colorRow.appendChild(swatch);
+              },
             });
-            mobileGrid.appendChild(colorRow);
+            bar.style.gridColumn = '1 / -1';
+            mobileGrid.appendChild(bar);
           }
         }
 
@@ -262,61 +252,6 @@ const Wardrobe = (() => {
     // Hide global mobile color bar (we use inline ones now)
     if (mobileColorBar) {
       mobileColorBar.classList.add('hidden');
-    }
-
-    // Legacy code below (keep disabled)
-    if (false) {
-      mobileColorBar.innerHTML = '';
-      const cats = currentTabCatIds.map(id => Catalog.getCategory(id)).filter(Boolean);
-      const colorableCats = cats.filter(c => c.colorable && c.colorPalette);
-
-      if (colorableCats.length > 0) {
-        mobileColorBar.classList.remove('hidden');
-
-        for (const colorCat of colorableCats) {
-          const palette = Catalog.getColorPalette(colorCat.colorPalette || 'clothing-colors');
-          if (palette.length === 0) continue;
-
-          const slotId = colorCat.slotId;
-          const equipped = colorCat.type === 'body-part'
-            ? charData.parts?.[colorCat.category]
-            : charData.outfit[slotId];
-
-          // Label if multiple color bars
-          if (colorableCats.length > 1) {
-            const label = document.createElement('div');
-            label.className = 'font-display';
-            label.style.cssText = 'font-size:0.7rem;color:#7D3C98;margin-top:6px;margin-bottom:2px;';
-            label.textContent = 'Cor: ' + colorCat.label;
-            mobileColorBar.appendChild(label);
-          }
-
-          const bar = buildColorBar({
-            palette,
-            currentColorId: equipped?.colorId || null,
-            onSelect(colorId) {
-              if (equipped) {
-                equipped.colorId = colorId;
-              } else if (colorCat.type === 'body-part') {
-                if (!charData.parts[colorCat.category]) charData.parts[colorCat.category] = {};
-                charData.parts[colorCat.category].colorId = colorId;
-              } else {
-                if (!charData.outfit[slotId]) charData.outfit[slotId] = {};
-                charData.outfit[slotId].colorId = colorId;
-              }
-              if (colorCat.type === 'body-part') {
-                Storage.saveCharacter(charData);
-              } else {
-                Storage.updateCharacterOutfit(characterId, charData.outfit);
-              }
-              renderCharacter();
-            },
-          });
-          while (bar.firstChild) mobileColorBar.appendChild(bar.firstChild);
-        }
-      } else {
-        mobileColorBar.classList.add('hidden');
-      }
     }
 
     // Re-attach color events in inline color bars (multi-cat tabs in mobile grid)

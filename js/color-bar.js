@@ -23,7 +23,7 @@ const EXTRA_COLORS = [
 function buildColorBar({ palette, currentColorId, onSelect }) {
   const group = document.createElement('div');
   group.className = 'option-group';
-  group.style.padding = '8px 10px';
+  group.style.padding = '8px 0';
   group.style.marginBottom = '4px';
 
   const row = document.createElement('div');
