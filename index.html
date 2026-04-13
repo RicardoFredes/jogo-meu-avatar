@@ -44,6 +44,65 @@
   <!-- Design tokens + game styles -->
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Critical boot-loader styles. Inlined in <head> so the splash is
+       painted on the very first frame, before Tailwind (CDN script)
+       or Alpine run. Fills the gap between the PWA native splash and
+       the moment Alpine takes over — no white flash. -->
+  <style>
+    #boot-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #F5E6FF 0%, #FFF0F5 100%);
+    }
+    #boot-loader .bl-inner { text-align: center; }
+    #boot-loader .bl-title {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.75rem;
+      color: #9B59B6;
+      margin: 0;
+      text-shadow: 0 2px 6px rgba(125, 60, 152, 0.18);
+      animation: bl-pulse 1.4s ease-in-out infinite;
+    }
+    #boot-loader .bl-sub {
+      font-family: 'Nunito', sans-serif;
+      margin: 8px 0 18px;
+      font-size: 0.9rem;
+      color: #C39BD3;
+    }
+    #boot-loader .bl-bar {
+      width: 200px; height: 8px;
+      margin: 0 auto;
+      background: rgba(155, 89, 182, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    #boot-loader .bl-fill {
+      height: 100%;
+      width: 30%;
+      background: #9B59B6;
+      border-radius: 4px;
+      animation: bl-slide 1.2s ease-in-out infinite;
+    }
+    @keyframes bl-slide {
+      0%   { transform: translateX(-100%); width: 30%; }
+      50%  { width: 60%; }
+      100% { transform: translateX(350%); width: 30%; }
+    }
+    @keyframes bl-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.85; transform: scale(1.04); }
+    }
+    #boot-loader.is-gone {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease-out;
+    }
+  </style>
 </head>
 <body class="font-body bg-gradient-to-br from-lauren-bg via-purple-50 to-lauren-card min-h-screen overflow-hidden select-none">
 
@@ -61,14 +120,17 @@
   </div>
 
   <!-- ============================================ -->
-  <!-- LOADING SCREEN                                -->
+  <!-- LOADING SCREEN (boot-loader)                  -->
+  <!-- Uses #boot-loader with styles inlined in <head> so it paints   -->
+  <!-- IMMEDIATELY — no x-cloak, no Tailwind dependency, no wait for  -->
+  <!-- Alpine. Once the app transitions away from the loading screen  -->
+  <!-- Alpine adds .is-gone which fades it out.                       -->
   <!-- ============================================ -->
-  <div x-data x-show="$store.app.screen === 'loading'" x-cloak
-       class="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-lauren-bg to-lauren-card z-50">
-    <div class="text-center">
-      <h1 class="font-logo text-4xl sm:text-5xl text-primary animate__animated animate__pulse animate__infinite drop-shadow-lg">Lauren Fashion</h1>
-      <p class="text-primary-light mt-2 text-sm loading-text">Carregando...</p>
-      <div class="loading-bar mt-4 mx-auto"><div class="loading-fill"></div></div>
+  <div id="boot-loader" x-data :class="{ 'is-gone': $store.app.screen !== 'loading' }">
+    <div class="bl-inner">
+      <h1 class="bl-title">Lauren Fashion</h1>
+      <p class="bl-sub">Carregando...</p>
+      <div class="bl-bar"><div class="bl-fill"></div></div>
     </div>
   </div>
 
@@ -78,7 +140,7 @@
   <div x-data="homeScreen" x-show="$store.app.screen === 'home'" x-cloak
        class="fixed inset-0 flex flex-col">
     <header class="flex items-center justify-between px-4 py-3 sm:py-4 bg-white/80 backdrop-blur-sm shadow-sm">
-      <h1 class="font-logo text-2xl sm:text-3xl text-primary drop-shadow">Lauren Fashion</h1>
+      <h1 class="font-logo text-2xl sm:text-3xl text-primary logo-glow">Lauren Fashion</h1>
       <div class="hidden sm:flex items-center gap-3">
         <p class="font-display text-sm text-secondary">Crie, Vista e Brilhe!</p>
         <button x-show="$store.install.available"
@@ -97,7 +159,7 @@
       <div class="flex-1 bg-black/30" @click="$store.app.closeMenu()"></div>
       <div class="w-64 bg-white shadow-[-4px_0_20px_rgba(0,0,0,0.15)] flex flex-col animate__animated animate__slideInRight animate__faster">
         <div class="flex items-center justify-between px-4 py-3 border-b border-purple-100">
-          <h2 class="font-logo text-xl text-primary">Lauren Fashion</h2>
+          <h2 class="font-logo text-xl text-primary logo-glow">Lauren Fashion</h2>
           <button @click="$store.app.closeMenu()"
                   class="w-8 h-8 rounded-full text-primary-light flex items-center justify-center">✕</button>
         </div>
