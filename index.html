@@ -140,7 +140,7 @@
   <div x-data="homeScreen" x-show="$store.app.screen === 'home'" x-cloak
        class="fixed inset-0 flex flex-col">
     <header class="flex items-center justify-between px-4 py-3 sm:py-4 bg-white/80 backdrop-blur-sm shadow-sm">
-      <h1 class="font-logo text-2xl sm:text-3xl text-primary logo-glow">Lauren Fashion</h1>
+      <h1 class="font-logo text-2xl sm:text-3xl text-primary">Lauren Fashion</h1>
       <div class="hidden sm:flex items-center gap-3">
         <p class="font-display text-sm text-secondary">Crie, Vista e Brilhe!</p>
         <button x-show="$store.install.available"
@@ -159,7 +159,7 @@
       <div class="flex-1 bg-black/30" @click="$store.app.closeMenu()"></div>
       <div class="w-64 bg-white shadow-[-4px_0_20px_rgba(0,0,0,0.15)] flex flex-col animate__animated animate__slideInRight animate__faster">
         <div class="flex items-center justify-between px-4 py-3 border-b border-purple-100">
-          <h2 class="font-logo text-xl text-primary logo-glow">Lauren Fashion</h2>
+          <h2 class="font-logo text-xl text-primary">Lauren Fashion</h2>
           <button @click="$store.app.closeMenu()"
                   class="w-8 h-8 rounded-full text-primary-light flex items-center justify-center">✕</button>
         </div>
