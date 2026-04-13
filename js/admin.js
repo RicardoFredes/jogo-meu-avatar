@@ -519,33 +519,84 @@ const Admin = (() => {
 
   // ========== LAYERS ==========
 
+  // Track checked layers for multi-edit
+  let checkedLayers = new Set();
+
   function updateLayerList() {
     const list = document.getElementById('layer-list');
     list.innerHTML = '';
     const children = drawingLayer.children.filter(c => c instanceof paper.Path || c instanceof paper.CompoundPath);
     document.getElementById('layer-count').textContent = children.length;
 
+    // Clean checkedLayers of removed items
+    checkedLayers = new Set([...checkedLayers].filter(id => children.some(c => c.id === id)));
+
     children.forEach((item, i) => {
       const el = document.createElement('div');
       el.className = 'layer-item' + (item === selectedPath ? ' selected' : '');
       const fc = item.fillColor ? item.fillColor.toCSS(true) : 'transparent';
+      const isChecked = checkedLayers.has(item.id);
       el.innerHTML = `
-        <input type="checkbox" ${item.visible ? 'checked' : ''}>
+        <input type="checkbox" class="layer-check" data-id="${item.id}" ${isChecked ? 'checked' : ''} title="Selecionar para edicao em grupo">
+        <span class="layer-eye ${item.visible ? '' : 'off'}" title="Visibilidade">
+          ${item.visible ? '&#128065;' : '&#128064;'}
+        </span>
         <span class="layer-color" style="background:${fc}"></span>
         <span class="layer-name">${item.name || 'path-' + i}</span>
       `;
-      el.addEventListener('click', (e) => {
-        if (e.target.type === 'checkbox') {
-          item.visible = e.target.checked;
-          return;
+
+      // Checkbox → multi-select
+      el.querySelector('.layer-check').addEventListener('change', (e) => {
+        e.stopPropagation();
+        if (e.target.checked) {
+          checkedLayers.add(item.id);
+        } else {
+          checkedLayers.delete(item.id);
         }
+      });
+
+      // Eye → toggle visibility
+      el.querySelector('.layer-eye').addEventListener('click', (e) => {
+        e.stopPropagation();
+        item.visible = !item.visible;
+        updateLayerList();
+        paper.view.draw();
+      });
+
+      // Click name → select this path
+      el.querySelector('.layer-name').addEventListener('click', (e) => {
+        e.stopPropagation();
         selectPath(item);
       });
-      el.querySelector('input').addEventListener('change', (e) => {
-        item.visible = e.target.checked;
+      el.querySelector('.layer-color').addEventListener('click', (e) => {
+        e.stopPropagation();
+        selectPath(item);
       });
+
       list.appendChild(el);
     });
+  }
+
+  function selectAllLayers() {
+    const children = drawingLayer.children.filter(c => c instanceof paper.Path || c instanceof paper.CompoundPath);
+    const allChecked = children.length === checkedLayers.size;
+    if (allChecked) {
+      checkedLayers.clear();
+    } else {
+      children.forEach(c => checkedLayers.add(c.id));
+    }
+    updateLayerList();
+  }
+
+  // Get items to transform: checked layers, or selectedPath, or all
+  function getTransformTargets(useAll) {
+    const children = drawingLayer.children.filter(c => c instanceof paper.Path || c instanceof paper.CompoundPath);
+    if (checkedLayers.size > 0) {
+      return children.filter(c => checkedLayers.has(c.id));
+    }
+    if (useAll) return children;
+    if (selectedPath) return [selectedPath];
+    return children;
   }
 
   // ========== IMPORT / EXPORT ==========
@@ -859,6 +910,8 @@ const Admin = (() => {
       currentPath = null;
       setStatus('Pen Tool - Clique para comecar novo path');
     });
+
+    document.getElementById('btn-select-all-layers').addEventListener('click', selectAllLayers);
   }
 
   // ========== ACTIONS: CENTER, MIRROR ==========
@@ -910,31 +963,19 @@ const Admin = (() => {
     if (scaleX <= 0 || scaleY <= 0) { toast('Scale deve ser > 0'); return; }
 
     const all = document.getElementById('chk-transform-all').checked;
+    const targets = getTransformTargets(all);
+
+    if (targets.length === 0) { toast('Nenhum layer para transformar'); return; }
+
     const center = new paper.Point(CANVAS_W / 2, CANVAS_H / 2);
+    targets.forEach(item => {
+      if (scaleX !== 1 || scaleY !== 1) item.scale(scaleX, scaleY, center);
+      if (moveX !== 0 || moveY !== 0) item.position = item.position.add(new paper.Point(moveX, moveY));
+    });
 
-    function transformItem(item) {
-      if (scaleX !== 1 || scaleY !== 1) {
-        item.scale(scaleX, scaleY, center);
-      }
-      if (moveX !== 0 || moveY !== 0) {
-        item.position = item.position.add(new paper.Point(moveX, moveY));
-      }
-    }
+    toast(`Transformado ${targets.length} layer(s)`);
 
-    if (all) {
-      drawingLayer.children.forEach(item => {
-        if (item instanceof paper.Path || item instanceof paper.CompoundPath) {
-          transformItem(item);
-        }
-      });
-      toast(`Transformado ${drawingLayer.children.length} layers`);
-    } else {
-      if (!selectedPath) { toast('Selecione um path ou marque "Todos layers"'); return; }
-      transformItem(selectedPath);
-      toast('Transformado');
-    }
-
-    // Reset inputs after applying
+    // Reset inputs
     document.getElementById('tf-scale-x').value = 100;
     document.getElementById('tf-scale-y').value = 100;
     document.getElementById('tf-move-x').value = 0;

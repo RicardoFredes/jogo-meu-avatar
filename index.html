@@ -63,7 +63,7 @@
       <div class="flex items-center gap-2 ml-auto">
         <button id="btn-install" class="hidden bg-accent text-white font-display text-sm px-4 py-2 rounded-xl shadow-md hover:shadow-lg active:scale-95 transition-all">Instalar App</button>
         <button id="btn-debug-clear" class="text-xs text-primary-light/40 hover:text-primary-light/70 transition">Reset</button>
-        <span class="text-xs font-display text-primary-light/50">v0.5.0</span>
+        <span class="text-xs font-display text-primary-light/50">v0.6.0</span>
       </div>
     </header>
     <main class="flex-1 flex flex-col items-center px-4 py-4 sm:py-6 gap-4 sm:gap-6 overflow-y-auto">
@@ -171,6 +171,32 @@
         <button class="w-8 h-8 rounded-full text-primary-light hover:bg-purple-50 flex items-center justify-center transition" id="btn-close-looks">✕</button>
       </div>
       <div class="looks-grid flex-1 grid grid-cols-2 gap-2 p-3 overflow-y-auto content-start" id="looks-grid"></div>
+    </div>
+  </div>
+
+  <!-- Character Fullscreen View -->
+  <div id="char-fullscreen" class="hidden fixed inset-0 z-[150] bg-gradient-to-b from-lauren-bg to-lauren-card flex flex-col">
+    <!-- Close -->
+    <button id="btn-fs-close" class="absolute top-3 right-3 z-10 w-10 h-10 rounded-full bg-white/80 backdrop-blur shadow text-primary-dark text-xl flex items-center justify-center active:scale-90 transition">✕</button>
+    <!-- Name -->
+    <div class="text-center pt-4 pb-1">
+      <h2 id="fs-name" class="font-display text-xl sm:text-2xl text-primary-dark">Luna</h2>
+    </div>
+    <!-- Big preview -->
+    <div class="flex-1 flex items-center justify-center p-4 overflow-hidden">
+      <div id="fs-preview" class="character-preview"></div>
+    </div>
+    <!-- Big action buttons -->
+    <div class="flex flex-col gap-3 px-6 pb-6 sm:flex-row sm:justify-center sm:gap-4 sm:pb-8">
+      <button id="btn-fs-dress" class="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white font-display text-lg py-4 px-8 rounded-2xl shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2">
+        👗 Vestir
+      </button>
+      <button id="btn-fs-edit" class="w-full sm:w-auto bg-white border-2 border-primary-light text-primary-dark font-display text-lg py-4 px-8 rounded-2xl shadow active:scale-95 transition-all flex items-center justify-center gap-2">
+        ✏️ Editar
+      </button>
+      <button id="btn-fs-delete" class="w-full sm:w-auto bg-red-50 border-2 border-red-200 text-red-500 font-display text-base py-3 px-6 rounded-2xl active:scale-95 transition-all flex items-center justify-center gap-2">
+        🗑️ Apagar
+      </button>
     </div>
   </div>
 

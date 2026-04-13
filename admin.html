@@ -22,78 +22,10 @@
   <div class="admin-layout">
     <!-- Left: Tools + Layers -->
     <aside class="panel panel-left">
-      <section class="panel-section">
-        <h3 class="panel-title">Ferramentas</h3>
-        <div class="tool-grid">
-          <button class="tool-btn active" data-tool="pen" title="Pen Tool (P)">
-            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/></svg>
-            Pen
-          </button>
-          <button class="tool-btn" data-tool="select" title="Select (V)">
-            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M7 2l12 11.2-5.8.5 3.3 7.3-2.2 1-3.2-7.4L7 18V2z" fill="currentColor"/></svg>
-            Select
-          </button>
-          <button class="tool-btn" data-tool="move" title="Move (M)">
-            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z" fill="currentColor"/></svg>
-            Move
-          </button>
-          <button class="tool-btn" data-tool="delete" title="Delete (Del)">
-            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" fill="currentColor"/></svg>
-            Delete
-          </button>
-        </div>
-      </section>
-
-      <section class="panel-section">
-        <h3 class="panel-title">Acoes</h3>
-        <div class="tool-grid">
-          <button class="adm-btn action-btn" id="btn-center" title="Centralizar (C)">Centralizar</button>
-          <button class="adm-btn action-btn" id="btn-mirror" title="Espelhar (H)">Espelhar H</button>
-          <button class="adm-btn action-btn" id="btn-clone-point" title="Clona ponto selecionado (D)">Clonar Pt</button>
-          <button class="adm-btn action-btn" id="btn-remove-point" title="Remove ponto selecionado (Del)">- Ponto</button>
-          <label class="chk-label" style="grid-column:1/-1;margin-top:4px;">
-            <input type="checkbox" id="chk-mirror-mode"> Modo Mirror
-          </label>
-        </div>
-      </section>
-
-      <section class="panel-section">
-        <h3 class="panel-title">Transformar <label class="chk-label" style="margin-left:auto;font-size:10px;"><input type="checkbox" id="chk-transform-all" checked> Todos layers</label></h3>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div style="display:flex;align-items:center;gap:4px;">
-            <label style="font-size:11px;color:var(--dim);width:50px;">Scale X</label>
-            <input type="number" id="tf-scale-x" class="adm-input" style="width:60px;" value="100" step="5" min="1" max="500">
-            <label style="font-size:11px;color:var(--dim);">%</label>
-          </div>
-          <div style="display:flex;align-items:center;gap:4px;">
-            <label style="font-size:11px;color:var(--dim);width:50px;">Scale Y</label>
-            <input type="number" id="tf-scale-y" class="adm-input" style="width:60px;" value="100" step="5" min="1" max="500">
-            <label style="font-size:11px;color:var(--dim);">%</label>
-          </div>
-          <div style="display:flex;align-items:center;gap:4px;">
-            <label style="font-size:11px;color:var(--dim);width:50px;">Move X</label>
-            <input type="number" id="tf-move-x" class="adm-input" style="width:60px;" value="0" step="5">
-            <label style="font-size:11px;color:var(--dim);">px</label>
-          </div>
-          <div style="display:flex;align-items:center;gap:4px;">
-            <label style="font-size:11px;color:var(--dim);width:50px;">Move Y</label>
-            <input type="number" id="tf-move-y" class="adm-input" style="width:60px;" value="0" step="5">
-            <label style="font-size:11px;color:var(--dim);">px</label>
-          </div>
-          <button class="adm-btn adm-btn-primary" id="btn-transform-apply" style="width:100%;">Aplicar</button>
-        </div>
-        </div>
-      </section>
-
+      <!-- Categoria + Assets primeiro (mais usado) -->
       <section class="panel-section">
         <h3 class="panel-title">Categoria</h3>
-        <select id="sel-category" class="adm-select">
-          <option value="hair-back">Cabelo (atras)</option>
-          <option value="hair-front">Franja (frente)</option>
-          <option value="face-shapes">Rosto</option>
-          <option value="eyes">Olhos</option>
-          <option value="noses">Nariz</option>
-          <option value="mouths">Boca</option>
+        <select id="sel-category" class="adm-select" style="width:100%;">
           <option value="tops">Blusas</option>
           <option value="bottoms">Calcas</option>
           <option value="shoes">Sapatos</option>
@@ -102,19 +34,74 @@
           <option value="head-acc">Acess. Cabeca</option>
           <option value="face-acc">Acess. Rosto</option>
           <option value="body-acc">Acess. Corpo</option>
+          <option value="hair-back">Cabelo (atras)</option>
+          <option value="hair-front">Franja (frente)</option>
+          <option value="face-shapes">Rosto</option>
+          <option value="eyes">Olhos</option>
+          <option value="eyebrows">Sobrancelhas</option>
+          <option value="noses">Nariz</option>
+          <option value="mouths">Boca</option>
         </select>
+        <div id="asset-browser" class="asset-browser" style="margin-top:6px;"></div>
       </section>
 
+      <!-- Ferramentas compactas -->
       <section class="panel-section">
-        <h3 class="panel-title">Assets Existentes</h3>
-        <div id="asset-browser" class="asset-browser"></div>
+        <h3 class="panel-title">Ferramentas</h3>
+        <div class="tool-grid">
+          <button class="tool-btn active" data-tool="pen" title="Pen Tool (P)">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/></svg>
+            Pen
+          </button>
+          <button class="tool-btn" data-tool="select" title="Select (V)">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M7 2l12 11.2-5.8.5 3.3 7.3-2.2 1-3.2-7.4L7 18V2z" fill="currentColor"/></svg>
+            Select
+          </button>
+          <button class="tool-btn" data-tool="move" title="Move (M)">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z" fill="currentColor"/></svg>
+            Move
+          </button>
+          <button class="tool-btn" data-tool="delete" title="Delete (Del)">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" fill="currentColor"/></svg>
+            Del
+          </button>
+        </div>
       </section>
 
-      <section class="panel-section flex-grow">
-        <h3 class="panel-title">Layers <span class="badge" id="layer-count">0</span></h3>
-        <div id="layer-list" class="layer-list"></div>
-        <button id="btn-new-path" class="adm-btn" style="width:100%;margin-top:8px">+ Novo Path</button>
+      <!-- Ações -->
+      <section class="panel-section">
+        <h3 class="panel-title">Acoes</h3>
+        <div class="tool-grid">
+          <button class="adm-btn action-btn" id="btn-center" title="Centralizar (C)">Centralizar</button>
+          <button class="adm-btn action-btn" id="btn-mirror" title="Espelhar (H)">Espelhar H</button>
+          <button class="adm-btn action-btn" id="btn-clone-point" title="Clona ponto selecionado (D)">Clonar Pt</button>
+          <button class="adm-btn action-btn" id="btn-remove-point" title="Remove ponto selecionado (Del)">- Ponto</button>
+          <label class="chk-label" style="grid-column:1/-1;margin-top:2px;">
+            <input type="checkbox" id="chk-mirror-mode"> Modo Mirror
+          </label>
+        </div>
       </section>
+
+      <!-- Transformar -->
+      <section class="panel-section">
+        <h3 class="panel-title">Transformar <label class="chk-label" style="margin-left:auto;font-size:10px;"><input type="checkbox" id="chk-transform-all" checked> Todos</label></h3>
+        <div style="display:grid;grid-template-columns:auto 1fr auto;gap:4px;align-items:center;">
+          <label style="font-size:10px;color:var(--dim);">SX</label>
+          <input type="number" id="tf-scale-x" class="adm-input" value="100" step="5" min="1" max="500">
+          <label style="font-size:10px;color:var(--dim);">%</label>
+          <label style="font-size:10px;color:var(--dim);">SY</label>
+          <input type="number" id="tf-scale-y" class="adm-input" value="100" step="5" min="1" max="500">
+          <label style="font-size:10px;color:var(--dim);">%</label>
+          <label style="font-size:10px;color:var(--dim);">MX</label>
+          <input type="number" id="tf-move-x" class="adm-input" value="0" step="5">
+          <label style="font-size:10px;color:var(--dim);">px</label>
+          <label style="font-size:10px;color:var(--dim);">MY</label>
+          <input type="number" id="tf-move-y" class="adm-input" value="0" step="5">
+          <label style="font-size:10px;color:var(--dim);">px</label>
+        </div>
+        <button class="adm-btn adm-btn-primary" id="btn-transform-apply" style="width:100%;margin-top:4px;">Aplicar</button>
+      </section>
+
     </aside>
 
     <!-- Center: Canvas -->
@@ -142,8 +129,16 @@
       </div>
     </main>
 
-    <!-- Right: Properties -->
+    <!-- Right: Layers + Properties -->
     <aside class="panel panel-right">
+      <section class="panel-section">
+        <h3 class="panel-title">Layers <span class="badge" id="layer-count">0</span>
+          <button class="adm-btn" id="btn-select-all-layers" style="margin-left:auto;font-size:9px;height:20px;padding:0 6px;">Todos</button>
+          <button class="adm-btn" id="btn-new-path" style="font-size:9px;height:20px;padding:0 6px;">+ Path</button>
+        </h3>
+        <div id="layer-list" class="layer-list"></div>
+      </section>
+
       <section class="panel-section">
         <h3 class="panel-title">Propriedades</h3>
         <div id="props-empty" class="props-empty">Selecione um path</div>

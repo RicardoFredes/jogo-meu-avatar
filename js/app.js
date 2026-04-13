@@ -29,6 +29,31 @@ const App = (() => {
       CharacterCreator.init(null);
     });
 
+    // Character fullscreen
+    document.getElementById('btn-fs-close').addEventListener('click', closeCharFullscreen);
+    document.getElementById('btn-fs-dress').addEventListener('click', () => {
+      const charId = fullscreenCharId;
+      closeCharFullscreen();
+      showScreen('wardrobe');
+      Wardrobe.init(charId);
+      DragDrop.initDropZone();
+    });
+    document.getElementById('btn-fs-edit').addEventListener('click', () => {
+      const charId = fullscreenCharId;
+      closeCharFullscreen();
+      showScreen('creator');
+      CharacterCreator.init(charId);
+    });
+    document.getElementById('btn-fs-delete').addEventListener('click', () => {
+      const charId = fullscreenCharId;
+      const char = Storage.getCharacter(charId);
+      showConfirmDialog('Apagar ' + (char?.name || 'personagem') + '?', () => {
+        Storage.deleteCharacter(charId);
+        closeCharFullscreen();
+        renderHomeCharacters();
+      });
+    });
+
     // Debug: clear localStorage
     document.getElementById('btn-debug-clear').addEventListener('click', () => {
       if (confirm('Apagar todos os personagens salvos?')) {
@@ -95,6 +120,8 @@ const App = (() => {
     }
   }
 
+  let fullscreenCharId = null;
+
   async function renderHomeCharacters() {
     const characters = Storage.getCharacters();
     const grid = document.getElementById('characters-grid');
@@ -110,58 +137,22 @@ const App = (() => {
     empty.classList.add('hidden');
 
     for (const char of characters) {
+      // Simple card: just preview + name. Tap opens fullscreen.
       const card = document.createElement('div');
       card.className = 'character-card animate__animated animate__fadeIn';
 
-      // Preview container
       const previewDiv = document.createElement('div');
       previewDiv.className = 'card-preview';
       card.appendChild(previewDiv);
 
-      // Name
       const nameEl = document.createElement('div');
       nameEl.className = 'card-name';
       nameEl.textContent = char.name || 'Sem nome';
       card.appendChild(nameEl);
 
-      // Actions
-      const actions = document.createElement('div');
-      actions.className = 'card-actions';
+      // Tap card -> open fullscreen
+      card.addEventListener('click', () => openCharFullscreen(char.id));
 
-      const dressBtn = document.createElement('button');
-      dressBtn.className = 'btn btn-primary';
-      dressBtn.textContent = 'Vestir';
-      dressBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showScreen('wardrobe');
-        Wardrobe.init(char.id);
-        DragDrop.initDropZone();
-      });
-
-      const editBtn = document.createElement('button');
-      editBtn.className = 'btn btn-secondary';
-      editBtn.textContent = 'Editar';
-      editBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showScreen('creator');
-        CharacterCreator.init(char.id);
-      });
-
-      const delBtn = document.createElement('button');
-      delBtn.className = 'btn btn-danger';
-      delBtn.textContent = 'X';
-      delBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showConfirmDialog('Apagar ' + (char.name || 'personagem') + '?', () => {
-          Storage.deleteCharacter(char.id);
-          renderHomeCharacters();
-        });
-      });
-
-      actions.appendChild(dressBtn);
-      actions.appendChild(editBtn);
-      actions.appendChild(delBtn);
-      card.appendChild(actions);
       grid.appendChild(card);
 
       // Render thumbnail async
@@ -174,6 +165,29 @@ const App = (() => {
         }
       });
     }
+  }
+
+  // ========== CHARACTER FULLSCREEN ==========
+
+  async function openCharFullscreen(charId) {
+    fullscreenCharId = charId;
+    const char = Storage.getCharacter(charId);
+    if (!char) return;
+
+    document.getElementById('fs-name').textContent = char.name || 'Sem nome';
+    document.getElementById('char-fullscreen').classList.remove('hidden');
+
+    // Render big preview
+    const area = document.getElementById('fs-preview').parentElement;
+    const areaH = area.clientHeight - 16;
+    const areaW = area.clientWidth - 16;
+    const scale = Math.min(areaH / 800, areaW / 600, 1);
+    await Renderer.renderToStage('fs-preview', char, scale);
+  }
+
+  function closeCharFullscreen() {
+    document.getElementById('char-fullscreen').classList.add('hidden');
+    fullscreenCharId = null;
   }
 
   function showDone(charData) {
