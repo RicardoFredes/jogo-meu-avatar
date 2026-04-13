@@ -245,17 +245,10 @@
             <div x-data>
               <!-- Reuse the same step-content template via a plain x-if cascade -->
               <div x-html="''"></div>
-              <!-- BASICS -->
+              <!-- BASICS: body size + skin tone + face shape, all on
+                   one step. Desktop mirror of the mobile basics block. -->
               <div x-show="isBasics">
                 <div class="option-group">
-                  <div class="option-group-title">Nome</div>
-                  <div class="name-input-group">
-                    <input type="text" :value="data.name" @input="onNameInput($event)"
-                           placeholder="Ex: Luna" maxlength="20">
-                  </div>
-                </div>
-                <div class="option-group">
-                  <div class="option-group-title">Tamanho</div>
                   <div class="choice-buttons">
                     <template x-for="opt in bodyChoices" :key="opt.id">
                       <button class="choice-btn"
@@ -267,11 +260,7 @@
                     </template>
                   </div>
                 </div>
-              </div>
-              <!-- SKIN -->
-              <div x-show="isSkin">
                 <div class="option-group">
-                  <div class="option-group-title">Escolha a cor da pele</div>
                   <div class="option-items">
                     <template x-for="c in skinColors" :key="c.id">
                       <div class="option-item color-swatch"
@@ -279,6 +268,18 @@
                            :style="`background-color:${c.hex}`"
                            :title="c.name"
                            @click="pickSkin(c.id)"></div>
+                    </template>
+                  </div>
+                </div>
+                <div class="option-group">
+                  <div class="option-items">
+                    <template x-for="item in faceShapes" :key="item.id">
+                      <div class="option-item"
+                           :class="{ selected: isFaceShapeSelected(item.id) }"
+                           :title="item.name"
+                           @click="pickFaceShape(item.id)">
+                        <img :src="item.thumbnail || item.asset" :alt="item.name">
+                      </div>
                     </template>
                   </div>
                 </div>
@@ -316,14 +317,24 @@
                   </template>
                 </div>
               </div>
-              <!-- REVIEW -->
+              <!-- REVIEW: name input + prominent save (desktop mirror) -->
               <div x-show="isReview">
                 <div class="option-group" style="text-align:center">
-                  <div class="option-group-title" style="font-size:1.3rem"
-                       x-text="(data.name || 'Sem nome') + ' está ficando incrível!'"></div>
-                  <p style="color:var(--c-ink-soft); margin-top:8px">
-                    Revise sua personagem e clique em Salvar!
-                  </p>
+                  <div class="option-group-title" style="font-size:1.1rem">
+                    Qual é o nome dela?
+                  </div>
+                </div>
+                <div class="option-group">
+                  <div class="name-input-group">
+                    <input type="text" :value="data.name" @input="onNameInput($event)"
+                           placeholder="Ex: Luna" maxlength="20">
+                  </div>
+                </div>
+                <div class="option-group">
+                  <button class="creator-save-big" @click="saveCharacter()">
+                    <span class="creator-save-big-icon">✓</span>
+                    <span>Salvar</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -349,17 +360,12 @@
         <div class="flex-1 overflow-y-auto mobile-panel-content">
           <template x-if="data">
             <div>
-              <!-- BASICS -->
+              <!-- BASICS: body size + skin tone + face shape, all on
+                   one step. No titles per user's design; each block
+                   speaks for itself via the visual row below it. -->
               <div x-show="isBasics">
+                <!-- Body size -->
                 <div class="option-group">
-                  <div class="option-group-title">Nome</div>
-                  <div class="name-input-group">
-                    <input type="text" :value="data.name" @input="onNameInput($event)"
-                           placeholder="Ex: Luna" maxlength="20">
-                  </div>
-                </div>
-                <div class="option-group">
-                  <div class="option-group-title">Tamanho</div>
                   <div class="choice-buttons">
                     <template x-for="opt in bodyChoices" :key="opt.id">
                       <button class="choice-btn"
@@ -371,12 +377,9 @@
                     </template>
                   </div>
                 </div>
-              </div>
-              <!-- SKIN -->
-              <div x-show="isSkin">
+                <!-- Skin tone -->
                 <div class="option-group">
-                  <div class="option-group-title">Escolha a cor da pele</div>
-                  <div class="option-items">
+                  <scroll-row class="scroll-bleed">
                     <template x-for="c in skinColors" :key="c.id">
                       <div class="option-item color-swatch"
                            :class="{ selected: isSkinSelected(c.id) }"
@@ -384,7 +387,20 @@
                            :title="c.name"
                            @click="pickSkin(c.id)"></div>
                     </template>
-                  </div>
+                  </scroll-row>
+                </div>
+                <!-- Face shape -->
+                <div class="option-group">
+                  <scroll-row class="scroll-bleed">
+                    <template x-for="item in faceShapes" :key="item.id">
+                      <div class="option-item"
+                           :class="{ selected: isFaceShapeSelected(item.id) }"
+                           :title="item.name"
+                           @click="pickFaceShape(item.id)">
+                        <img :src="item.thumbnail || item.asset" :alt="item.name">
+                      </div>
+                    </template>
+                  </scroll-row>
                 </div>
               </div>
               <!-- CATEGORY STEP -->
@@ -422,14 +438,26 @@
                   </template>
                 </div>
               </div>
-              <!-- REVIEW -->
+              <!-- REVIEW: name input + prominent save. The header's
+                   ✓ nav button still works, but this is the primary,
+                   finger-friendly save target the kid is meant to hit. -->
               <div x-show="isReview">
                 <div class="option-group" style="text-align:center">
-                  <div class="option-group-title" style="font-size:1.3rem"
-                       x-text="(data.name || 'Sem nome') + ' está ficando incrível!'"></div>
-                  <p style="color:var(--c-ink-soft); margin-top:8px">
-                    Revise sua personagem e clique em Salvar!
-                  </p>
+                  <div class="option-group-title" style="font-size:1.1rem">
+                    Qual é o nome dela?
+                  </div>
+                </div>
+                <div class="option-group">
+                  <div class="name-input-group">
+                    <input type="text" :value="data.name" @input="onNameInput($event)"
+                           placeholder="Ex: Luna" maxlength="20">
+                  </div>
+                </div>
+                <div class="option-group">
+                  <button class="creator-save-big" @click="saveCharacter()">
+                    <span class="creator-save-big-icon">✓</span>
+                    <span>Salvar</span>
+                  </button>
                 </div>
               </div>
             </div>

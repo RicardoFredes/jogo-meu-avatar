@@ -54,7 +54,6 @@ document.addEventListener('alpine:init', () => {
       // Drop category steps with zero items so the wizard stays clean.
       this.steps = config.creationSteps.filter(step => {
         if (step.type === 'review' || step.fields) return true;
-        if (step.id === 'skin') return true;
         const sources = step.dataSources || (step.dataSource ? [step.dataSource] : []);
         return sources.some(s => {
           const cat = Catalog.getCategory(s);
@@ -105,10 +104,6 @@ document.addEventListener('alpine:init', () => {
     get currentStepDef() { return this.steps[this.currentStep]; },
 
     nextStep() {
-      // Auto-assign a name if the user skipped it.
-      if (this.currentStep === 0 && !this.data.name.trim()) {
-        this.data.name = this._randomName();
-      }
       if (this.currentStep < this.steps.length - 1) {
         this.currentStep++;
       } else {
@@ -121,6 +116,11 @@ document.addEventListener('alpine:init', () => {
     },
 
     _finishCreation() {
+      // Fall back to a random name if the kid left the input empty on
+      // the review step — still lets them save without typing.
+      if (!this.data.name || !this.data.name.trim()) {
+        this.data.name = this._randomName();
+      }
       const saved = Storage.saveCharacter(this.data);
       this.id = saved.id;
       this.data = JSON.parse(JSON.stringify(saved));

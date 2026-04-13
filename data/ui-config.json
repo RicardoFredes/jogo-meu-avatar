@@ -3,11 +3,10 @@
   "gameName": "Lauren Fashion",
   "subtitle": "Crie, Vista e Brilhe!",
   "creationSteps": [
-    { "id": "basics", "label": "Quem Voce Vai Criar?", "fields": ["name", "bodyType"] },
-    { "id": "skin", "label": "Cor da Pele", "dataSource": "skin-tones" },
-    { "id": "face", "label": "Rostinho", "dataSource": "face-shapes" },
-    { "id": "hair", "label": "Cabelo", "dataSources": ["hair-back", "hair-front", "facial-hair", "mustache"], "optional": true },
-    { "id": "review", "label": "Ficou Lindo!", "type": "review" }
+    { "id": "basics",   "label": "Corpo",          "fields": ["bodyType", "skin", "face-shape"] },
+    { "id": "features", "label": "Rostinho",       "dataSources": ["eyes", "eyebrows", "noses", "mouths"] },
+    { "id": "hair",     "label": "Cabelo e Barba", "dataSources": ["hair-back", "hair-front", "facial-hair", "mustache"], "optional": true },
+    { "id": "review",   "label": "Último Toque",   "type": "review", "fields": ["name"] }
   ],
   "focusRegions": {
     "head":  { "anchor": "head",        "zoom": 1.9 },

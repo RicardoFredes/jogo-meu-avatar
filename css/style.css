@@ -576,6 +576,35 @@ html, body {
   border-color: var(--c-primary); box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.15);
 }
 
+/* Prominent save button used on the review step of the creator wizard.
+   Same visual language as `.creator-float-save` but full-width inline
+   so it reads as the primary action of the whole screen. */
+.creator-save-big {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  width: 100%;
+  padding: 14px var(--sp-4);
+  border: none;
+  border-radius: var(--radius-xl);
+  background: var(--c-success);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 16px rgba(46, 204, 113, 0.4);
+  cursor: pointer;
+  transition: transform var(--duration-fast), box-shadow var(--duration-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+.creator-save-big:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(46, 204, 113, 0.35);
+}
+.creator-save-big-icon { font-size: 1.3rem; line-height: 1; }
+
 .choice-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
 .choice-btn {
   flex: 1; min-width: 90px; height: 72px;

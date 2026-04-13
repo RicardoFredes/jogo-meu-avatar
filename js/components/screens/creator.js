@@ -37,8 +37,10 @@ document.addEventListener('alpine:init', () => {
     get isFirst() { return this.store.isFirstStep; },
 
     // ---- Step-type predicates ----
+    // `basics` bundles body shape + skin tone + face shape; `review`
+    // is the final save screen (name + big save button). Anything in
+    // between is a `dataSource(s)` category step.
     get isBasics() { return this.step?.id === 'basics'; },
-    get isSkin()   { return this.step?.id === 'skin'; },
     get isReview() { return this.step?.id === 'review'; },
     get isCategoryStep() {
       return !!(this.step && (this.step.dataSource || this.step.dataSources));
@@ -49,15 +51,29 @@ document.addEventListener('alpine:init', () => {
       return this.step.dataSources || (this.step.dataSource ? [this.step.dataSource] : []);
     },
 
-    // ---- Skin palette ----
+    // ---- Skin palette (rendered inside the basics step) ----
     get skinColors() { return Catalog.getColorPalette('skin-tones'); },
     isSkinSelected(id) { return this.data?.body.skinColorId === id; },
     pickSkin(id) { this.store.setSkinColor(id); },
 
-    // ---- Basics ----
-    onNameInput(e) { this.store.setName(e.target.value); },
+    // ---- Face shapes (rendered inside the basics step) ----
+    // Reads items directly from the Catalog instead of going through
+    // itemGrid, because basics doesn't need the full category flow
+    // (color bar, "Nenhum" tile, etc.) — just a small horizontal picker.
+    get faceShapes() {
+      const cat = Catalog.getCategory('face-shapes');
+      return cat ? Array.from(cat.items.values()) : [];
+    },
+    isFaceShapeSelected(id) { return this.data?.parts?.['face-shapes']?.itemId === id; },
+    pickFaceShape(id) { this.store.setPartItem('face-shapes', id); },
+
+    // ---- Basics (body shape) ----
     pickBodyShape(id) { this.store.setBodyShape(id); },
     isShapeSelected(id) { return this.data?.body.shapeId === id; },
+
+    // ---- Name (rendered inside the review step) ----
+    onNameInput(e) { this.store.setName(e.target.value); },
+    saveCharacter() { this.store.nextStep(); },
 
     // ---- Navigation ----
     next() { this.store.nextStep(); },
