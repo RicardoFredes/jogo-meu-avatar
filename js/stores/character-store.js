@@ -3,7 +3,7 @@
    for the character being created / dressed up.
 
    Holds charData and exposes mutations. Creator
-   and Wardrobe screens both bind to this store.
+   (wizard) and Studio screens both bind to this store.
    ============================================ */
 
 document.addEventListener('alpine:init', () => {
@@ -16,6 +16,12 @@ document.addEventListener('alpine:init', () => {
     // Creator-specific state
     steps: [],
     currentStep: 0,
+
+    // Studio-specific: the look being edited live. Null means "new
+    // look mode" — the first outfit mutation lazily creates an entry
+    // in savedOutfits and promotes this to its id. Every subsequent
+    // mutation mirrors data.outfit into that entry automatically.
+    activeLookId: null,
 
     // ---- Factories ----
 
@@ -79,9 +85,14 @@ document.addEventListener('alpine:init', () => {
       }
     },
 
-    initForWardrobe(charId) {
+    initForStudio(charId) {
       this.editing = false;
       this.id = charId;
+      // Reset per-session state: studio is either editing an
+      // existing look (set by a follow-up loadLook call) or starting
+      // a brand-new look (stays null until the first mutation creates
+      // it lazily in _persistCharacter).
+      this.activeLookId = null;
       const existing = Storage.getCharacter(charId);
       this.data = existing ? JSON.parse(JSON.stringify(existing)) : null;
       if (this.data && !this.data.outfit) this.data.outfit = {};
@@ -116,10 +127,9 @@ document.addEventListener('alpine:init', () => {
       if (typeof confetti === 'function') {
         confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
       }
-      // Transition straight into the wardrobe for the freshly-made char.
-      Alpine.store('app').showScreen('wardrobe');
-      this.initForWardrobe(saved.id);
-      DragDrop.initDropZone();
+      // Transition straight into the studio for the freshly-made char.
+      Alpine.store('app').showScreen('studio');
+      this.initForStudio(saved.id);
     },
 
     _randomName() {
@@ -176,11 +186,17 @@ document.addEventListener('alpine:init', () => {
     },
 
     clearPart(catId) {
-      this.data.parts[catId] = null;
+      // Keep the colorId as "memory" so re-equipping a hair/eyebrow/etc.
+      // restores the user's last chosen color instead of falling back
+      // to palette[0].
+      const prev = this.data.parts[catId];
+      this.data.parts[catId] = prev && prev.colorId
+        ? { itemId: null, colorId: prev.colorId }
+        : null;
       this._persistCharacter();
     },
 
-    // ---- Outfit / wardrobe mutations ----
+    // ---- Outfit mutations (studio) ----
 
     equipItem(itemId, cat) {
       if (!cat) {
@@ -233,13 +249,18 @@ document.addEventListener('alpine:init', () => {
     },
 
     unequipSlot(slotId, cat) {
+      // Preserve colorId on unequip so the kid's palette choice is
+      // remembered when they equip another item in the same slot.
+      const keepColor = (obj) =>
+        obj && obj.colorId ? { itemId: null, colorId: obj.colorId } : null;
+
       if (cat && cat.type === 'body-part') {
-        this.data.parts[cat.category] = null;
+        this.data.parts[cat.category] = keepColor(this.data.parts[cat.category]);
       } else {
-        this.data.outfit[slotId] = null;
+        this.data.outfit[slotId] = keepColor(this.data.outfit[slotId]);
         // Patterns are tied to a dress — clear them if we remove the dress.
         if (slotId === 'full-body' && this.data.outfit['pattern']) {
-          this.data.outfit['pattern'] = null;
+          this.data.outfit['pattern'] = keepColor(this.data.outfit['pattern']);
         }
       }
       this._persistCharacter();
@@ -266,29 +287,6 @@ document.addEventListener('alpine:init', () => {
       this._persistCharacter();
     },
 
-    applyFreePos(slotId, action) {
-      const slot = this.data.outfit[slotId];
-      if (!slot) return;
-      if (!slot.userOffset) slot.userOffset = { x: 0, y: 0 };
-      if (!slot.userScale) slot.userScale = 1;
-
-      const step = 10;
-      const scaleStep = 0.05;
-      switch (action) {
-        case 'left':    slot.userOffset.x -= step; break;
-        case 'right':   slot.userOffset.x += step; break;
-        case 'up':      slot.userOffset.y -= step; break;
-        case 'down':    slot.userOffset.y += step; break;
-        case 'bigger':  slot.userScale = Math.min(2, slot.userScale + scaleStep); break;
-        case 'smaller': slot.userScale = Math.max(0.3, slot.userScale - scaleStep); break;
-        case 'reset':
-          slot.userOffset = { x: 0, y: 0 };
-          slot.userScale = 1;
-          break;
-      }
-      this._persistCharacter();
-    },
-
     clearOutfit() {
       this.data.outfit = {};
       this._persistCharacter();
@@ -309,6 +307,9 @@ document.addEventListener('alpine:init', () => {
     loadLook(outfitId) {
       const look = (this.data.savedOutfits || []).find(o => o.id === outfitId);
       if (!look) return;
+      // Track the look we're editing so future outfit mutations sync
+      // into it automatically (live auto-save).
+      this.activeLookId = outfitId;
       this.data.outfit = JSON.parse(JSON.stringify(look.outfit));
       this._persistCharacter();
     },
@@ -331,10 +332,48 @@ document.addEventListener('alpine:init', () => {
 
     // ---- Persistence ----
 
+    // True when the live outfit has at least one equipped item.
+    _hasAnyOutfit() {
+      const o = this.data?.outfit || {};
+      for (const slot of Object.values(o)) {
+        if (slot && slot.itemId) return true;
+      }
+      return false;
+    },
+
+    // Lazily materialize a saved-look entry for the current outfit.
+    // Called from _persistCharacter when in "new look" mode and the
+    // kid has equipped at least one item. Picks an auto-incrementing
+    // name so the fullscreen gallery shows something sensible.
+    _ensureActiveLook() {
+      if (this.activeLookId || !this.data) return;
+      if (!Array.isArray(this.data.savedOutfits)) this.data.savedOutfits = [];
+      const count = this.data.savedOutfits.length;
+      const newLook = {
+        id: 'outfit_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+        name: 'Look ' + (count + 1),
+        savedAt: new Date().toISOString(),
+        outfit: JSON.parse(JSON.stringify(this.data.outfit)),
+      };
+      this.data.savedOutfits.push(newLook);
+      this.activeLookId = newLook.id;
+    },
+
     _persistCharacter() {
       if (!this.data) return;
+
+      // Live auto-save for the studio: the outfit being edited is
+      // mirrored into the active saved-look. If we don't have one yet
+      // (kid is in "novo look" mode) create it on first real mutation.
+      if (!this.activeLookId && this._hasAnyOutfit()) {
+        this._ensureActiveLook();
+      }
+      if (this.activeLookId && Array.isArray(this.data.savedOutfits)) {
+        const look = this.data.savedOutfits.find(o => o.id === this.activeLookId);
+        if (look) look.outfit = JSON.parse(JSON.stringify(this.data.outfit));
+      }
+
       if (this.id) {
-        // Existing character — full save
         Storage.saveCharacter(this.data);
       }
       // For the creator with no ID yet, we just keep state in memory

@@ -6,6 +6,7 @@
   "anchor": "head",
   "zIndex": 50,
   "colorable": false,
+  "required": true,
   "items": [
     {
       "id": "face-round",

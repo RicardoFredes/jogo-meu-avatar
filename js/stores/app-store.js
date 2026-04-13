@@ -9,7 +9,7 @@
 document.addEventListener('alpine:init', () => {
   Alpine.store('app', {
     ready: false,
-    screen: 'loading', // loading | home | creator | done | wardrobe
+    screen: 'loading', // loading | home | creator | done | studio
     menuOpen: false,
     fullscreenCharId: null,
 

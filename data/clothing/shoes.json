@@ -22,6 +22,34 @@
         "y": -300
       },
       "thumbnail": "assets/clothing/shoes/thumbs/sneakers-v2-thumb.png"
+    },
+    {
+      "id": "bota",
+      "name": "Bota",
+      "asset": "assets/clothing/shoes/bota-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -300
+      },
+      "thumbnail": "assets/clothing/shoes/thumbs/bota-v2-thumb.png"
+    },
+    {
+      "id": "sandalia",
+      "name": "Sandalia",
+      "asset": "assets/clothing/shoes/sandalia-v2.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": -300
+      },
+      "thumbnail": "assets/clothing/shoes/thumbs/sandalia-v2-thumb.png"
     }
   ]
 }

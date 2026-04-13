@@ -34,9 +34,11 @@ const Catalog = (() => {
         colorable: data.colorable || false,
         colorPalette: data.colorPalette || null,
         skinTint: data.skinTint || false,
-        freePosition: data.freePosition || false,
         conflicts: data.conflicts || null,
         sharedColorGroup: data.sharedColorGroup || null,
+        // Required categories (face shape, eyes, nose, mouth) suppress
+        // the "Nenhum" tile — the kid can't unequip them.
+        required: data.required || false,
         items,
       });
     },

@@ -3,6 +3,16 @@
    ============================================ */
 
 const Renderer = (() => {
+  // Bump Konva's internal canvas resolution so the rasterized
+  // character still has enough pixels when CSS-zoomed by the focus
+  // overlay (up to ~2.3x). Without this, zooming pixelates the canvas
+  // because the SVG → canvas step fixes resolution at draw time.
+  // Factor × devicePixelRatio keeps native DPR on top of the headroom.
+  const ZOOM_HEADROOM = 2.5;
+  if (typeof Konva !== 'undefined') {
+    Konva.pixelRatio = (window.devicePixelRatio || 1) * ZOOM_HEADROOM;
+  }
+
   // SVG text cache to avoid repeated fetches
   const svgCache = new Map();
   const imageCache = new Map();
@@ -288,20 +298,14 @@ const Renderer = (() => {
           ? item.offsetByShape[shape.id]
           : (item.offset || { x: 0, y: 0 });
 
-        // Apply user offset and scale from freePosition items
-        const userOff = slotData.userOffset || { x: 0, y: 0 };
-        const userScale = slotData.userScale || 1;
-        const finalW = s.width * userScale;
-        const finalH = s.height * userScale;
-
         layers.push({
           type: 'clothing',
           assetUrl: item.asset,
           color,
-          x: anchor.x - finalW / 2 + o.x + userOff.x,
-          y: anchor.y - finalH / 2 + o.y + userOff.y,
-          width: finalW,
-          height: finalH,
+          x: anchor.x - s.width / 2 + o.x,
+          y: anchor.y - s.height / 2 + o.y,
+          width: s.width,
+          height: s.height,
           zIndex: cat.zIndex,
         });
       }
@@ -378,6 +382,11 @@ const Renderer = (() => {
     container.innerHTML = '';
     container.style.width = w + 'px';
     container.style.height = h + 'px';
+    // Publish the layout numbers so overlays (e.g. focus-zoom) can
+    // map canvas-coord anchors to DOM pixels without re-doing the math.
+    container.dataset.shiftY = shiftY;
+    container.dataset.extendedHeight = extendedHeight;
+    container.dataset.baseW = baseW;
 
     const stage = new Konva.Stage({
       container: containerId,
@@ -405,6 +414,16 @@ const Renderer = (() => {
     }
 
     layer.batchDraw();
+
+    // Signal that a character was rendered into the DOM. Overlays like
+    // focus-zoom listen for this so they can re-measure after the
+    // preview resizes. Payload is enough for listeners to filter (e.g.
+    // thumbnail renderers render into their own offscreen containers
+    // that live elsewhere in the DOM).
+    window.dispatchEvent(new CustomEvent('character:rendered', {
+      detail: { containerId, baseW, extendedHeight, shiftY },
+    }));
+
     return stage;
   }
 

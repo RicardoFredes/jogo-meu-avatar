@@ -6,18 +6,56 @@
     { "id": "basics", "label": "Quem Voce Vai Criar?", "fields": ["name", "bodyType"] },
     { "id": "skin", "label": "Cor da Pele", "dataSource": "skin-tones" },
     { "id": "face", "label": "Rostinho", "dataSource": "face-shapes" },
-    { "id": "eyes", "label": "Olhinhos", "dataSource": "eyes" },
-    { "id": "nose-mouth", "label": "Nariz e Boquinha", "dataSources": ["noses", "mouths"] },
     { "id": "hair", "label": "Cabelo", "dataSources": ["hair-back", "hair-front", "facial-hair", "mustache"], "optional": true },
     { "id": "review", "label": "Ficou Lindo!", "type": "review" }
   ],
-  "wardrobeCategories": [
-    { "categories": ["full-body", "patterns"], "label": "Vestidos", "icon": "👗" },
-    { "category": "tops", "label": "Blusas", "icon": "👚" },
-    { "category": "bottoms", "label": "Calcas", "icon": "👖" },
-    { "category": "shoes", "label": "Sapatos", "icon": "👟" },
-    { "category": "head-acc", "label": "Chapeus", "icon": "👑" },
-    { "category": "face-acc", "label": "Oculos", "icon": "👓" },
-    { "category": "body-acc", "label": "Extras", "icon": "🦋" }
+  "focusRegions": {
+    "head":  { "anchor": "head",        "zoom": 1.9 },
+    "face":  { "anchor": "eyeLine",     "zoom": 2.1 },
+    "mouth": { "anchor": "mouth",       "zoom": 2.3 },
+    "nose":  { "anchor": "nose",        "zoom": 2.3 },
+    "hair":  { "anchor": "hairTop",     "zoom": 1.6 },
+    "torso": { "anchor": "torsoCenter", "zoom": 1.5 },
+    "waist": { "anchor": "waist",       "zoom": 1.5 },
+    "feet":  { "anchor": "feet",        "zoom": 1.8 }
+  },
+  "studioGroups": [
+    {
+      "id": "face",
+      "label": "Rosto",
+      "icon": "🙂",
+      "defaultFocusRegion": "face",
+      "tabs": [
+        { "id": "face-shape", "label": "Formato", "icon": "🙂", "category": "face-shapes",                "focusRegion": "face" },
+        { "id": "eyes",       "label": "Olhos",   "icon": "👀", "category": "eyes",                       "focusRegion": "face" },
+        { "id": "nose",       "label": "Nariz",   "icon": "👃", "category": "noses",                      "focusRegion": "nose" },
+        { "id": "mouth",      "label": "Boca",    "icon": "👄", "category": "mouths",                     "focusRegion": "mouth" },
+        { "id": "hair",       "label": "Cabelo",  "icon": "💇", "categories": ["hair-back", "hair-front"], "focusRegion": "hair" },
+        { "id": "beard",      "label": "Barba",   "icon": "🧔", "categories": ["facial-hair", "mustache"], "focusRegion": "mouth" }
+      ]
+    },
+    {
+      "id": "clothing",
+      "label": "Roupa",
+      "icon": "👕",
+      "defaultFocusRegion": "torso",
+      "tabs": [
+        { "id": "dress",   "label": "Vestido", "icon": "👗", "categories": ["full-body", "patterns"], "focusRegion": "torso" },
+        { "id": "top",     "label": "Blusa",   "icon": "👕", "category": "tops",    "focusRegion": "torso" },
+        { "id": "bottom",  "label": "Calça",   "icon": "👖", "category": "bottoms", "focusRegion": "waist" },
+        { "id": "shoes",   "label": "Sapato",  "icon": "👟", "category": "shoes",   "focusRegion": "feet" }
+      ]
+    },
+    {
+      "id": "accessories",
+      "label": "Acessórios",
+      "icon": "✨",
+      "defaultFocusRegion": "head",
+      "tabs": [
+        { "id": "head",  "label": "Cabeça", "icon": "👑", "category": "head-acc", "focusRegion": "head" },
+        { "id": "face",  "label": "Óculos", "icon": "🕶️", "category": "face-acc", "focusRegion": "face" },
+        { "id": "body",  "label": "Corpo",  "icon": "💎", "category": "body-acc", "focusRegion": "torso" }
+      ]
+    }
   ]
 }

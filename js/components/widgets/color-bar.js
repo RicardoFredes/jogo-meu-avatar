@@ -21,6 +21,10 @@ class ColorBarElement extends HTMLElement {
     // Self-expanding template. The x-data expression is evaluated
     // in the parent's scope chain, so `cat`, `paletteFor`,
     // `currentColor` and `pickColor` resolve to the itemGrid methods.
+    // `scroll-bleed` makes the swatch track run edge-to-edge inside
+    // the mobile panel (which has its own lateral padding). If this
+    // component is ever embedded in a context without padding,
+    // remove the class.
     this.innerHTML = `
       <div x-data="colorPicker({
             getPalette: () => paletteFor(cat),
@@ -28,7 +32,7 @@ class ColorBarElement extends HTMLElement {
             onSelect: (id) => pickColor(cat, id)
           })"
            class="option-group color-bar-group">
-        <scroll-row>
+        <scroll-row class="scroll-bleed">
           <template x-for="c in palette" :key="c.id">
             <div class="option-item color-swatch"
                  :class="{ selected: isSelected(c.id) }"

@@ -1,13 +1,13 @@
 /* ============================================
    ITEM GRID - Unified picker for body parts and
-   clothing. Replaces the two near-identical grid
-   renderers from the creator and wardrobe.
+   clothing. Used by both the creator (wizard) and
+   the studio (tabbed edit/dress-up).
 
    Props (via x-data):
    - categoryIds: string[]     (which categories to show together)
    - variant: 'option' | 'thumbnail'
        'option'    — used in creator (square tiles, select only)
-       'thumbnail' — used in wardrobe (same tiles but draggable). Clearing
+       'thumbnail' — used in studio (same tiles but draggable). Clearing
                      is done via the optional "Nenhum" tile, not re-click.
    - optional: boolean          (show a "Nenhum" tile that clears the part)
    - showSectionLabels: boolean (label each category when multiple are shown)
@@ -85,7 +85,17 @@ document.addEventListener('alpine:init', () => {
     },
 
     isNoneSelected(cat) {
-      return !Alpine.store('character').equipmentFor(cat);
+      // The slot object might still exist (keeping a colorId as memory),
+      // but if there's no itemId the "Nenhum" tile is the active state.
+      const eq = Alpine.store('character').equipmentFor(cat);
+      return !eq || !eq.itemId;
+    },
+
+    // Whether the "Nenhum" tile should be rendered for this category.
+    // Even in an "optional" grid, categories flagged required (face
+    // shape, eyes, nose, mouth) must always have something equipped.
+    showNone(cat) {
+      return this.optional && !cat.required;
     },
 
     // ---- Actions ----

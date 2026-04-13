@@ -1,7 +1,7 @@
 /* ============================================
    SVG UTILS - Shared SVG helpers
-   Unifies the neutral-thumbnail logic previously
-   duplicated across wardrobe.js and creator.js.
+   Unifies the neutral-thumbnail logic used by the
+   creator and the studio screens.
    ============================================ */
 
 const SvgUtils = (() => {

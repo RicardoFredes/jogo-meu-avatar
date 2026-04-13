@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
+
+  <!-- Left sandal: thin sole -->
+  <path d="M294 721C294 724.314 291.314 727 288 727L177 727C173.686 727 171 724.314 171 721L171 715C171 706.716 177.716 700 186 700L279 700C287.284 700 294 706.716 294 715L294 721Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+  <!-- Left sandal: diagonal strap 1 (front) -->
+  <path d="M188 702 L260 684" stroke="#FF00FF" stroke-width="10" stroke-linecap="round"/>
+  <!-- Left sandal: diagonal strap 2 (back) -->
+  <path d="M260 702 L188 684" stroke="#FF00FF" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Right sandal: thin sole -->
+  <path d="M429 721C429 724.314 426.314 727 423 727L312 727C308.686 727 306 724.314 306 721L306 715C306 706.716 312.716 700 321 700L414 700C422.284 700 429 706.716 429 715L429 721Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="6"/>
+  <!-- Right sandal: diagonal strap 1 (front) -->
+  <path d="M323 702 L395 684" stroke="#FF00FF" stroke-width="10" stroke-linecap="round"/>
+  <!-- Right sandal: diagonal strap 2 (back) -->
+  <path d="M395 702 L323 684" stroke="#FF00FF" stroke-width="10" stroke-linecap="round"/>
+
+</svg>

@@ -52,7 +52,7 @@
 .creator-desktop-sidebar { display: none; }
 
 .mobile-panel-content {
-  padding: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
 }
 
 .creator-mobile-panel {
@@ -165,14 +165,14 @@
 }
 
 /* ============================================
-   WARDROBE LAYOUT
+   STUDIO LAYOUT (edit + dress-up)
    ============================================ */
-.wardrobe-main {
+.studio-main {
   display: flex;
   flex-direction: column;
 }
 
-.wardrobe-preview-area {
+.studio-preview-area {
   flex: 1;
   display: flex;
   align-items: flex-start;
@@ -182,19 +182,26 @@
   background: linear-gradient(180deg, var(--c-bg) 0%, #FFF5FA 100%);
   transition: padding-top var(--duration-slow) var(--ease);
 }
-.wardrobe-preview-area .character-preview {
+.studio-preview-area .character-preview {
   transition: transform var(--duration-slow) var(--ease);
-  transform-origin: top center;
+  /* Origin at the element's top-left so the JS-computed translate is
+     directly expressed in local pixels (no 50% origin math to undo). */
+  transform-origin: left top;
 }
-.wardrobe-preview-area.panel-open .character-preview {
-  transform: scale(0.55);
+/* When the mobile items panel is open, zoom the preview onto the
+   active region. The three CSS vars are written by the focusZoom
+   widget in response to studio:focus-change events. Fallbacks keep
+   the transform a no-op until the first focus event lands. */
+.studio-preview-area.panel-open .character-preview {
+  transform: translate(var(--zoom-tx, 0px), var(--zoom-ty, 0px))
+             scale(var(--zoom-scale, 1));
 }
 
-.wardrobe-desktop-sidebar {
+.studio-desktop-sidebar {
   display: none;
 }
 
-.wardrobe-mobile-panel {
+.studio-mobile-panel {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   max-height: 55vh;
@@ -210,6 +217,47 @@
 @keyframes slideUp {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
+}
+
+/* Mobile studio tab stack: shell wrapping the two level bars (groups
+   and leaves). Collapses and slides down out of view when a panel is
+   open so the user has more vertical room for the items sheet. */
+.studio-tab-stack {
+  position: relative;
+  display: grid;
+  grid-template-areas: "stack";
+  overflow: hidden;
+  transform: translateY(0);
+  max-height: 120px;
+  opacity: 1;
+  transition: transform var(--duration-base) var(--ease),
+              max-height var(--duration-base) var(--ease),
+              opacity var(--duration-base) var(--ease);
+  will-change: transform, max-height;
+}
+.studio-tab-stack.is-hidden {
+  transform: translateY(100%);
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Each level bar occupies the same grid cell so they overlap; the
+   inactive one is pushed below (translateY 100%) + faded, so the
+   active bar slides in over it (and back out) on level change. */
+.studio-tab-level {
+  grid-area: stack;
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--duration-base) var(--ease),
+              opacity var(--duration-base) var(--ease);
+  will-change: transform, opacity;
+}
+.studio-tab-level.is-active {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .mobile-close-btn {
@@ -267,7 +315,7 @@
   background: var(--c-success);
 }
 
-.wardrobe-mobile-actions {
+.studio-mobile-actions {
   position: fixed;
   top: 50px;
   right: var(--sp-2);
@@ -301,6 +349,20 @@
 .wma-save { background: var(--c-warning-soft); color: var(--c-accent); }
 .wma-looks { background: #F0E6FF; color: var(--c-primary); }
 
+/* Focus mode: while the mobile items panel is open the kid's eye goes
+   to the character (which is zoomed in on the active region). The
+   surrounding chrome — close button + right-side action column — fades
+   out so nothing distracts from the body part being edited. */
+.mobile-close-btn,
+.studio-mobile-actions {
+  transition: opacity var(--duration-base) var(--ease);
+}
+.studio-focus .mobile-close-btn,
+.studio-focus .studio-mobile-actions {
+  opacity: 0;
+  pointer-events: none;
+}
+
 #mobile-category-bar .category-tab {
   min-width: auto;
   padding: var(--sp-1) var(--sp-2);
@@ -308,24 +370,24 @@
 }
 
 @media (min-width: 640px), (orientation: landscape) {
-  .wardrobe-main {
+  .studio-main {
     flex-direction: row;
   }
-  .wardrobe-desktop-sidebar {
+  .studio-desktop-sidebar {
     display: flex !important;
     flex: 1;
   }
-  .wardrobe-preview-area {
+  .studio-preview-area {
     flex: 0 0 38%;
     align-items: center !important;
   }
-  .wardrobe-preview-area.panel-open .character-preview {
+  .studio-preview-area.panel-open .character-preview {
     transform: none !important;
   }
   #mobile-category-bar {
     display: none !important;
   }
-  .wardrobe-mobile-panel {
+  .studio-mobile-panel {
     display: none !important;
   }
 }
@@ -475,12 +537,41 @@
 .category-tab.active { background: var(--c-primary); color: white; }
 .category-tab .tab-icon { font-size: 1.3rem; }
 
+/* Back button in the studio 2-level navigation. Looks like a tab
+   but visually distinct (pink-ish tint so the kid notices it). */
+.category-tab.cat-back {
+  background: var(--c-warning-soft);
+  color: var(--c-accent);
+  font-weight: 700;
+}
+.category-tab.cat-back:hover { background: #FFE8BF; }
+.category-tab.cat-back .tab-icon { font-size: 1.5rem; }
+
+/* Tab transitions: groups ↔ leaves swap with a slide+fade so the
+   kid visually sees "I entered a new place". Entering tabs slide
+   from the right (going deeper) or from the left (going back, via
+   the .tab-enter-from-left-start variant). Leaving tabs fade out
+   in place — position:absolute would break the flex row. */
+.tab-enter {
+  transition: opacity 220ms ease-out, transform 220ms ease-out;
+}
+.tab-enter-start { opacity: 0; transform: translateX(24px) scale(0.92); }
+.tab-enter-end   { opacity: 1; transform: translateX(0) scale(1); }
+
+.tab-enter-from-left-start { opacity: 0; transform: translateX(-24px) scale(0.92); }
+
+.tab-leave {
+  transition: opacity 140ms ease-in;
+}
+.tab-leave-start { opacity: 1; }
+.tab-leave-end   { opacity: 0; }
+
 .item-thumbnail {
   width: 100%; aspect-ratio: 1; background: var(--c-surface);
   border: 3px solid transparent; border-radius: var(--radius-md);
   cursor: pointer; display: flex; align-items: center;
   justify-content: center; overflow: hidden; padding: var(--sp-1);
-  transition: all var(--duration-fast); touch-action: none;
+  transition: all var(--duration-fast);
 }
 .item-thumbnail:hover { border-color: var(--c-border-strong); transform: scale(1.05); }
 .item-thumbnail.equipped {
@@ -488,7 +579,6 @@
   background: #FFF8E7;
 }
 .item-thumbnail img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; }
-.item-thumbnail.dragging { opacity: 0.4; }
 .item-thumbnail.disabled { opacity: 0.35; pointer-events: none; }
 
 .item-thumbnail.item-none {
@@ -498,7 +588,6 @@
   background: #F0F0F0;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  touch-action: auto;
 }
 .item-thumbnail.item-none.selected { color: #B8860B; background: #FFF8E7; }
 
@@ -565,97 +654,180 @@
 .look-card:hover .look-delete { opacity: 1; }
 
 /* ============================================
-   DRAG & DROP
+   LOOK TILES (fullscreen gallery)
+   Each tile represents either a saved look or
+   the "new look" entry point; kid-sized taps,
+   soft rounded corners. Preview image is
+   generated on demand by Renderer.renderToDataURL.
    ============================================ */
-.drag-clone {
-  position: fixed; z-index: 1000; pointer-events: none;
-  opacity: 0.85; transform: scale(1.15);
-  filter: drop-shadow(0 4px 12px rgba(155, 89, 182, 0.4));
-}
-.drop-zone.drag-over {
-  box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+.look-tile {
+  position: relative;
+  background: white;
+  border: 3px solid transparent;
   border-radius: var(--radius-xl);
+  padding: var(--sp-2);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  box-shadow: 0 4px 15px rgba(155, 89, 182, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+  outline: none;
+}
+.look-tile:hover {
+  transform: translateY(-3px);
+  border-color: var(--c-border-strong);
+}
+.look-tile:active {
+  transform: scale(0.97);
 }
 
-/* ============================================
-   FREE POSITION
-   ============================================ */
-.free-pos-btn {
-  width: 28px; height: 28px; border: 1px solid var(--c-border-strong);
-  border-radius: var(--radius-sm); background: white; color: var(--c-primary-dark);
-  font-size: 14px; cursor: pointer; display: flex;
-  align-items: center; justify-content: center;
-  transition: all var(--duration-fast); font-weight: 600;
+.look-tile-preview {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--c-bg) 0%, var(--c-card) 100%);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
 }
-.free-pos-btn:active { transform: scale(0.9); background: var(--c-bg); }
+.look-tile-preview img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.look-tile-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--c-ink);
+  text-align: center;
+  line-height: 1.2;
+  min-height: 1.2em;
+}
+
+/* "Novo Look" variant: gold accent + big plus overlay on top of the
+   base character preview, so the kid sees "whose wardrobe" this is. */
+.look-tile-new {
+  border-color: var(--c-accent-glow);
+  box-shadow: var(--shadow-glow-gold);
+}
+.look-tile-new:hover { border-color: var(--c-accent); }
+.look-tile-plus {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 248, 231, 0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: var(--radius-lg);
+}
+.look-tile-plus-icon {
+  font-size: 3rem;
+  color: var(--c-accent);
+  font-weight: 700;
+  line-height: 1;
+}
+.look-tile-plus-label {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--c-accent);
+}
+
+/* Per-look delete: only appears on hover (desktop) — on mobile the
+   kid isn't likely to long-miss it, and we don't want accidental
+   taps while they're browsing. */
+.look-tile-delete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  background: var(--c-danger);
+  color: white;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--duration-fast), transform var(--duration-fast);
+  line-height: 1;
+}
+.look-tile:hover .look-tile-delete { opacity: 1; }
+.look-tile-delete:active { transform: scale(0.85); }
 
 /* ============================================
    SCROLL ROW - Shared horizontal scroller
    Used by color picker, mobile category bar,
    and mobile item grids.
    ============================================ */
-.scroll-row {
+/* The <scroll-row> custom element IS the scroll container. Children
+   placed inside (by x-for / x-if / static) are direct flex items.
+   No wrapping, no DOM juggling — plays well with Alpine templates
+   that add/remove children dynamically. */
+scroll-row {
   display: flex;
-  align-items: stretch;
-  gap: var(--sp-1);
+  flex-wrap: nowrap;
+  gap: var(--sp-2);
+  align-items: center;
   width: 100%;
-  min-width: 0;
-}
-.scroll-row-content {
-  flex: 1;
   min-width: 0;
   overflow-x: auto;
   /* Browsers coerce overflow-y:visible to auto when overflow-x is not
      visible, which would clip the "selected" glow around tiles. Use
      `clip` + a margin so content can bleed ~12px vertically without
-     being cut. Padding is the universal fallback. */
-  /* overflow-y: clip; */
+     being cut. */
   overflow-clip-margin: 12px;
-  padding: 10px 16px;
-  margin: 0 -16px;
+  /* The component owns its own internal padding (breathing room for
+     items). It does NOT apply a negative margin — that decision lives
+     at the use site:
+       • parent has no lateral padding → scroll-row's padding provides
+         the spacing, no negative margin needed
+       • parent has lateral padding and you want edge-to-edge scroll →
+         add the `.scroll-bleed` class on the <scroll-row> to pull it
+         back outside the parent's padding. */
+  padding: 6px var(--sp-5);
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  display: flex;
-  gap: var(--sp-2);
-  align-items: center;
   scroll-behavior: smooth;
 }
-.scroll-row-content::-webkit-scrollbar { display: none; }
 
-.scroll-arrow {
-  flex-shrink: 0;
-  width: 40px;
-  min-height: 40px;
-  border: none;
-  background: var(--c-surface);
-  color: var(--c-primary-dark);
-  border-radius: var(--radius-md);
-  font-size: 18px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all var(--duration-fast);
-  padding: 0;
+/* Opt-in: counteracts a parent's `--sp-5` lateral padding so the
+   scroll track reaches edge-to-edge while items still align with
+   the parent's padding line.
+   `width` must grow alongside the negative margin — otherwise
+   `width: 100%` from the base rule would pin the box at the
+   original cross-axis size and the negative margin would just
+   shift the element leftward instead of extending it on both
+   sides. */
+scroll-row.scroll-bleed {
+  margin-inline: calc(-1 * var(--sp-5));
+  width: calc(100% + var(--sp-5) * 2);
 }
-.scroll-arrow:active { transform: scale(0.9); background: var(--c-bg); }
-.scroll-arrow:disabled {
-  opacity: 0.25;
-  cursor: default;
-  background: transparent;
-  box-shadow: none;
-}
+scroll-row::-webkit-scrollbar { display: none; }
 
-/* Item tiles inside a scroll row: fixed size, don't shrink */
-.scroll-row-content .item-thumbnail,
-.scroll-row-content .option-item {
+/* Item tiles inside a scroll row: fixed size, don't shrink.
+   Descendant selector (not child) so wrappers like a
+   `<template x-if>` → cloned element still match. */
+scroll-row .item-thumbnail,
+scroll-row .option-item {
   width: 64px;
   height: 64px;
   aspect-ratio: unset;
   flex-shrink: 0;
 }
-.scroll-row-content .option-item.color-swatch {
+scroll-row .option-item.color-swatch {
   width: 40px;
   height: 40px;
 }
@@ -677,15 +849,14 @@
   background: #FFF8E7;
 }
 
-/* Compact scroll row used by the mobile category bar */
-.scroll-row.cat-bar {
-  padding: var(--sp-1) 0;
-}
-.scroll-row.cat-bar .scroll-arrow {
-  width: 32px;
-  min-height: 36px;
-  font-size: 14px;
-  background: transparent;
+/* Compact scroll row used by the mobile category bar.
+   `safe center` centers the tabs when they fit (4 groups nearly
+   always do) but falls back to start-alignment when overflowing so
+   the first tab never gets clipped off-screen. */
+scroll-row.cat-bar {
+  padding: var(--sp-1) var(--sp-4);
+  margin: 0;
+  justify-content: safe center;
 }
 
 /* ============================================

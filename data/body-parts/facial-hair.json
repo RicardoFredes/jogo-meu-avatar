@@ -4,7 +4,7 @@
   "type": "body-part",
   "label": "Barba",
   "anchor": "mouth",
-  "zIndex": 64,
+  "zIndex": 74,
   "colorable": true,
   "colorPalette": "hair-colors",
   "sharedColorGroup": "facial-hair",

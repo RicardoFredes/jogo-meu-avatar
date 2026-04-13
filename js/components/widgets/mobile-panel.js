@@ -1,19 +1,19 @@
 /* ============================================
    MOBILE PANEL - Slide-up bottom sheet used by
-   both creator and wardrobe on mobile.
+   both creator and studio on mobile.
 
    Owns its own open/closed state + toggles the
    preview-area "panel-open" CSS class so the
    character scales down when the sheet is up.
 
    Props:
-   - previewSelector: '.creator-preview-area' | '.wardrobe-preview-area'
-   - startOpen: boolean  (creator opens by default, wardrobe starts closed)
+   - previewSelector: '.creator-preview-area' | '.studio-preview-area'
+   - startOpen: boolean  (creator opens by default, studio starts closed)
    ============================================ */
 
 document.addEventListener('alpine:init', () => {
   Alpine.data('mobilePanel', ({
-    previewSelector = '.wardrobe-preview-area',
+    previewSelector = '.studio-preview-area',
     startOpen = false,
   } = {}) => ({
     open: startOpen,
