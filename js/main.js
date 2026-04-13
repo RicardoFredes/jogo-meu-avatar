@@ -14,6 +14,19 @@ document.addEventListener('alpine:init', () => {
     navigator.serviceWorker.register('sw.js').catch(() => { /* ignore */ });
   }
 
+  // Try to lock orientation to portrait. Support varies:
+  //   • Installed PWA on Android → works
+  //   • Installed PWA on iOS 16+ → the manifest handles it
+  //     (the API itself often throws NotSupportedError)
+  //   • Plain browser tab → throws (lock requires fullscreen);
+  //     the CSS `.orientation-lock` overlay covers this case
+  // The silent catch keeps us from spamming the console on failure.
+  try {
+    if (screen.orientation && typeof screen.orientation.lock === 'function') {
+      screen.orientation.lock('portrait').catch(() => {});
+    }
+  } catch {}
+
   // Boot after Alpine fires its 'init' event so stores exist.
   queueMicrotask(async () => {
     try {

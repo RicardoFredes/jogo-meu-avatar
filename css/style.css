@@ -860,6 +860,49 @@ scroll-row.cat-bar {
 }
 
 /* ============================================
+   ORIENTATION LOCK
+   Shown only on phone-sized viewports in landscape.
+   Tablets/desktops in landscape have enough height
+   to skip this and see the normal layout.
+   ============================================ */
+.orientation-lock {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: linear-gradient(180deg, var(--c-bg) 0%, var(--c-card) 100%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  text-align: center;
+}
+.orientation-lock-icon {
+  font-size: 5rem;
+  animation: orient-hint 2.4s ease-in-out infinite;
+  transform-origin: center;
+}
+.orientation-lock-text {
+  font-family: var(--font-display);
+  color: var(--c-primary-dark);
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+@keyframes orient-hint {
+  0%, 45%, 100% { transform: rotate(0deg); }
+  55%, 95% { transform: rotate(-90deg); }
+}
+
+/* Trigger: narrow-tall window in landscape. The max-height filter
+   keeps tablets/desktops (>= ~520px tall) out — those still render
+   the full layout in landscape via the desktop media queries. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .orientation-lock { display: flex; }
+}
+
+/* ============================================
    UTILITY
    ============================================ */
 [x-cloak] { display: none !important; }

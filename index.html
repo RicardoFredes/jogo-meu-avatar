@@ -48,6 +48,19 @@
 <body class="font-body bg-gradient-to-br from-lauren-bg via-purple-50 to-lauren-card min-h-screen overflow-hidden select-none">
 
   <!-- ============================================ -->
+  <!-- ORIENTATION LOCK (landscape on small screens) -->
+  <!-- The PWA manifest asks for portrait, and iOS 16+ / Android    -->
+  <!-- respect it when installed. This overlay covers the non-PWA   -->
+  <!-- case (kid just opens the site in a browser and rotates).     -->
+  <!-- Shown only when the viewport is clearly a phone in landscape -->
+  <!-- (short height) — tablets/desktops in landscape pass through. -->
+  <!-- ============================================ -->
+  <div class="orientation-lock">
+    <div class="orientation-lock-icon">📱</div>
+    <p class="orientation-lock-text">Gire o celular<br>para ficar em pé!</p>
+  </div>
+
+  <!-- ============================================ -->
   <!-- LOADING SCREEN                                -->
   <!-- ============================================ -->
   <div x-data x-show="$store.app.screen === 'loading'" x-cloak
