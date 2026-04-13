@@ -31,6 +31,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Inject cache version into service worker
+        # sw.js ships with the literal placeholder `__CACHE_VERSION__`.
+        # Replacing it with the short commit SHA guarantees a unique
+        # CACHE_NAME per deploy, which is what triggers the activate
+        # handler to evict the previous deploy's cache.
+        run: sed -i "s/__CACHE_VERSION__/${GITHUB_SHA::7}/g" sw.js
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

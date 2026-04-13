@@ -36,7 +36,11 @@ const Renderer = (() => {
   async function fetchSvgText(url) {
     if (svgCache.has(url)) return svgCache.get(url);
     try {
-      const resp = await fetch(url + (url.includes('?') ? '&' : '?') + '_t=' + Date.now());
+      // Plain fetch — no cache-busting query. The service worker and
+      // HTTP cache key on the URL, and a cache-buster per request would
+      // defeat both. Fresh SVGs after an update arrive via the SW's
+      // per-deploy CACHE_VERSION, not via URL randomization.
+      const resp = await fetch(url);
       const text = await resp.text();
       svgCache.set(url, text);
       return text;

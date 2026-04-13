@@ -10,8 +10,34 @@ document.addEventListener('alpine:init', () => {
   const app = Alpine.store('app');
 
   // Service worker (PWA)
+  //
+  // Localhost: unregister any stale SW and skip registration. The SW
+  //   caches aggressively; during dev we always want fresh files.
+  // Production: register with updateViaCache:'none' so the browser
+  //   never serves sw.js from HTTP cache — every visit re-validates it
+  //   against the server, which is how a deploy gets detected. Also
+  //   poke update() when the tab becomes visible again so returning
+  //   users pick up new deploys without a hard reload.
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(() => { /* ignore */ });
+    const isLocal =
+      location.hostname === 'localhost' ||
+      location.hostname === '127.0.0.1';
+
+    if (isLocal) {
+      navigator.serviceWorker.getRegistrations()
+        .then(regs => regs.forEach(r => r.unregister()))
+        .catch(() => {});
+    } else {
+      navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' })
+        .catch(() => { /* ignore */ });
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+          navigator.serviceWorker.getRegistration()
+            .then(r => r && r.update())
+            .catch(() => {});
+        }
+      });
+    }
   }
 
   // Try to lock orientation to portrait. Support varies:
