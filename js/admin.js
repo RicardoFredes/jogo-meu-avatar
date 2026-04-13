@@ -27,15 +27,21 @@ const Admin = (() => {
   let currentAssetPath = null; // track which asset file is loaded
 
   async function init() {
-    await ConfigLoader.loadAll();
-    setupKonvaPreview();
-    setupPaperJs();
-    setupTools();
-    setupEvents();
-    applyZoom();
-    applyTransparency();
-    updateLayerList();
-    loadAssetBrowser();
+    try {
+      await ConfigLoader.loadAll();
+      setupKonvaPreview();
+      setupPaperJs();
+      setupTools();
+      setupEvents();
+      applyZoom();
+      applyTransparency();
+      updateLayerList();
+      loadAssetBrowser();
+      console.log('Admin init OK');
+    } catch (err) {
+      console.error('Admin init FAILED:', err);
+      document.body.innerHTML = '<pre style="color:red;padding:20px;">ERRO: ' + err.message + '\n\n' + err.stack + '</pre>';
+    }
   }
 
   // ========== KONVA PREVIEW ==========
@@ -50,7 +56,7 @@ const Admin = (() => {
         mouths: { itemId: 'mouth-smile' },
         'hair-back': null,
         'hair-front': null,
-        eyebrows: null, extras: null, 'facial-hair': null,
+        eyebrows: null, extras: null, 'facial-hair': null, mustache: null,
       },
       outfit: {},
     };
@@ -1265,16 +1271,25 @@ const Admin = (() => {
     const browser = document.getElementById('asset-browser');
     browser.innerHTML = '';
 
+    console.log('loadAssetBrowser:', categoryId);
     const cat = Catalog.getCategory(categoryId);
+    console.log('  cat:', cat ? cat.category + ' (' + cat.items.size + ' items)' : 'NULL');
+    if (!cat) {
+      // Fallback: list all registered categories for debugging
+      const all = Catalog.getAllCategories();
+      console.log('  Registered categories:', all.map(c => c.category).join(', '));
+    }
+
     if (!cat || cat.items.size === 0) {
-      browser.innerHTML = '<div style="color:#888;font-size:0.8rem;padding:8px;">Nenhum asset nesta categoria</div>';
+      browser.innerHTML = '<div style="color:#888;font-size:0.8rem;padding:8px;">Nenhum asset nesta categoria (' + categoryId + ')</div>';
       return;
     }
 
+    console.log('  Rendering', cat.items.size, 'items into #asset-browser');
     for (const [itemId, item] of cat.items) {
       const btn = document.createElement('button');
       btn.className = 'adm-btn asset-item';
-      btn.style.cssText = 'width:100%;text-align:left;margin-bottom:4px;display:flex;align-items:center;gap:8px;padding:6px 10px;';
+      btn.style.cssText = 'width:100%;text-align:left;margin-bottom:4px;display:flex;align-items:center;gap:8px;padding:8px 10px;min-height:36px;';
 
       const thumbUrl = item.thumbnail || item.asset;
       if (thumbUrl) {

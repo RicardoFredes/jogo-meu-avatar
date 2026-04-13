@@ -36,6 +36,7 @@ const Catalog = (() => {
         skinTint: data.skinTint || false,
         freePosition: data.freePosition || false,
         conflicts: data.conflicts || null,
+        sharedColorGroup: data.sharedColorGroup || null,
         items,
       });
     },
@@ -87,6 +88,11 @@ const Catalog = (() => {
 
     getCategoriesByType(type) {
       return [...categories.values()].filter(c => c.type === type);
+    },
+
+    getCategoriesByColorGroup(groupId) {
+      if (!groupId) return [];
+      return [...categories.values()].filter(c => c.sharedColorGroup === groupId);
     },
 
     getUiConfig() {

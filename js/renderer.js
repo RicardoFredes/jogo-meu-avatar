@@ -213,7 +213,7 @@ const Renderer = (() => {
     }
 
     // 3. Regular body parts (includes hair-back and hair-front as separate categories)
-    const regularParts = ['hair-back', 'eyes', 'eyebrows', 'noses', 'mouths', 'extras', 'hair-front'];
+    const regularParts = ['hair-back', 'eyes', 'eyebrows', 'noses', 'mouths', 'facial-hair', 'mustache', 'extras', 'hair-front'];
     for (const catId of regularParts) {
       const partData = charData.parts[catId];
       if (!partData || !partData.itemId) continue;

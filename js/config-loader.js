@@ -39,6 +39,7 @@ const ConfigLoader = (() => {
       'data/body-parts/hair-back.json',
       'data/body-parts/hair-front.json',
       'data/body-parts/facial-hair.json',
+      'data/body-parts/mustache.json',
       'data/body-parts/extras.json',
     ];
 

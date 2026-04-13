@@ -1,0 +1,45 @@
+{
+  "version": "1.0",
+  "category": "mustache",
+  "type": "body-part",
+  "label": "Bigode",
+  "anchor": "mouth",
+  "zIndex": 66,
+  "colorable": true,
+  "colorPalette": "hair-colors",
+  "sharedColorGroup": "facial-hair",
+  "items": [
+    {
+      "id": "mustache-classic",
+      "name": "Classico",
+      "asset": "assets/faces/facial-hair/mustache-classic.svg",
+      "thumbnail": "assets/faces/facial-hair/thumbs/thumb-mustache-classic.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 50 }
+    },
+    {
+      "id": "mustache-handlebar",
+      "name": "Guidao",
+      "asset": "assets/faces/facial-hair/mustache-handlebar.svg",
+      "thumbnail": "assets/faces/facial-hair/thumbs/thumb-mustache-handlebar.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 50 }
+    },
+    {
+      "id": "mustache-thin",
+      "name": "Fino",
+      "asset": "assets/faces/facial-hair/mustache-thin.svg",
+      "thumbnail": "assets/faces/facial-hair/thumbs/thumb-mustache-thin.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 50 }
+    },
+    {
+      "id": "mustache-walrus",
+      "name": "Morsa",
+      "asset": "assets/faces/facial-hair/mustache-walrus.svg",
+      "thumbnail": "assets/faces/facial-hair/thumbs/thumb-mustache-walrus.svg",
+      "size": { "width": 600, "height": 800 },
+      "offset": { "x": 0, "y": 50 }
+    }
+  ]
+}

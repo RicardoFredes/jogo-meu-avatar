@@ -33,6 +33,7 @@ const CharacterCreator = (() => {
         'hair-back': { itemId: 'longo-liso', colorId: 'dark-brown' },
         'hair-front': { itemId: 'franja-ondulada', colorId: 'dark-brown' },
         'facial-hair': null,
+        mustache: null,
         extras: null,
       },
       outfit: {},
@@ -86,7 +87,9 @@ const CharacterCreator = (() => {
     title.textContent = step.label;
     indicator.textContent = `${currentStep + 1}/${steps.length}`;
     prevBtn.disabled = currentStep === 0;
-    nextBtn.textContent = currentStep === steps.length - 1 ? 'Salvar!' : 'Proximo →';
+    const isLast = currentStep === steps.length - 1;
+    nextBtn.textContent = isLast ? '✓' : '→';
+    nextBtn.classList.toggle('creator-float-save', isLast);
 
     panel.innerHTML = '';
 
@@ -152,6 +155,7 @@ const CharacterCreator = (() => {
   }
 
   function renderCategoryStep(panel, categoryIds, optional) {
+    const renderedColorGroups = new Set();
     for (const catId of categoryIds) {
       const cat = Catalog.getCategory(catId);
       if (!cat || cat.items.size === 0) continue;
@@ -211,12 +215,21 @@ const CharacterCreator = (() => {
       group.appendChild(items);
       panel.appendChild(group);
 
-      // Color palette if colorable (skip hair-front palette - hair-back already shows it)
-      if (cat.colorable && cat.colorPalette && catId !== 'hair-front') {
+      // Color palette if colorable
+      // Skip if another category in the same sharedColorGroup already rendered a palette
+      const colorGroupId = cat.sharedColorGroup;
+      const skipColor = colorGroupId
+        ? renderedColorGroups.has(colorGroupId)
+        : catId === 'hair-front'; // legacy: hair-front skips (hair-back shows it)
+
+      if (cat.colorable && cat.colorPalette && !skipColor) {
+        if (colorGroupId) renderedColorGroups.add(colorGroupId);
+
         const colors = Catalog.getColorPalette(cat.colorPalette);
         const colorGroup = document.createElement('div');
         colorGroup.className = 'option-group';
-        colorGroup.innerHTML = `<div class="option-group-title">Cor</div>`;
+        const colorLabel = colorGroupId ? 'Cor' : 'Cor';
+        colorGroup.innerHTML = `<div class="option-group-title">${colorLabel}</div>`;
         const colorItems = document.createElement('div');
         colorItems.className = 'option-items';
 
@@ -230,10 +243,12 @@ const CharacterCreator = (() => {
           swatch.addEventListener('click', () => {
             if (!charData.parts[catId]) charData.parts[catId] = {};
             charData.parts[catId].colorId = c.id;
-            // Sync hair color: changing one changes both
-            if (catId === 'hair-back' || catId === 'hair-front') {
-              if (charData.parts['hair-back']) charData.parts['hair-back'].colorId = c.id;
-              if (charData.parts['hair-front']) charData.parts['hair-front'].colorId = c.id;
+            // Sync color across shared group or hair pair
+            const syncGroup = colorGroupId
+              ? Catalog.getCategoriesByColorGroup(colorGroupId).map(c => c.category)
+              : (catId === 'hair-back' || catId === 'hair-front') ? ['hair-back', 'hair-front'] : [];
+            for (const syncId of syncGroup) {
+              if (charData.parts[syncId]) charData.parts[syncId].colorId = c.id;
             }
             updatePreview();
             colorItems.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
@@ -292,7 +307,14 @@ const CharacterCreator = (() => {
       ...charData,
       outfit: {},
     };
-    await Renderer.renderToStage('creator-preview', previewData, 0.9);
+    // Calculate scale to fit the preview area
+    const area = document.querySelector('.creator-preview-area');
+    const areaH = area ? area.clientHeight - 8 : 300;
+    const areaW = area ? area.clientWidth - 8 : 250;
+    const bodyH = 800; // canvas reference height
+    const bodyW = 600;
+    const scale = Math.min(areaH / bodyH, areaW / bodyW, 1);
+    await Renderer.renderToStage('creator-preview', previewData, scale);
   }
 
   function nextStep() {

@@ -118,6 +118,20 @@
         "x": 0,
         "y": 0
       }
+    },
+    {
+      "id": "bigode",
+      "name": "bigode",
+      "asset": "assets/faces/hair-back/bigode.svg",
+      "thumbnail": "assets/faces/hair-back/thumbs/thumb-bigode.svg",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      }
     }
   ]
 }

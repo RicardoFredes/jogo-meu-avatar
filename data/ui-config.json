@@ -8,7 +8,7 @@
     { "id": "face", "label": "Rostinho", "dataSource": "face-shapes" },
     { "id": "eyes", "label": "Olhinhos", "dataSource": "eyes" },
     { "id": "nose-mouth", "label": "Nariz e Boquinha", "dataSources": ["noses", "mouths"] },
-    { "id": "facial-hair", "label": "Barba & Bigode", "dataSource": "facial-hair", "optional": true },
+    { "id": "facial-hair", "label": "Barba & Bigode", "dataSources": ["facial-hair", "mustache"], "optional": true },
     { "id": "hair", "label": "Cabelo", "dataSources": ["hair-back", "hair-front"] },
     { "id": "review", "label": "Ficou Lindo!", "type": "review" }
   ],
@@ -19,6 +19,7 @@
     { "category": "shoes", "label": "Sapatos", "icon": "👟" },
     { "category": "head-acc", "label": "Chapeus", "icon": "👑" },
     { "category": "face-acc", "label": "Oculos", "icon": "👓" },
+    { "categories": ["facial-hair", "mustache"], "label": "Barba", "icon": "🧔" },
     { "category": "body-acc", "label": "Extras", "icon": "🦋" }
   ]
 }

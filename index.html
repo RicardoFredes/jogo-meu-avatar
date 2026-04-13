@@ -63,7 +63,7 @@
       <div class="flex items-center gap-2 ml-auto">
         <button id="btn-install" class="hidden bg-accent text-white font-display text-sm px-4 py-2 rounded-xl shadow-md hover:shadow-lg active:scale-95 transition-all">Instalar App</button>
         <button id="btn-debug-clear" class="text-xs text-primary-light/40 hover:text-primary-light/70 transition">Reset</button>
-        <span class="text-xs font-display text-primary-light/50">v0.3.0</span>
+        <span class="text-xs font-display text-primary-light/50">v0.5.0</span>
       </div>
     </header>
     <main class="flex-1 flex flex-col items-center px-4 py-4 sm:py-6 gap-4 sm:gap-6 overflow-y-auto">
@@ -81,21 +81,28 @@
 
   <!-- Creator Screen -->
   <div id="creator-screen" class="screen fixed inset-0 flex flex-col">
-    <header class="flex items-center justify-between px-3 py-2 sm:px-4 sm:py-3 bg-white/90 backdrop-blur-sm shadow-sm">
-      <button class="btn btn-back text-primary-light text-sm" id="btn-creator-back">← Voltar</button>
-      <h2 class="font-display text-base sm:text-lg text-primary-dark" id="step-title">Quem Voce Vai Criar?</h2>
-      <span class="font-display text-xs text-primary-light bg-lauren-bg px-3 py-1 rounded-full" id="step-indicator">1/8</span>
+    <!-- Compact header: back + title + step indicator -->
+    <header class="flex items-center gap-2 px-2 py-1 sm:px-4 sm:py-2 bg-white/80 backdrop-blur-sm shadow-sm shrink-0 z-10">
+      <button class="text-primary-light text-xs sm:text-sm shrink-0 px-1" id="btn-creator-back">← Sair</button>
+      <div class="flex-1 text-center min-w-0">
+        <h2 class="font-display text-xs sm:text-base text-primary-dark truncate" id="step-title">Quem Voce Vai Criar?</h2>
+      </div>
+      <span class="font-display text-[10px] sm:text-xs text-primary-light bg-lauren-bg px-2 py-0.5 rounded-full shrink-0" id="step-indicator">1/8</span>
     </header>
-    <div class="flex-1 flex flex-col sm:flex-row overflow-hidden">
-      <div class="preview-panel flex items-center justify-center p-3 sm:p-4 bg-gradient-to-b from-lauren-bg to-lauren-card sm:flex-[0_0_40%] min-h-[180px] sm:min-h-0">
+
+    <!-- Content: preview + options (full height) -->
+    <div class="creator-body flex-1 overflow-hidden relative">
+      <div class="preview-panel creator-preview-area">
         <div id="creator-preview" class="character-preview"></div>
       </div>
-      <div class="flex-1 p-3 sm:p-4 overflow-y-auto" id="options-panel"></div>
+      <div class="creator-options-area" id="options-panel"></div>
+
+      <!-- Floating nav buttons -->
+      <div class="creator-floating-nav">
+        <button class="creator-float-btn creator-float-prev disabled:opacity-30" id="btn-prev-step" disabled>←</button>
+        <button class="creator-float-btn creator-float-next" id="btn-next-step">→</button>
+      </div>
     </div>
-    <footer class="flex justify-between px-4 py-3 bg-white/90 backdrop-blur-sm shadow-[0_-2px_8px_rgba(0,0,0,0.06)]">
-      <button class="bg-white border-2 border-primary-light text-primary-dark font-display text-sm px-5 py-2.5 rounded-xl2 active:scale-95 transition-all disabled:opacity-40" id="btn-prev-step" disabled>← Voltar</button>
-      <button class="bg-primary hover:bg-primary-dark text-white font-display text-sm px-5 py-2.5 rounded-xl2 shadow-md active:scale-95 transition-all" id="btn-next-step">Proximo →</button>
-    </footer>
   </div>
 
   <!-- Done Screen -->
@@ -118,9 +125,9 @@
       <h2 class="font-display text-base sm:text-lg text-primary-dark">Guarda-Roupa</h2>
       <button class="bg-accent text-white font-display text-xs px-3 py-1.5 rounded-lg shadow active:scale-95 transition-all" id="btn-my-looks">Meus Looks</button>
     </header>
-    <div class="flex-1 flex flex-col sm:flex-row overflow-hidden">
-      <!-- Mobile: horizontal tabs, Desktop: vertical sidebar -->
-      <nav class="category-tabs flex sm:flex-col gap-1 px-2 py-1 sm:px-1 sm:py-2 bg-purple-50/50 overflow-x-auto sm:overflow-y-auto sm:w-20 shrink-0" id="category-tabs"></nav>
+    <div class="wardrobe-body flex-1 flex flex-col overflow-hidden">
+      <!-- Mobile: horizontal tabs, Desktop/Landscape: vertical sidebar -->
+      <nav class="category-tabs flex gap-1 px-2 py-1 bg-purple-50/50 overflow-x-auto shrink-0" id="category-tabs"></nav>
       <div class="flex-1 flex flex-col px-2 py-1 sm:p-2 overflow-hidden">
         <div class="color-bar hidden flex items-center gap-2 px-1 py-1.5 shrink-0" id="color-bar">
           <span class="font-display text-xs text-primary-light">Cor:</span>
@@ -148,7 +155,7 @@
           </div>
         </div>
       </div>
-      <div class="wardrobe-preview flex items-center justify-center p-2 sm:p-3 bg-gradient-to-b from-lauren-bg to-lauren-card sm:flex-[0_0_35%] min-h-[160px] sm:min-h-0 relative">
+      <div class="wardrobe-preview-area flex items-center justify-center p-2 sm:p-3 bg-gradient-to-b from-lauren-bg to-lauren-card relative">
         <div id="wardrobe-character" class="character-preview drop-zone"></div>
       </div>
     </div>

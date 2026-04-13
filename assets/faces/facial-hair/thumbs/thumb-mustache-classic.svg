@@ -1,6 +1,3 @@
-<svg viewBox="236 326 128 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-  <!-- Bigode classico - curvas para cima nas pontas -->
+<svg viewBox="240 320 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M300 348C300 348 290 342 278 342C266 342 258 348 254 352C250 356 246 354 248 350C252 344 262 336 278 336C290 336 298 342 300 345C302 342 310 336 322 336C338 336 348 344 352 350C354 354 350 356 346 352C342 348 334 342 322 342C310 342 300 348 300 348Z" fill="#FF00FF" stroke="#FF00FF" stroke-width="2" stroke-linejoin="round"/>
-
 </svg>
