@@ -1,4 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="234 244 134 26" fill="none">
+<svg viewBox="232 239 138 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Happy raised arch eyebrows - colorizable -->
   <path d="M242 264 Q265 249 288 258" fill="none" stroke="#FF00FF" stroke-width="4" stroke-linecap="round"/>
   <path d="M314 258 Q337 249 360 264" fill="none" stroke="#FF00FF" stroke-width="4" stroke-linecap="round"/>
+
 </svg>

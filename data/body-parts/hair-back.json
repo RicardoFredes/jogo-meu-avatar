@@ -12,57 +12,112 @@
       "id": "longo-liso",
       "name": "Longo Liso",
       "asset": "assets/hair/back/longo-liso.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      },
+      "thumbnail": "assets/hair/back/thumbs/thumb-longo-liso.svg"
     },
     {
       "id": "medio-liso",
       "name": "Medio Liso",
       "asset": "assets/hair/back/medio-liso.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      },
+      "thumbnail": "assets/hair/back/thumbs/thumb-medio-liso.svg"
     },
     {
       "id": "curto",
       "name": "Curto",
       "asset": "assets/hair/back/curto.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      },
+      "thumbnail": "assets/hair/back/thumbs/thumb-curto.svg"
     },
     {
       "id": "longo-cacheado",
       "name": "Longo Cacheado",
       "asset": "assets/hair/back/longo-cacheado.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      },
+      "thumbnail": "assets/hair/back/thumbs/thumb-longo-cacheado.svg"
     },
     {
       "id": "rabo-de-cavalo",
       "name": "Rabo de Cavalo",
       "asset": "assets/hair/back/rabo-de-cavalo.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      },
+      "thumbnail": "assets/hair/back/thumbs/thumb-rabo-de-cavalo.svg"
     },
     {
       "id": "coques",
       "name": "Coques",
       "asset": "assets/hair/back/coques.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      },
+      "thumbnail": "assets/hair/back/thumbs/thumb-coques.svg"
     },
     {
       "id": "trancas",
       "name": "Trancas",
       "asset": "assets/hair/back/trancas.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      },
+      "thumbnail": "assets/hair/back/thumbs/thumb-trancas.svg"
     },
     {
       "id": "careca",
       "name": "Careca",
       "asset": "assets/hair/back/careca.svg",
-      "size": { "width": 10, "height": 10 },
-      "offset": { "x": 0, "y": 0 }
+      "size": {
+        "width": 10,
+        "height": 10
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      }
     }
   ]
 }

@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="250 138 100 92" fill="none">
+<svg viewBox="248 132 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+
 
   <!-- Party/Birthday cone hat - colorizable -->
   <g fill="#FF00FF">
@@ -19,5 +20,6 @@
     <circle cx="295" cy="208" r="2.5" fill="#FFFFFF" opacity="0.5"/>
     <circle cx="320" cy="200" r="3" fill="#FFFFFF" opacity="0.5"/>
   </g>
+
 
 </svg>

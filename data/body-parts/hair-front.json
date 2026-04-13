@@ -12,43 +12,84 @@
       "id": "sem-franja",
       "name": "Sem Franja",
       "asset": "assets/hair/front/sem-franja.svg",
-      "size": { "width": 10, "height": 10 },
-      "offset": { "x": 0, "y": 0 }
+      "size": {
+        "width": 10,
+        "height": 10
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      }
     },
     {
       "id": "franja-ondulada",
       "name": "Ondulada",
       "asset": "assets/hair/front/franja-ondulada.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      },
+      "thumbnail": "assets/hair/front/thumbs/thumb-franja-ondulada.svg"
     },
     {
       "id": "franja-reta",
       "name": "Reta",
       "asset": "assets/hair/front/franja-reta.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      },
+      "thumbnail": "assets/hair/front/thumbs/thumb-franja-reta.svg"
     },
     {
       "id": "franja-lateral",
       "name": "Lateral",
       "asset": "assets/hair/front/franja-lateral.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      },
+      "thumbnail": "assets/hair/front/thumbs/thumb-franja-lateral.svg"
     },
     {
       "id": "franja-cortina",
       "name": "Cortina",
       "asset": "assets/hair/front/franja-cortina.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      },
+      "thumbnail": "assets/hair/front/thumbs/thumb-franja-cortina.svg"
     },
     {
       "id": "franja-cacheada",
       "name": "Cacheada",
       "asset": "assets/hair/front/franja-cacheada.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      },
+      "thumbnail": "assets/hair/front/thumbs/thumb-franja-cacheada.svg"
     }
   ]
 }

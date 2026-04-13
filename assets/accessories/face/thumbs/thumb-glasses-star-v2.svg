@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="212 256 178 58" fill="none">
+<svg viewBox="212 251 178 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+
 
   <!-- Star glasses - colorizable -->
   <g>
@@ -10,5 +11,6 @@
     <path d="M244 282 L222 278" fill="none" stroke="#FF00FF" stroke-width="4" stroke-linecap="round"/>
     <path d="M358 282 L380 278" fill="none" stroke="#FF00FF" stroke-width="4" stroke-linecap="round"/>
   </g>
+
 
 </svg>

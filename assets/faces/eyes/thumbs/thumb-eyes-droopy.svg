@@ -1,10 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="225 250 152 72" fill="none">
+<svg viewBox="227 252 148 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+
   <!-- Left eye white - droopy (outer corner lower) -->
   <path d="M237 282 C240 268 253 262 265 262 C277 262 289 272 293 292 C290 308 277 314 265 314 C253 314 240 300 237 282Z" fill="white" stroke="#B29797" stroke-width="4"/>
   <!-- Left iris -->
-  <ellipse cx="269" cy="289" rx="15" ry="19" fill="#1A1A1A"/>
+  <ellipse cx="269" cy="289" rx="15" ry="19" fill="#FF00FF"/>
   <!-- Right eye white - droopy (mirrored) -->
   <path d="M309 292 C313 272 325 262 337 262 C349 262 362 268 365 282 C362 300 349 314 337 314 C325 314 312 308 309 292Z" fill="white" stroke="#B29797" stroke-width="4"/>
   <!-- Right iris -->
-  <ellipse cx="333" cy="289" rx="15" ry="19" fill="#1A1A1A"/>
+  <ellipse cx="333" cy="289" rx="15" ry="19" fill="#FF00FF"/>
+
 </svg>

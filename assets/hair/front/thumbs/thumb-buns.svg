@@ -1,0 +1,14 @@
+<svg viewBox="60 55 280 157" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+
+  <path d="M85 198 C82 160, 90 110, 120 88 C150 72, 200 65, 250 72 C300 82, 318 110, 318 160 L315 198 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <!-- Buns on top -->
+  <circle cx="108" cy="105" r="38" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <circle cx="292" cy="105" r="38" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <path d="M100 95 C108 86, 118 95, 114 105 C110 115, 100 106, 100 95Z" fill="#CC00CC" opacity="0.1"/>
+  <path d="M284 95 C292 86, 302 95, 298 105 C294 115, 284 106, 284 95Z" fill="#CC00CC" opacity="0.1"/>
+  <!-- Small fringe -->
+  <path d="M160 192 C180 186, 220 186, 240 192 L236 202 C218 196, 182 196, 164 202 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="2"/>
+
+
+</svg>

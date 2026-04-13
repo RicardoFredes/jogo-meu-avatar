@@ -88,8 +88,8 @@ const Wardrobe = (() => {
 
     for (const cat of cats) {
       const slotId = cat.slotId;
-      const equippedItemId = cat.category === 'hair'
-        ? (charData.parts?.hair?.itemId || null)
+      const equippedItemId = cat.category.startsWith('hair-')
+        ? (charData.parts?.[cat.category]?.itemId || null)
         : (charData.outfit[slotId]?.itemId || null);
 
       // Patterns disabled when no dress equipped
@@ -149,8 +149,8 @@ const Wardrobe = (() => {
 
   function renderInlineColorBar(grid, cat) {
     const slotId = cat.slotId;
-    const equipped = cat.category === 'hair'
-      ? charData.parts?.hair
+    const equipped = cat.category.startsWith('hair-')
+      ? charData.parts?.[cat.category]
       : charData.outfit[slotId];
 
     if (!equipped || !equipped.itemId) return;
@@ -179,7 +179,7 @@ const Wardrobe = (() => {
       opt.title = c.name;
       opt.addEventListener('click', () => {
         equipped.colorId = c.id;
-        if (cat.category === 'hair') {
+        if (cat.category.startsWith('hair-')) {
           Storage.saveCharacter(charData);
         } else {
           Storage.updateCharacterOutfit(characterId, charData.outfit);
@@ -247,7 +247,7 @@ const Wardrobe = (() => {
     const item = cat.items.get(itemId);
     const isColorable = cat.colorable || (item && item.colorable);
     const paletteId = cat.colorPalette || (item && item.colorPalette) || 'clothing-colors';
-    const currentSlotData = cat.category === 'hair' ? charData.parts?.hair : charData.outfit[slotId];
+    const currentSlotData = cat.category.startsWith('hair-') ? charData.parts?.[cat.category] : charData.outfit[slotId];
     let colorId = currentSlotData?.colorId || null;
     if (isColorable && !colorId) {
       const palette = Catalog.getColorPalette(paletteId);
@@ -255,8 +255,8 @@ const Wardrobe = (() => {
     }
 
     // Hair goes to parts (renderer reads it from there), everything else to outfit
-    if (cat.category === 'hair') {
-      charData.parts.hair = { itemId, colorId };
+    if (cat.category.startsWith('hair-')) {
+      charData.parts[cat.category] = { itemId, colorId };
       Storage.saveCharacter(charData);
     } else {
       charData.outfit[slotId] = { itemId, colorId };
@@ -271,7 +271,7 @@ const Wardrobe = (() => {
     // Hair lives in parts
     const currentCat = Catalog.getCategory(currentCategoryId);
     if (currentCat && currentCat.category === 'hair') {
-      charData.parts.hair = null;
+      charData.parts[currentCat.category] = null;
       Storage.saveCharacter(charData);
     } else {
       charData.outfit[slotId] = null;
@@ -292,8 +292,8 @@ const Wardrobe = (() => {
 
     const slotId = cat.slotId;
     // Hair is in parts, not outfit
-    const equipped = cat.category === 'hair'
-      ? charData.parts?.hair
+    const equipped = cat.category.startsWith('hair-')
+      ? charData.parts?.[cat.category]
       : charData.outfit[slotId];
 
     if (!equipped || !equipped.itemId) {
@@ -322,7 +322,7 @@ const Wardrobe = (() => {
       opt.title = c.name;
       opt.addEventListener('click', () => {
         equipped.colorId = c.id;
-        if (cat.category === 'hair') {
+        if (cat.category.startsWith('hair-')) {
           Storage.saveCharacter(charData);
         } else {
           Storage.updateCharacterOutfit(characterId, charData.outfit);

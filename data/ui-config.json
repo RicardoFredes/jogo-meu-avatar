@@ -8,6 +8,7 @@
     { "id": "face", "label": "Rostinho", "dataSource": "face-shapes" },
     { "id": "eyes", "label": "Olhinhos", "dataSource": "eyes" },
     { "id": "nose-mouth", "label": "Nariz e Boquinha", "dataSources": ["noses", "mouths"] },
+    { "id": "facial-hair", "label": "Barba & Bigode", "dataSource": "facial-hair", "optional": true },
     { "id": "hair", "label": "Cabelo", "dataSources": ["hair-back", "hair-front"] },
     { "id": "review", "label": "Ficou Lindo!", "type": "review" }
   ],

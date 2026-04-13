@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="238 372 124 64" fill="none">
+<svg viewBox="236 368 128 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+
 
   <!-- Bow tie - colorizable -->
   <path d="M300 402 L260 384 Q246 378 250 392 L260 402 L250 412 Q246 426 260 420 Z"
@@ -6,5 +7,6 @@
   <path d="M300 402 L340 384 Q354 378 350 392 L340 402 L350 412 Q354 426 340 420 Z"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="4" stroke-linejoin="round"/>
   <ellipse cx="300" cy="402" rx="12" ry="14" fill="#CC00CC" stroke="#CC00CC" stroke-width="3"/>
+
 
 </svg>

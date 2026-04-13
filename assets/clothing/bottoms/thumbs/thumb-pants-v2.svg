@@ -1,15 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="196 540 208 144" fill="none">
+<svg viewBox="-12 -109 323 919" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- Long pants -->
-  <rect x="216" y="546" width="168" height="16" rx="6" fill="#FF00FF" stroke="#CC00CC" stroke-width="5"/>
-  <!-- Left leg -->
-  <path d="M216 562 L204 666 Q204 674 212 674 L284 674 Q292 674 290 666 L290 562 Z"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
-  <!-- Right leg -->
-  <path d="M310 562 L310 666 Q308 674 316 674 L388 674 Q396 674 396 666 L384 562 Z"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
-  <!-- Crotch -->
-  <path d="M290 562 L290 610 Q292 626 300 626 Q308 626 310 610 L310 562"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="5" stroke-linejoin="round"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M0,800v-800h600v800z" id="imported-0" fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M0,800v-800h600v800z" id="imported-1" fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M300.44434,557.47008c-30,0 -95.81944,-9.33333 -95.81944,-9.33333c0,0 -17.75725,129.63603 -19.70519,155.81912c-1.94794,26.18309 111.2587,23.3798 111.35936,2.64599c0.10067,-20.73381 3.72034,-98.46512 3.72034,-98.46512c0,0 3.23831,80.52201 4.65165,98.50646c1.41333,17.98445 112.37717,23.49575 110.42923,-2.68734c-1.94794,-26.18309 -19.70519,-155.81912 -19.70519,-155.81912c0,0 -64.93075,9.33332 -94.93075,9.33332z" id="imported-2" fill="#ff00ff" fill-rule="nonzero" stroke="#cc00cc" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
 
 </svg>

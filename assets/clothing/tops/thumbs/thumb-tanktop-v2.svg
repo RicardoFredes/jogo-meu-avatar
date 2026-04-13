@@ -1,11 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="234 392 132 178" fill="none">
+<svg viewBox="-10 -40 409 850" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- Tank top - sleeveless, wide body -->
-  <path d="M276 400 C276 416 286 428 300 428 C314 428 324 416 324 400
-    L356 410 L356 548 Q300 560 244 548 L244 410 Z"
-    fill="#FF00FF" stroke="#CC00CC" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M276 400 C276 416 286 428 300 428 C314 428 324 416 324 400"
-    fill="none" stroke="#CC00CC" stroke-width="4"/>
-  <path d="M244 548 Q300 560 356 548" fill="none" stroke="#CC00CC" stroke-width="3"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M0,800v-800h600v800z" id="imported-0" fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M276,401.66667c0,16 10,28 24,28c14,0 24,-12 24,-28c0,0 54.29236,-1.62009 59.22222,28.33333c4.92986,29.95343 17.77778,136.33333 17.77778,136.33333c-37.33333,8 -164.66667,8 -202,0c0,0 12.84791,-106.37991 17.77778,-136.33333c4.92986,-29.95343 59.22222,-28.33333 59.22222,-28.33333z" id="imported-1" fill="#ff00ff" fill-rule="nonzero" stroke="#cc00cc" stroke-width="6" stroke-linecap="butt" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M276,400c0,16 10,28 24,28c14,0 24,-12 24,-28" id="imported-2" fill="none" fill-rule="nonzero" stroke="#cc00cc" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M388.22222,563.55556" id="imported-3" fill="none" fill-rule="nonzero" stroke="#cc00cc" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/>
 
 </svg>

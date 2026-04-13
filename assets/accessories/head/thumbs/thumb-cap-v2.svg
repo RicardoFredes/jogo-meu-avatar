@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="230 164 150 68" fill="none">
+<svg viewBox="226 158 156 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+
 
   <!-- Baseball Cap - colorizable -->
   <g fill="#FF00FF">
@@ -17,5 +18,6 @@
     <!-- Brim edge detail -->
     <path d="M250,210 Q300,214 360,212" fill="none" stroke="#CC00CC" stroke-width="1.5" opacity="0.5"/>
   </g>
+
 
 </svg>

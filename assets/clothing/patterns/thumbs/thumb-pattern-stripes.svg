@@ -1,0 +1,19 @@
+<svg viewBox="110 154 550 530" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Horizontal stripes pattern masked to dress shape -->
+  <mask id="dress-mask" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="158" y="393" width="286" height="261">
+    <path d="M272 402C272 417.464 284.536 430 300 430C315.464 430 328 417.464 328 402V398.035C333.584 398.238 338.978 399.383 343.999 401.34L345.104 401.786L347.377 402.736L347.551 405.195C351.003 454.117 370.28 493.866 395.387 510.5L396.595 511.301L438.087 650H164.159L202.537 511.839L203.825 511.014C229.471 494.595 249.204 454.136 252.512 404.271L252.687 401.637L255.178 400.762C260.289 398.967 265.759 398 271.403 398H272V402Z" fill="white"/>
+  </mask>
+  <g mask="url(#dress-mask)">
+    <rect x="120" y="420" width="360" height="14" fill="#FF00FF"/>
+    <rect x="120" y="450" width="360" height="14" fill="#FF00FF"/>
+    <rect x="120" y="480" width="360" height="14" fill="#FF00FF"/>
+    <rect x="120" y="510" width="360" height="14" fill="#FF00FF"/>
+    <rect x="120" y="540" width="360" height="14" fill="#FF00FF"/>
+    <rect x="120" y="570" width="360" height="14" fill="#FF00FF"/>
+    <rect x="120" y="600" width="360" height="14" fill="#FF00FF"/>
+    <rect x="120" y="630" width="360" height="14" fill="#FF00FF"/>
+    <rect x="120" y="660" width="360" height="14" fill="#FF00FF"/>
+  </g>
+
+</svg>

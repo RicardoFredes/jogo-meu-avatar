@@ -13,32 +13,56 @@
       "name": "Finas",
       "asset": "assets/faces/eyebrows/brows-thin-v2.svg",
       "thumbnail": "assets/faces/eyebrows/thumbs/thumb-brows-thin-v2.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 113 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 113
+      }
     },
     {
       "id": "brows-thick",
       "name": "Grossas",
       "asset": "assets/faces/eyebrows/brows-thick-v2.svg",
       "thumbnail": "assets/faces/eyebrows/thumbs/thumb-brows-thick-v2.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 113 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 113
+      }
     },
     {
       "id": "brows-straight",
       "name": "Retas",
       "asset": "assets/faces/eyebrows/brows-straight-v2.svg",
       "thumbnail": "assets/faces/eyebrows/thumbs/thumb-brows-straight-v2.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 113 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 113
+      }
     },
     {
       "id": "brows-happy",
       "name": "Alegres",
       "asset": "assets/faces/eyebrows/brows-happy-v2.svg",
       "thumbnail": "assets/faces/eyebrows/thumbs/thumb-brows-happy-v2.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 113 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 113
+      }
     }
   ]
 }

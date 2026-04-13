@@ -93,8 +93,8 @@ const CharacterCreator = (() => {
     if (step.id === 'basics') renderBasicsStep(panel);
     else if (step.id === 'skin') renderSkinStep(panel);
     else if (step.id === 'review') renderReviewStep(panel);
-    else if (step.dataSource) renderCategoryStep(panel, [step.dataSource]);
-    else if (step.dataSources) renderCategoryStep(panel, step.dataSources);
+    else if (step.dataSource) renderCategoryStep(panel, [step.dataSource], step.optional);
+    else if (step.dataSources) renderCategoryStep(panel, step.dataSources, step.optional);
   }
 
   function renderBasicsStep(panel) {
@@ -151,7 +151,7 @@ const CharacterCreator = (() => {
     panel.appendChild(group);
   }
 
-  function renderCategoryStep(panel, categoryIds) {
+  function renderCategoryStep(panel, categoryIds, optional) {
     for (const catId of categoryIds) {
       const cat = Catalog.getCategory(catId);
       if (!cat || cat.items.size === 0) continue;
@@ -165,6 +165,21 @@ const CharacterCreator = (() => {
 
       const currentPartData = charData.parts[catId];
       const currentItemId = currentPartData?.itemId || null;
+
+      // "Nenhum" option for optional categories
+      if (optional) {
+        const noneEl = document.createElement('div');
+        noneEl.className = 'option-item option-none' + (!currentItemId ? ' selected' : '');
+        noneEl.textContent = 'Nenhum';
+        noneEl.title = 'Sem ' + cat.label.toLowerCase();
+        noneEl.addEventListener('click', () => {
+          charData.parts[catId] = null;
+          updatePreview();
+          items.querySelectorAll('.option-item').forEach(o => o.classList.remove('selected'));
+          noneEl.classList.add('selected');
+        });
+        items.appendChild(noneEl);
+      }
 
       for (const [itemId, item] of cat.items) {
         const optEl = document.createElement('div');

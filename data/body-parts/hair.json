@@ -43,7 +43,8 @@
             "y": 50
           }
         }
-      ]
+      ],
+      "thumbnail": "assets/hair/front/thumbs/thumb-long-straight.svg"
     },
     {
       "id": "long-curly",
@@ -82,7 +83,8 @@
             "y": 50
           }
         }
-      ]
+      ],
+      "thumbnail": "assets/hair/front/thumbs/thumb-long-curly.svg"
     },
     {
       "id": "short-bob",
@@ -121,7 +123,8 @@
             "y": 50
           }
         }
-      ]
+      ],
+      "thumbnail": "assets/hair/front/thumbs/thumb-short-bob.svg"
     },
     {
       "id": "pigtails",
@@ -160,7 +163,8 @@
             "y": 50
           }
         }
-      ]
+      ],
+      "thumbnail": "assets/hair/front/thumbs/thumb-pigtails.svg"
     },
     {
       "id": "ponytail",
@@ -199,7 +203,8 @@
             "y": 50
           }
         }
-      ]
+      ],
+      "thumbnail": "assets/hair/front/thumbs/thumb-ponytail.svg"
     },
     {
       "id": "buns",
@@ -238,7 +243,8 @@
             "y": 50
           }
         }
-      ]
+      ],
+      "thumbnail": "assets/hair/front/thumbs/thumb-buns.svg"
     },
     {
       "id": "short-messy",
@@ -277,7 +283,8 @@
             "y": 50
           }
         }
-      ]
+      ],
+      "thumbnail": "assets/hair/front/thumbs/thumb-short-messy.svg"
     },
     {
       "id": "side-part",
@@ -316,7 +323,8 @@
             "y": 50
           }
         }
-      ]
+      ],
+      "thumbnail": "assets/hair/front/thumbs/thumb-side-part.svg"
     },
     {
       "id": "buzz-cut",
@@ -355,7 +363,8 @@
             "y": 50
           }
         }
-      ]
+      ],
+      "thumbnail": "assets/hair/front/thumbs/thumb-buzz-cut.svg"
     },
     {
       "id": "faux-hawk",
@@ -394,7 +403,8 @@
             "y": 50
           }
         }
-      ]
+      ],
+      "thumbnail": "assets/hair/front/thumbs/thumb-faux-hawk.svg"
     },
     {
       "id": "curly-short",
@@ -433,7 +443,8 @@
             "y": 50
           }
         }
-      ]
+      ],
+      "thumbnail": "assets/hair/front/thumbs/thumb-curly-short.svg"
     },
     {
       "id": "bald",

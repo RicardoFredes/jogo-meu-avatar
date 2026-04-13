@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="160 398 280 290" fill="none">
+<svg viewBox="148 394 304 298" fill="none" xmlns="http://www.w3.org/2000/svg">
+
 
   <!-- Cape - colorizable -->
   <path d="M248 410 Q234 416 224 430 L172 568 Q158 610 180 650 L204 672
@@ -11,5 +12,6 @@
     Q342 608 336 648 Q318 672 300 678 Q282 672 264 648
     Q258 608 248 548 Z"
     fill="#FF00FF" stroke="#CC00CC" stroke-width="3" opacity="0.6"/>
+
 
 </svg>

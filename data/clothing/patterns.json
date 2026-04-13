@@ -30,7 +30,8 @@
           "x": 0,
           "y": -17
         }
-      }
+      },
+      "thumbnail": "assets/clothing/patterns/thumbs/thumb-pattern-polkadot.svg"
     },
     {
       "id": "pattern-stripes",
@@ -53,7 +54,8 @@
           "x": 0,
           "y": -17
         }
-      }
+      },
+      "thumbnail": "assets/clothing/patterns/thumbs/thumb-pattern-stripes.svg"
     },
     {
       "id": "pattern-hearts",
@@ -76,7 +78,8 @@
           "x": 0,
           "y": -17
         }
-      }
+      },
+      "thumbnail": "assets/clothing/patterns/thumbs/thumb-pattern-hearts.svg"
     },
     {
       "id": "pattern-stars",
@@ -99,7 +102,8 @@
           "x": 0,
           "y": -17
         }
-      }
+      },
+      "thumbnail": "assets/clothing/patterns/thumbs/thumb-pattern-stars.svg"
     }
   ]
 }

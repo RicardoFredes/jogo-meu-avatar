@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="224 124 156 106" fill="none">
+<svg viewBox="210 116 180 126" fill="none" xmlns="http://www.w3.org/2000/svg">
+
 
   <!-- Witch Hat - colorizable -->
   <g fill="#FF00FF">
@@ -19,5 +20,6 @@
     <polygon points="342,158 344,162 348,162 345,165 346,169 342,167 338,169 339,165 336,162 340,162"
       fill="#FFFFFF" opacity="0.6"/>
   </g>
+
 
 </svg>

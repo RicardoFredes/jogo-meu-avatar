@@ -1,12 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="225 250 152 72" fill="none">
+<svg viewBox="227 249 148 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+
 
   <!-- Left eye white -->
   <path d="M265 259C280.464 259 293 271.536 293 287C293 302.464 280.464 315 265 315C249.536 315 237 302.464 237 287C237 271.536 249.536 259 265 259Z" fill="white" stroke="#B29797" stroke-width="4"/>
   <!-- Left pupil -->
-  <ellipse cx="270.5" cy="289.5" rx="16.5" ry="20.5" fill="#1A1A1A"/>
+  <ellipse cx="270.5" cy="289.5" rx="16.5" ry="20.5" fill="#FF00FF"/>
   <!-- Right eye white -->
   <path d="M337 259C352.464 259 365 271.536 365 287C365 302.464 352.464 315 337 315C321.536 315 309 302.464 309 287C309 271.536 321.536 259 337 259Z" fill="white" stroke="#B29797" stroke-width="4"/>
   <!-- Right pupil -->
-  <ellipse cx="342.5" cy="289.5" rx="16.5" ry="20.5" fill="#1A1A1A"/>
+  <ellipse cx="342.5" cy="289.5" rx="16.5" ry="20.5" fill="#FF00FF"/>
   
+
 </svg>

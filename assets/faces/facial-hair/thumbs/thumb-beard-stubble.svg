@@ -1,0 +1,21 @@
+<svg viewBox="242 346 115 59" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Barba por fazer - pontilhado no queixo e bochechas -->
+  <g fill="#FF00FF" opacity="0.6">
+    <!-- Bochecha esquerda -->
+    <circle cx="262" cy="358" r="1.2"/><circle cx="258" cy="362" r="1"/><circle cx="264" cy="366" r="1.2"/>
+    <circle cx="256" cy="370" r="1"/><circle cx="260" cy="374" r="1.2"/><circle cx="266" cy="362" r="1"/>
+    <circle cx="254" cy="366" r="1.2"/><circle cx="262" cy="370" r="1"/><circle cx="258" cy="378" r="1"/>
+    <!-- Queixo -->
+    <circle cx="280" cy="380" r="1.2"/><circle cx="286" cy="384" r="1"/><circle cx="292" cy="386" r="1.2"/>
+    <circle cx="300" cy="388" r="1.2"/><circle cx="308" cy="386" r="1.2"/><circle cx="314" cy="384" r="1"/>
+    <circle cx="320" cy="380" r="1.2"/><circle cx="276" cy="376" r="1"/><circle cx="324" cy="376" r="1"/>
+    <circle cx="284" cy="390" r="1"/><circle cx="296" cy="392" r="1.2"/><circle cx="304" cy="392" r="1.2"/>
+    <circle cx="316" cy="390" r="1"/><circle cx="300" cy="394" r="1"/>
+    <!-- Bochecha direita -->
+    <circle cx="338" cy="358" r="1.2"/><circle cx="342" cy="362" r="1"/><circle cx="336" cy="366" r="1.2"/>
+    <circle cx="344" cy="370" r="1"/><circle cx="340" cy="374" r="1.2"/><circle cx="334" cy="362" r="1"/>
+    <circle cx="346" cy="366" r="1.2"/><circle cx="338" cy="370" r="1"/><circle cx="342" cy="378" r="1"/>
+  </g>
+
+</svg>

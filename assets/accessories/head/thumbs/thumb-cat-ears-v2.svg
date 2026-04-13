@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="230 170 140 54" fill="none">
+<svg viewBox="228 166 144 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+
 
   <!-- Cat ears headband - colorizable -->
   <g fill="#FF00FF">
@@ -18,5 +19,6 @@
     <path d="M346,206 L356,184 L334,200 Z"
       fill="#CC00CC" opacity="0.5"/>
   </g>
+
 
 </svg>

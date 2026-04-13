@@ -1,4 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="232 242 138 26" fill="none">
+<svg viewBox="230 237 142 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Thick bold eyebrows - colorizable -->
   <path d="M240 261 Q265 247 290 256" fill="none" stroke="#FF00FF" stroke-width="6" stroke-linecap="round"/>
   <path d="M312 256 Q337 247 362 261" fill="none" stroke="#FF00FF" stroke-width="6" stroke-linecap="round"/>
+
 </svg>

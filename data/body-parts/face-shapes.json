@@ -12,24 +12,42 @@
       "name": "Redondo",
       "asset": "assets/faces/shapes/face-round-v2.svg",
       "thumbnail": "assets/faces/shapes/thumbs/thumb-face-round-v2.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      }
     },
     {
       "id": "face-oval",
       "name": "Oval",
       "asset": "assets/faces/shapes/face-oval-v2.svg",
       "thumbnail": "assets/faces/shapes/thumbs/thumb-face-oval-v2.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      }
     },
     {
       "id": "face-square",
       "name": "Quadrado",
       "asset": "assets/faces/shapes/face-square-v2.svg",
       "thumbnail": "assets/faces/shapes/thumbs/thumb-face-square-v2.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 110 }
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 110
+      }
     }
   ]
 }

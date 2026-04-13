@@ -1,0 +1,12 @@
+<svg viewBox="62 55 276 267" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+
+  <path d="M85 200 C82 160, 90 110, 120 88 C150 72, 200 65, 250 72 C300 82, 318 110, 318 160 L315 200 Z" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <!-- Side-swept bangs -->
+  <path d="M88 195 L92 215 C115 205, 160 192, 205 190 C250 190, 295 200, 312 215 L315 195" fill="#FF00FF" stroke="#CC00CC" stroke-width="2"/>
+  <!-- Side pieces to chin -->
+  <path d="M84 200 C78 235, 72 270, 76 298 C78 308, 88 312, 96 308 L98 288 C98 268, 92 238, 88 215" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+  <path d="M316 200 C322 235, 328 270, 324 298 C322 308, 312 312, 304 308 L302 288 C302 268, 308 238, 312 215" fill="#FF00FF" stroke="#CC00CC" stroke-width="4"/>
+
+
+</svg>

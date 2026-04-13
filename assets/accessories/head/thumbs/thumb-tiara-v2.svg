@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="222 166 156 64" fill="none">
+<svg viewBox="220 162 160 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+
 
   <!-- Tiara -->
   <path d="M230 222 Q258 210 282 206 Q292 203 300 198 Q308 203 318 206 Q342 210 370 222"
@@ -11,5 +12,6 @@
   <circle cx="300" cy="185" r="6" fill="#FF69B4" stroke="#B8860B" stroke-width="2"/>
   <circle cx="276" cy="196" r="4.5" fill="#FF69B4" stroke="#B8860B" stroke-width="1.5"/>
   <circle cx="324" cy="196" r="4.5" fill="#FF69B4" stroke="#B8860B" stroke-width="1.5"/>
+
 
 </svg>

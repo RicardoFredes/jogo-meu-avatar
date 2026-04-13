@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="208 266 188 52" fill="none">
+<svg viewBox="206 263 190 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+
 
   <!-- Sunglasses -->
   <g stroke="#222222" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
@@ -10,5 +11,6 @@
   </g>
   <path d="M248 280 Q257 276 266 280" stroke="white" stroke-width="2" opacity="0.2" fill="none"/>
   <path d="M318 280 Q327 276 336 280" stroke="white" stroke-width="2" opacity="0.2" fill="none"/>
+
 
 </svg>
