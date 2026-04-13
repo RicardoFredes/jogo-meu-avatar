@@ -106,14 +106,18 @@
 
   <!-- Creator Screen -->
   <div id="creator-screen" class="screen fixed inset-0 flex flex-col">
-    <!-- Header -->
-    <header class="flex items-center gap-2 px-2 py-1 sm:px-4 sm:py-2 bg-white/80 backdrop-blur-sm shadow-sm shrink-0 z-10">
-      <button class="text-primary-light text-xs sm:text-sm shrink-0 px-1" id="btn-creator-back">← Sair</button>
+    <!-- Header (desktop only) -->
+    <header class="creator-header hidden sm:flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm shadow-sm shrink-0 z-10">
+      <button class="text-primary-light text-sm shrink-0 px-1" id="btn-creator-back">← Sair</button>
       <div class="flex-1 text-center min-w-0">
-        <h2 class="font-display text-xs sm:text-base text-primary-dark truncate" id="step-title">Quem Voce Vai Criar?</h2>
+        <h2 class="font-display text-base text-primary-dark truncate" id="step-title">Quem Voce Vai Criar?</h2>
       </div>
-      <span class="font-display text-[10px] sm:text-xs text-primary-light bg-lauren-bg px-2 py-0.5 rounded-full shrink-0" id="step-indicator">1/8</span>
+      <span class="font-display text-xs text-primary-light bg-lauren-bg px-2 py-0.5 rounded-full shrink-0" id="step-indicator">1/8</span>
     </header>
+
+    <!-- Mobile: floating close button + step indicator -->
+    <button class="mobile-close-btn sm:hidden" id="btn-creator-back-mobile">✕</button>
+    <div class="mobile-step-dots sm:hidden" id="mobile-step-dots"></div>
 
     <!-- Main area -->
     <div class="creator-body flex-1 overflow-hidden relative">
@@ -135,7 +139,7 @@
           <h3 id="creator-panel-title" class="font-display text-sm text-primary-dark flex-1 text-center">Opcoes</h3>
           <button class="creator-panel-nav-btn creator-panel-nav-next" id="btn-next-step">→</button>
         </div>
-        <div class="flex-1 overflow-y-auto p-3" id="mobile-options-panel"></div>
+        <div class="flex-1 overflow-y-auto mobile-panel-content" id="mobile-options-panel"></div>
       </div>
 
       <!-- Desktop only: floating nav (hidden on mobile since buttons are in panel) -->
@@ -161,16 +165,35 @@
 
   <!-- Wardrobe Screen -->
   <div id="wardrobe-screen" class="screen fixed inset-0 flex flex-col">
-    <!-- Compact header -->
-    <header class="flex items-center justify-between px-2 py-1.5 sm:px-4 sm:py-2 bg-white/90 backdrop-blur-sm shadow-sm shrink-0 z-10">
-      <button class="text-primary-light text-xs sm:text-sm px-1" id="btn-wardrobe-back">← Sair</button>
-      <h2 class="font-display text-sm sm:text-lg text-primary-dark">Guarda-Roupa</h2>
+    <!-- Header (desktop only) -->
+    <header class="hidden sm:flex items-center justify-between px-4 py-2 bg-white/90 backdrop-blur-sm shadow-sm shrink-0 z-10">
+      <button class="text-primary-light text-sm px-1" id="btn-wardrobe-back">← Sair</button>
+      <h2 class="font-display text-lg text-primary-dark">Guarda-Roupa</h2>
       <div class="flex gap-1.5">
-        <button class="bg-red-100 text-red-500 font-display text-[10px] sm:text-xs px-2 py-1 rounded-lg active:scale-95 transition-all" id="btn-clear-outfit">Tirar</button>
-        <button class="bg-accent text-white font-display text-[10px] sm:text-xs px-2 py-1 rounded-lg shadow active:scale-95 transition-all" id="btn-save-look">Salvar</button>
-        <button class="bg-purple-100 text-primary font-display text-[10px] sm:text-xs px-2 py-1 rounded-lg active:scale-95 transition-all" id="btn-my-looks">Looks</button>
+        <button class="bg-red-100 text-red-500 font-display text-xs px-3 py-1.5 rounded-lg active:scale-95 transition-all" id="btn-clear-outfit">Tirar Tudo</button>
+        <button class="bg-accent text-white font-display text-xs px-3 py-1.5 rounded-lg shadow active:scale-95 transition-all" id="btn-save-look">Salvar Look</button>
+        <button class="bg-purple-100 text-primary font-display text-xs px-3 py-1.5 rounded-lg active:scale-95 transition-all" id="btn-my-looks">Meus Looks</button>
       </div>
     </header>
+
+    <!-- Mobile: floating close button -->
+    <button class="mobile-close-btn sm:hidden" id="btn-wardrobe-back-mobile">✕</button>
+
+    <!-- Mobile floating action buttons (kid-friendly, big with emojis) -->
+    <div class="wardrobe-mobile-actions sm:hidden">
+      <button class="wma-btn wma-clear" id="btn-clear-outfit-mobile">
+        <span class="wma-icon">🧹</span>
+        <span class="wma-label">Limpar</span>
+      </button>
+      <button class="wma-btn wma-save" id="btn-save-look-mobile">
+        <span class="wma-icon">💾</span>
+        <span class="wma-label">Salvar</span>
+      </button>
+      <button class="wma-btn wma-looks" id="btn-my-looks-mobile">
+        <span class="wma-icon">👗</span>
+        <span class="wma-label">Looks</span>
+      </button>
+    </div>
 
     <!-- Main area: canvas takes full space -->
     <div class="wardrobe-main flex-1 relative overflow-hidden">
@@ -178,10 +201,7 @@
       <div class="wardrobe-desktop-sidebar">
         <nav class="category-tabs flex flex-col gap-1 px-1 py-2 bg-purple-50/50 overflow-y-auto w-20 shrink-0" id="category-tabs"></nav>
         <div class="wardrobe-items-sidebar flex-1 flex flex-col p-2 overflow-hidden">
-          <div class="color-bar hidden flex items-center gap-2 px-1 py-1.5 shrink-0" id="color-bar">
-            <span class="font-display text-xs text-primary-light">Cor:</span>
-            <div class="flex gap-1.5 flex-wrap" id="color-options"></div>
-          </div>
+          <div class="color-bar hidden shrink-0" id="color-bar"></div>
           <div class="items-grid flex-1 grid grid-cols-4 md:grid-cols-5 gap-2 overflow-y-auto p-1 content-start" id="items-grid"></div>
           <!-- Free position controls -->
           <div id="free-pos-panel" class="hidden bg-white/80 backdrop-blur rounded-xl p-2 mt-1 shadow-sm">
@@ -217,10 +237,7 @@
           <button id="btn-close-mobile-panel" class="w-8 h-8 rounded-full bg-purple-50 text-primary text-sm flex items-center justify-center active:scale-90 transition">✕</button>
         </div>
         <div class="flex-1 overflow-y-auto p-2">
-          <div id="mobile-color-bar" class="hidden flex items-center gap-2 px-1 py-1.5 mb-2">
-            <span class="font-display text-xs text-primary-light">Cor:</span>
-            <div class="flex gap-1.5 flex-wrap" id="mobile-color-options"></div>
-          </div>
+          <div id="mobile-color-bar" class="hidden mb-2"></div>
           <div id="mobile-items-grid" class="grid grid-cols-4 gap-2 content-start"></div>
           <!-- Free position (mobile) -->
           <div id="mobile-free-pos-panel" class="hidden bg-white/80 backdrop-blur rounded-xl p-2 mt-2 shadow-sm">
@@ -241,7 +258,7 @@
     </div>
 
     <!-- Mobile: category buttons at bottom -->
-    <nav id="mobile-category-bar" class="sm:hidden flex gap-1 px-2 py-1.5 bg-white/90 backdrop-blur-sm shadow-[0_-2px_8px_rgba(0,0,0,0.06)] overflow-x-auto shrink-0">
+    <nav id="mobile-category-bar" class="sm:hidden flex gap-1 py-1.5 bg-white/90 backdrop-blur-sm shadow-[0_-2px_8px_rgba(0,0,0,0.06)] overflow-x-auto shrink-0 mobile-scroll-bleed">
       <!-- Filled dynamically -->
     </nav>
 
@@ -258,7 +275,7 @@
   <!-- Character Fullscreen View -->
   <div id="char-fullscreen" class="hidden fixed inset-0 z-[150] bg-gradient-to-b from-lauren-bg to-lauren-card flex flex-col">
     <!-- Close -->
-    <button id="btn-fs-close" class="absolute top-3 right-3 z-10 w-10 h-10 rounded-full bg-white/80 backdrop-blur shadow text-primary-dark text-xl flex items-center justify-center active:scale-90 transition">✕</button>
+    <button id="btn-fs-close" class="absolute top-3 left-3 z-10 w-11 h-11 rounded-full bg-white/80 backdrop-blur shadow text-primary-dark text-xl flex items-center justify-center active:scale-90 transition">✕</button>
     <!-- Name -->
     <div class="text-center pt-4 pb-1">
       <h2 id="fs-name" class="font-display text-xl sm:text-2xl text-primary-dark">Luna</h2>
@@ -316,6 +333,7 @@
   <script src="js/catalog.js"></script>
   <script src="js/config-loader.js"></script>
   <script src="js/renderer.js"></script>
+  <script src="js/color-bar.js"></script>
   <script src="js/character-creator.js"></script>
   <script src="js/wardrobe.js"></script>
   <script src="js/drag-drop.js"></script>

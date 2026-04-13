@@ -12,7 +12,7 @@
       "id": "nose-round",
       "name": "Redondo",
       "asset": "assets/faces/noses/nose-round-v2.svg",
-      "thumbnail": "assets/faces/noses/thumbs/thumb-nose-round-v2.svg",
+      "thumbnail": "assets/faces/noses/thumbs/nose-round-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -26,7 +26,7 @@
       "id": "nose-button",
       "name": "Botao",
       "asset": "assets/faces/noses/nose-button-v2.svg",
-      "thumbnail": "assets/faces/noses/thumbs/thumb-nose-button-v2.svg",
+      "thumbnail": "assets/faces/noses/thumbs/nose-button-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -40,7 +40,7 @@
       "id": "nose-pointy",
       "name": "Pontudo",
       "asset": "assets/faces/noses/nose-pointy-v2.svg",
-      "thumbnail": "assets/faces/noses/thumbs/thumb-nose-pointy-v2.svg",
+      "thumbnail": "assets/faces/noses/thumbs/nose-pointy-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -54,7 +54,7 @@
       "id": "nose-wide",
       "name": "Largo",
       "asset": "assets/faces/noses/nose-wide-v2.svg",
-      "thumbnail": "assets/faces/noses/thumbs/thumb-nose-wide-v2.svg",
+      "thumbnail": "assets/faces/noses/thumbs/nose-wide-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800

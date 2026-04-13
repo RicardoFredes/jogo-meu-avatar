@@ -2,76 +2,61 @@
    WARDROBE - Dress-up screen with drag & drop
    ============================================ */
 
-const EXTRA_COLORS_WARDROBE = [
-  '#FF0000','#FF4444','#FF6B6B','#FF8C00','#FFA500','#FFD700',
-  '#FFFF00','#ADFF2F','#32CD32','#00C853','#00897B','#00BCD4',
-  '#03A9F4','#2196F3','#1565C0','#3F51B5','#673AB7','#9C27B0',
-  '#E040FB','#FF4081','#F50057','#E91E63','#AD1457','#880E4F',
-  '#795548','#A1887F','#D7CCC8','#9E9E9E','#607D8B','#455A64',
-  '#F5F5F5','#E0E0E0','#BDBDBD','#757575','#424242','#222222',
-];
+// Neutral thumbnail: loads SVG, neutralizes colors, crops viewBox to content
+const _thumbCache = new Map();
+async function loadNeutralThumb(svgUrl) {
+  if (_thumbCache.has(svgUrl)) return _thumbCache.get(svgUrl);
+  try {
+    const resp = await fetch(svgUrl + '?v=' + Date.now());
+    let svg = await resp.text();
 
-function openColorPickerModal(currentColorId, onSelect) {
-  document.querySelector('.color-picker-overlay')?.remove();
-  let selectedHex = (currentColorId && currentColorId.startsWith('#')) ? currentColorId : null;
+    // Neutralize colors
+    svg = svg.replace(/#FF00FF/gi, '#D0D0D0');
+    svg = svg.replace(/#CC00CC/gi, '#333333');
+    svg = svg.replace(/fill="#FFFFFF"/gi, 'fill="#E8E8E8"');
+    svg = svg.replace(/fill="white"/gi, 'fill="#E8E8E8"');
+    svg = svg.replace(/stroke="#FFFFFF"/gi, 'stroke="#555555"');
+    svg = svg.replace(/stroke="white"/gi, 'stroke="#555555"');
+    svg = svg.replace(/stroke="#C0C0C0"/gi, 'stroke="#444444"');
+    svg = svg.replace(/stroke="#E0E0E0"/gi, 'stroke="#555555"');
 
-  const overlay = document.createElement('div');
-  overlay.className = 'color-picker-overlay';
-
-  const modal = document.createElement('div');
-  modal.className = 'color-picker-modal';
-
-  const header = document.createElement('div');
-  header.className = 'color-picker-header';
-  header.innerHTML = '<h3>Escolha uma cor</h3>';
-  const closeBtn = document.createElement('button');
-  closeBtn.className = 'color-picker-close';
-  closeBtn.textContent = '✕';
-  closeBtn.addEventListener('click', () => overlay.remove());
-  header.appendChild(closeBtn);
-  modal.appendChild(header);
-
-  const grid = document.createElement('div');
-  grid.className = 'color-picker-grid';
-  EXTRA_COLORS_WARDROBE.forEach(hex => {
-    const swatch = document.createElement('div');
-    swatch.className = 'cp-swatch' + (selectedHex === hex ? ' selected' : '');
-    swatch.style.backgroundColor = hex;
-    if (['#F5F5F5','#E0E0E0','#BDBDBD','#D7CCC8'].includes(hex)) {
-      swatch.style.border = '3px solid #CCC';
+    // Detect bounding box from coordinates in the SVG
+    const nums = [];
+    // Extract numbers from d="..." paths
+    const dMatches = svg.matchAll(/d="([^"]+)"/g);
+    for (const m of dMatches) {
+      const pathNums = m[1].match(/-?[\d.]+/g);
+      if (pathNums) for (let i = 0; i < pathNums.length - 1; i += 2) {
+        const x = parseFloat(pathNums[i]), y = parseFloat(pathNums[i+1]);
+        if (!isNaN(x) && !isNaN(y) && x > -50 && x < 700 && y > -50 && y < 900) nums.push({x, y});
+      }
     }
-    swatch.addEventListener('click', () => {
-      selectedHex = hex;
-      grid.querySelectorAll('.cp-swatch').forEach(s => s.classList.remove('selected'));
-      swatch.classList.add('selected');
-    });
-    grid.appendChild(swatch);
-  });
-  modal.appendChild(grid);
+    // cx/cy from circles/ellipses
+    const circMatches = svg.matchAll(/cx="([\d.]+)"[^>]*cy="([\d.]+)"/g);
+    for (const m of circMatches) nums.push({ x: parseFloat(m[1]), y: parseFloat(m[2]) });
 
-  const footer = document.createElement('div');
-  footer.className = 'color-picker-footer';
-  const cancelBtn = document.createElement('button');
-  cancelBtn.className = 'cp-btn-cancel';
-  cancelBtn.textContent = 'Cancelar';
-  cancelBtn.addEventListener('click', () => overlay.remove());
-  const selectBtn = document.createElement('button');
-  selectBtn.className = 'cp-btn-select';
-  selectBtn.textContent = 'Selecionar';
-  selectBtn.addEventListener('click', () => {
-    if (selectedHex) onSelect(selectedHex);
-    overlay.remove();
-  });
-  footer.appendChild(cancelBtn);
-  footer.appendChild(selectBtn);
-  modal.appendChild(footer);
+    if (nums.length > 2) {
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (const p of nums) {
+        minX = Math.min(minX, p.x); minY = Math.min(minY, p.y);
+        maxX = Math.max(maxX, p.x); maxY = Math.max(maxY, p.y);
+      }
+      const pad = 15;
+      const vbX = Math.floor(minX - pad);
+      const vbY = Math.floor(minY - pad);
+      const vbW = Math.ceil(maxX - minX + pad * 2);
+      const vbH = Math.ceil(maxY - minY + pad * 2);
+      // Replace viewBox
+      svg = svg.replace(/viewBox="[^"]*"/, `viewBox="${vbX} ${vbY} ${vbW} ${vbH}"`);
+    }
 
-  overlay.appendChild(modal);
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) overlay.remove();
-  });
-  document.body.appendChild(overlay);
+    const dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    _thumbCache.set(svgUrl, dataUrl);
+    return dataUrl;
+  } catch (e) { return null; }
 }
+
+
 
 const Wardrobe = (() => {
   let characterId = null;
@@ -152,35 +137,18 @@ const Wardrobe = (() => {
       swatch.parentNode.replaceChild(clone, swatch);
       clone.addEventListener('click', () => {
         desktopContainer.querySelector(`.color-swatch[title="${clone.title}"]`)?.click();
-        setTimeout(() => openMobilePanel(currentTabCatIds, titleEl.textContent), 50);
+        clone.closest('.color-row')?.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+        clone.classList.add('selected');
       });
     });
-    // Re-attach "+" button
+    // Re-attach "+" button (scrolls to extra colors)
     mobileContainer.querySelectorAll('.color-more-btn').forEach(btn => {
       const clone = btn.cloneNode(true);
       btn.parentNode.replaceChild(clone, btn);
       clone.addEventListener('click', () => {
-        const cat = Catalog.getCategory(currentCategoryId);
-        const equipped = cat?.type === 'body-part'
-          ? charData.parts?.[cat.category]
-          : charData.outfit?.[cat?.slotId];
-        openColorPickerModal(equipped?.colorId, (hex) => {
-          if (equipped) equipped.colorId = hex;
-          if (cat?.sharedColorGroup) {
-            const siblings = Catalog.getCategoriesByColorGroup(cat.sharedColorGroup);
-            for (const sib of siblings) {
-              const partData = charData.parts?.[sib.category];
-              if (partData) partData.colorId = hex;
-            }
-          }
-          if (cat?.type === 'body-part') {
-            Storage.saveCharacter(charData);
-          } else {
-            Storage.updateCharacterOutfit(characterId, charData.outfit);
-          }
-          renderCharacter();
-          openMobilePanel(currentTabCatIds, titleEl.textContent);
-        });
+        const row = clone.closest('.color-row');
+        const firstExtra = row?.querySelector('.color-swatch-extra');
+        if (firstExtra && row) row.scrollTo({ left: firstExtra.offsetLeft - row.offsetLeft - 8, behavior: 'smooth' });
       });
     });
   }
@@ -195,52 +163,183 @@ const Wardrobe = (() => {
 
     if (titleEl) titleEl.textContent = label;
 
-    // Copy items from desktop grid to mobile grid
-    const desktopGrid = document.getElementById('items-grid');
-    if (mobileGrid && desktopGrid) {
-      mobileGrid.innerHTML = desktopGrid.innerHTML;
-      // Re-attach click events
-      mobileGrid.querySelectorAll('.item-thumbnail').forEach(thumb => {
-        thumb.addEventListener('click', () => {
-          const itemId = thumb.dataset.itemId;
-          const catId = thumb.dataset.categoryId;
-          const cat = Catalog.getCategory(catId);
-          const equippedItemId = cat.type === 'body-part'
-            ? (charData.parts?.[cat.category]?.itemId || null)
-            : (charData.outfit[cat.slotId]?.itemId || null);
-          if (equippedItemId === itemId) {
-            unequipSlot(cat.slotId);
-          } else {
-            equipItem(itemId, cat);
+    // Render items directly in mobile grid with section labels + inline color bars
+    if (mobileGrid) {
+      mobileGrid.innerHTML = '';
+      const cats = catIds.map(id => Catalog.getCategory(id)).filter(Boolean);
+      const hasFullBody = !!charData.outfit['full-body']?.itemId;
+
+      for (const cat of cats) {
+        const slotId = cat.slotId;
+        const equippedItemId = cat.type === 'body-part'
+          ? (charData.parts?.[cat.category]?.itemId || null)
+          : (charData.outfit[slotId]?.itemId || null);
+        const isDisabled = cat.slotId === 'pattern' && !hasFullBody;
+
+        // Section label (when multi-cat)
+        if (cats.length > 1) {
+          const sectionLabel = document.createElement('div');
+          sectionLabel.style.cssText = 'grid-column:1/-1;font-family:Fredoka,sans-serif;font-size:0.8rem;color:#7D3C98;padding:6px 0 2px;margin-top:8px;border-top:1px solid #E8D5F5;' +
+            (isDisabled ? 'opacity:0.4;' : '');
+          sectionLabel.textContent = cat.label;
+          mobileGrid.appendChild(sectionLabel);
+        }
+
+        // Inline color bar for this category
+        if (cat.colorable && cat.colorPalette && !isDisabled) {
+          const equipped = cat.type === 'body-part'
+            ? charData.parts?.[cat.category]
+            : charData.outfit[slotId];
+          const palette = Catalog.getColorPalette(cat.colorPalette || 'clothing-colors');
+          if (palette.length > 0) {
+            const colorRow = document.createElement('div');
+            colorRow.style.cssText = 'grid-column:1/-1;display:flex;align-items:center;gap:5px;padding:4px 0;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;';
+            const colorLabel = document.createElement('span');
+            colorLabel.style.cssText = 'font-family:Fredoka,sans-serif;font-size:0.65rem;color:#999;flex-shrink:0;';
+            colorLabel.textContent = 'Cor:';
+            colorRow.appendChild(colorLabel);
+
+            palette.forEach(c => {
+              const swatch = document.createElement('div');
+              swatch.className = 'color-option' + (equipped?.colorId === c.id ? ' selected' : '');
+              swatch.style.backgroundColor = c.hex;
+              swatch.title = c.name;
+              swatch.addEventListener('click', () => {
+                if (equipped) equipped.colorId = c.id;
+                else if (cat.type === 'body-part') {
+                  if (!charData.parts[cat.category]) charData.parts[cat.category] = {};
+                  charData.parts[cat.category].colorId = c.id;
+                } else {
+                  if (!charData.outfit[slotId]) charData.outfit[slotId] = {};
+                  charData.outfit[slotId].colorId = c.id;
+                }
+                if (cat.type === 'body-part') Storage.saveCharacter(charData);
+                else Storage.updateCharacterOutfit(characterId, charData.outfit);
+                renderCharacter();
+                colorRow.querySelectorAll('.color-option').forEach(o => o.classList.remove('selected'));
+                swatch.classList.add('selected');
+              });
+              colorRow.appendChild(swatch);
+            });
+            mobileGrid.appendChild(colorRow);
           }
-          // Refresh mobile panel
-          openMobilePanel(currentTabCatIds, titleEl.textContent);
-        });
-      });
+        }
+
+        // Items
+        for (const [itemId, item] of cat.items) {
+          const thumb = document.createElement('div');
+          thumb.className = 'item-thumbnail' + (equippedItemId === itemId ? ' equipped' : '');
+          if (isDisabled) { thumb.style.opacity = '0.35'; thumb.style.pointerEvents = 'none'; }
+          thumb.dataset.itemId = itemId;
+          thumb.dataset.categoryId = cat.category;
+          thumb.dataset.slotId = slotId;
+
+          const thumbUrl = item.thumbnail || item.asset || (item.assets && (item.assets.front || item.assets.main));
+          if (thumbUrl) {
+            const img = document.createElement('img');
+            img.src = thumbUrl + '?v=' + Date.now();
+            img.alt = item.name;
+            img.draggable = false;
+            thumb.appendChild(img);
+          } else {
+            thumb.textContent = item.name.slice(0, 4);
+          }
+
+          thumb.addEventListener('click', () => {
+            if (equippedItemId === itemId) {
+              unequipSlot(slotId);
+            } else {
+              equipItem(itemId, cat);
+            }
+            openMobilePanel(currentTabCatIds, titleEl.textContent);
+          });
+
+          mobileGrid.appendChild(thumb);
+        }
+      }
     }
 
-    // Copy color bar
-    const desktopColorBar = document.getElementById('color-bar');
-    if (mobileColorBar && desktopColorBar && !desktopColorBar.classList.contains('hidden')) {
-      mobileColorBar.classList.remove('hidden');
-      const mobileColorOpts = document.getElementById('mobile-color-options');
-      const desktopColorOpts = document.getElementById('color-options');
-      if (mobileColorOpts && desktopColorOpts) {
-        mobileColorOpts.innerHTML = desktopColorOpts.innerHTML;
-        reattachColorEvents(mobileColorOpts, desktopColorOpts, titleEl);
-      }
-    } else if (mobileColorBar) {
+    // Hide global mobile color bar (we use inline ones now)
+    if (mobileColorBar) {
       mobileColorBar.classList.add('hidden');
+    }
+
+    // Legacy code below (keep disabled)
+    if (false) {
+      mobileColorBar.innerHTML = '';
+      const cats = currentTabCatIds.map(id => Catalog.getCategory(id)).filter(Boolean);
+      const colorableCats = cats.filter(c => c.colorable && c.colorPalette);
+
+      if (colorableCats.length > 0) {
+        mobileColorBar.classList.remove('hidden');
+
+        for (const colorCat of colorableCats) {
+          const palette = Catalog.getColorPalette(colorCat.colorPalette || 'clothing-colors');
+          if (palette.length === 0) continue;
+
+          const slotId = colorCat.slotId;
+          const equipped = colorCat.type === 'body-part'
+            ? charData.parts?.[colorCat.category]
+            : charData.outfit[slotId];
+
+          // Label if multiple color bars
+          if (colorableCats.length > 1) {
+            const label = document.createElement('div');
+            label.className = 'font-display';
+            label.style.cssText = 'font-size:0.7rem;color:#7D3C98;margin-top:6px;margin-bottom:2px;';
+            label.textContent = 'Cor: ' + colorCat.label;
+            mobileColorBar.appendChild(label);
+          }
+
+          const bar = buildColorBar({
+            palette,
+            currentColorId: equipped?.colorId || null,
+            onSelect(colorId) {
+              if (equipped) {
+                equipped.colorId = colorId;
+              } else if (colorCat.type === 'body-part') {
+                if (!charData.parts[colorCat.category]) charData.parts[colorCat.category] = {};
+                charData.parts[colorCat.category].colorId = colorId;
+              } else {
+                if (!charData.outfit[slotId]) charData.outfit[slotId] = {};
+                charData.outfit[slotId].colorId = colorId;
+              }
+              if (colorCat.type === 'body-part') {
+                Storage.saveCharacter(charData);
+              } else {
+                Storage.updateCharacterOutfit(characterId, charData.outfit);
+              }
+              renderCharacter();
+            },
+          });
+          while (bar.firstChild) mobileColorBar.appendChild(bar.firstChild);
+        }
+      } else {
+        mobileColorBar.classList.add('hidden');
+      }
     }
 
     // Re-attach color events in inline color bars (multi-cat tabs in mobile grid)
     if (mobileGrid) {
-      const desktopGrid = document.getElementById('items-grid');
-      mobileGrid.querySelectorAll('.option-group').forEach((group, i) => {
-        const desktopGroup = desktopGrid?.querySelectorAll('.option-group')[i];
-        if (group.querySelector('.color-row') && desktopGroup) {
-          reattachColorEvents(group, desktopGroup, titleEl);
-        }
+      mobileGrid.querySelectorAll('.color-more-btn').forEach(btn => {
+        const clone = btn.cloneNode(true);
+        btn.parentNode.replaceChild(clone, btn);
+        clone.addEventListener('click', () => {
+          const row = clone.closest('.color-row');
+          const firstExtra = row?.querySelector('.color-swatch-extra');
+          if (firstExtra && row) row.scrollTo({ left: firstExtra.offsetLeft - row.offsetLeft - 8, behavior: 'smooth' });
+        });
+      });
+      mobileGrid.querySelectorAll('.color-swatch').forEach(swatch => {
+        const clone = swatch.cloneNode(true);
+        swatch.parentNode.replaceChild(clone, swatch);
+        clone.addEventListener('click', () => {
+          const desktopGrid = document.getElementById('items-grid');
+          desktopGrid?.querySelector(`.color-swatch[title="${clone.title}"]`)?.click();
+          // Deselect all in this row, select this one
+          clone.closest('.color-row')?.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+          clone.classList.add('selected');
+        });
       });
     }
 
@@ -349,10 +448,10 @@ const Wardrobe = (() => {
         thumb.dataset.categoryId = cat.category;
         thumb.dataset.slotId = slotId;
 
-        const assetUrl = item.thumbnail || item.asset || (item.assets && (item.assets.front || item.assets.main));
-        if (assetUrl) {
+        const thumbUrl = item.thumbnail || item.asset || (item.assets && (item.assets.front || item.assets.main));
+        if (thumbUrl) {
           const img = document.createElement('img');
-          img.src = assetUrl + '?v=' + Date.now();
+          img.src = thumbUrl + '?v=' + Date.now();
           img.alt = item.name;
           img.draggable = false;
           thumb.appendChild(img);
@@ -378,71 +477,44 @@ const Wardrobe = (() => {
   }
 
   function renderInlineColorBar(grid, cat) {
+    if (!cat.colorable) return;
+    const palette = Catalog.getColorPalette(cat.colorPalette || 'clothing-colors');
+    if (palette.length === 0) return;
+
     const slotId = cat.slotId;
     const equipped = cat.type === 'body-part'
       ? charData.parts?.[cat.category]
       : charData.outfit[slotId];
 
-    if (!equipped || !equipped.itemId) return;
-
-    const item = cat.items.get(equipped.itemId);
-    const isColorable = cat.colorable || (item && item.colorable);
-    if (!isColorable) return;
-
-    const paletteId = cat.colorPalette || (item && item.colorPalette) || 'clothing-colors';
-    const palette = Catalog.getColorPalette(paletteId);
-    if (palette.length === 0) return;
-
-    const wrapper = document.createElement('div');
-    wrapper.className = 'option-group';
-    wrapper.style.cssText = 'grid-column:1/-1;margin-bottom:4px;padding:8px 10px;';
-
-    const colorItems = document.createElement('div');
-    colorItems.className = 'option-items color-row';
-
-    function applyColorInline(colorId) {
-      equipped.colorId = colorId;
-      if (cat.sharedColorGroup) {
-        const siblings = Catalog.getCategoriesByColorGroup(cat.sharedColorGroup);
-        for (const sib of siblings) {
-          const partData = charData.parts?.[sib.category];
-          if (partData) partData.colorId = colorId;
+    const bar = buildColorBar({
+      palette,
+      currentColorId: equipped?.colorId || null,
+      onSelect(colorId) {
+        if (equipped) {
+          equipped.colorId = colorId;
+        } else if (cat.type === 'body-part') {
+          if (!charData.parts[cat.category]) charData.parts[cat.category] = {};
+          charData.parts[cat.category].colorId = colorId;
+        } else {
+          if (!charData.outfit[slotId]) charData.outfit[slotId] = {};
+          charData.outfit[slotId].colorId = colorId;
         }
-      }
-      if (cat.type === 'body-part') {
-        Storage.saveCharacter(charData);
-      } else {
-        Storage.updateCharacterOutfit(characterId, charData.outfit);
-      }
-      renderCharacter();
-      wrapper.querySelectorAll('.color-swatch').forEach(o => o.classList.remove('selected'));
-    }
-
-    palette.forEach(c => {
-      const swatch = document.createElement('div');
-      swatch.className = 'option-item color-swatch' + (equipped.colorId === c.id ? ' selected' : '');
-      swatch.style.backgroundColor = c.hex;
-      swatch.title = c.name;
-      swatch.addEventListener('click', () => {
-        applyColorInline(c.id);
-        swatch.classList.add('selected');
-      });
-      colorItems.appendChild(swatch);
+        if (cat.sharedColorGroup) {
+          const siblings = Catalog.getCategoriesByColorGroup(cat.sharedColorGroup);
+          for (const sib of siblings) {
+            if (charData.parts?.[sib.category]) charData.parts[sib.category].colorId = colorId;
+          }
+        }
+        if (cat.type === 'body-part') {
+          Storage.saveCharacter(charData);
+        } else {
+          Storage.updateCharacterOutfit(characterId, charData.outfit);
+        }
+        renderCharacter();
+      },
     });
-
-    const moreBtn = document.createElement('div');
-    moreBtn.className = 'color-more-btn';
-    moreBtn.textContent = '+';
-    moreBtn.title = 'Mais cores';
-    moreBtn.addEventListener('click', () => {
-      openColorPickerModal(equipped.colorId, (hex) => {
-        applyColorInline(hex);
-      });
-    });
-    colorItems.appendChild(moreBtn);
-
-    wrapper.appendChild(colorItems);
-    grid.appendChild(wrapper);
+    bar.style.cssText = 'grid-column:1/-1;margin-bottom:4px;padding:8px 10px;';
+    grid.appendChild(bar);
   }
 
   function updateColorBarMulti(cats) {
@@ -547,67 +619,49 @@ const Wardrobe = (() => {
 
   function updateColorBar(cat) {
     const colorBar = document.getElementById('color-bar');
-    const colorOptions = document.getElementById('color-options');
+
+    if (!cat.colorable) {
+      colorBar.classList.add('hidden');
+      return;
+    }
+
+    const palette = Catalog.getColorPalette(cat.colorPalette || 'clothing-colors');
+    if (palette.length === 0) {
+      colorBar.classList.add('hidden');
+      return;
+    }
 
     const slotId = cat.slotId;
-    // Hair is in parts, not outfit
     const equipped = cat.type === 'body-part'
       ? charData.parts?.[cat.category]
       : charData.outfit[slotId];
 
-    if (!equipped || !equipped.itemId) {
-      colorBar.classList.add('hidden');
-      return;
-    }
-
-    const item = cat.items.get(equipped.itemId);
-    const isColorable = cat.colorable || (item && item.colorable);
-
-    if (!isColorable) {
-      colorBar.classList.add('hidden');
-      return;
-    }
-
     colorBar.classList.remove('hidden');
-    colorOptions.innerHTML = '';
-    colorOptions.className = 'option-items color-row';
-
-    const paletteId = cat.colorPalette || (item && item.colorPalette) || 'clothing-colors';
-    const palette = Catalog.getColorPalette(paletteId);
-
-    function applyColorGlobal(colorId) {
-      equipped.colorId = colorId;
-      if (cat.type === 'body-part') {
-        Storage.saveCharacter(charData);
-      } else {
-        Storage.updateCharacterOutfit(characterId, charData.outfit);
-      }
-      renderCharacter();
-      colorOptions.querySelectorAll('.color-swatch').forEach(o => o.classList.remove('selected'));
-    }
-
-    palette.forEach(c => {
-      const swatch = document.createElement('div');
-      swatch.className = 'option-item color-swatch' + (equipped.colorId === c.id ? ' selected' : '');
-      swatch.style.backgroundColor = c.hex;
-      swatch.title = c.name;
-      swatch.addEventListener('click', () => {
-        applyColorGlobal(c.id);
-        swatch.classList.add('selected');
-      });
-      colorOptions.appendChild(swatch);
+    // Replace content with buildColorBar
+    colorBar.innerHTML = '';
+    const bar = buildColorBar({
+      palette,
+      currentColorId: equipped?.colorId || null,
+      onSelect(colorId) {
+        if (equipped) {
+          equipped.colorId = colorId;
+        } else if (cat.type === 'body-part') {
+          if (!charData.parts[cat.category]) charData.parts[cat.category] = {};
+          charData.parts[cat.category].colorId = colorId;
+        } else {
+          if (!charData.outfit[slotId]) charData.outfit[slotId] = {};
+          charData.outfit[slotId].colorId = colorId;
+        }
+        if (cat.type === 'body-part') {
+          Storage.saveCharacter(charData);
+        } else {
+          Storage.updateCharacterOutfit(characterId, charData.outfit);
+        }
+        renderCharacter();
+      },
     });
-
-    const moreBtn = document.createElement('div');
-    moreBtn.className = 'color-more-btn';
-    moreBtn.textContent = '+';
-    moreBtn.title = 'Mais cores';
-    moreBtn.addEventListener('click', () => {
-      openColorPickerModal(equipped.colorId, (hex) => {
-        applyColorGlobal(hex);
-      });
-    });
-    colorOptions.appendChild(moreBtn);
+    // Move children from bar into colorBar (bar is an .option-group, colorBar is the container)
+    while (bar.firstChild) colorBar.appendChild(bar.firstChild);
   }
 
   async function renderCharacter() {

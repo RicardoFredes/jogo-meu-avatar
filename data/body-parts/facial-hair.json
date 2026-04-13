@@ -13,33 +13,57 @@
       "id": "beard-short",
       "name": "Curta",
       "asset": "assets/faces/facial-hair/beard-short.svg",
-      "thumbnail": "assets/faces/facial-hair/thumbs/thumb-beard-short.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 50 }
+      "thumbnail": "assets/faces/facial-hair/thumbs/beard-short-thumb.png",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
     },
     {
       "id": "beard-full",
       "name": "Cheia",
       "asset": "assets/faces/facial-hair/beard-full.svg",
-      "thumbnail": "assets/faces/facial-hair/thumbs/thumb-beard-full.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 50 }
+      "thumbnail": "assets/faces/facial-hair/thumbs/beard-full-thumb.png",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
     },
     {
       "id": "beard-goatee",
       "name": "Cavanhaque",
       "asset": "assets/faces/facial-hair/beard-goatee.svg",
-      "thumbnail": "assets/faces/facial-hair/thumbs/thumb-beard-goatee.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 50 }
+      "thumbnail": "assets/faces/facial-hair/thumbs/beard-goatee-thumb.png",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
     },
     {
       "id": "beard-stubble",
       "name": "Por Fazer",
       "asset": "assets/faces/facial-hair/beard-stubble.svg",
-      "thumbnail": "assets/faces/facial-hair/thumbs/thumb-beard-stubble.svg",
-      "size": { "width": 600, "height": 800 },
-      "offset": { "x": 0, "y": 50 }
+      "thumbnail": "assets/faces/facial-hair/thumbs/beard-stubble-thumb.png",
+      "size": {
+        "width": 600,
+        "height": 800
+      },
+      "offset": {
+        "x": 0,
+        "y": 50
+      }
     }
   ]
 }

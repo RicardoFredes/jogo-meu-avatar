@@ -20,7 +20,7 @@
         "x": 0,
         "y": 110
       },
-      "thumbnail": "assets/hair/back/thumbs/thumb-longo-liso.svg"
+      "thumbnail": "assets/hair/back/thumbs/longo-liso-thumb.png"
     },
     {
       "id": "medio-liso",
@@ -34,7 +34,7 @@
         "x": 0,
         "y": 110
       },
-      "thumbnail": "assets/hair/back/thumbs/thumb-medio-liso.svg"
+      "thumbnail": "assets/hair/back/thumbs/medio-liso-thumb.png"
     },
     {
       "id": "curto",
@@ -48,7 +48,7 @@
         "x": 0,
         "y": 110
       },
-      "thumbnail": "assets/hair/back/thumbs/thumb-curto.svg"
+      "thumbnail": "assets/hair/back/thumbs/curto-thumb.png"
     },
     {
       "id": "longo-cacheado",
@@ -62,7 +62,7 @@
         "x": 0,
         "y": 110
       },
-      "thumbnail": "assets/hair/back/thumbs/thumb-longo-cacheado.svg"
+      "thumbnail": "assets/hair/back/thumbs/longo-cacheado-thumb.png"
     },
     {
       "id": "rabo-de-cavalo",
@@ -76,7 +76,7 @@
         "x": 0,
         "y": 110
       },
-      "thumbnail": "assets/hair/back/thumbs/thumb-rabo-de-cavalo.svg"
+      "thumbnail": "assets/hair/back/thumbs/rabo-de-cavalo-thumb.png"
     },
     {
       "id": "coques",
@@ -90,7 +90,7 @@
         "x": 0,
         "y": 110
       },
-      "thumbnail": "assets/hair/back/thumbs/thumb-coques.svg"
+      "thumbnail": "assets/hair/back/thumbs/coques-thumb.png"
     },
     {
       "id": "trancas",
@@ -104,7 +104,7 @@
         "x": 0,
         "y": 110
       },
-      "thumbnail": "assets/hair/back/thumbs/thumb-trancas.svg"
+      "thumbnail": "assets/hair/back/thumbs/trancas-thumb.png"
     },
     {
       "id": "careca",
@@ -117,13 +117,14 @@
       "offset": {
         "x": 0,
         "y": 0
-      }
+      },
+      "thumbnail": "assets/hair/back/thumbs/careca-thumb.png"
     },
     {
       "id": "bigode",
       "name": "bigode",
       "asset": "assets/faces/hair-back/bigode.svg",
-      "thumbnail": "assets/faces/hair-back/thumbs/thumb-bigode.svg",
+      "thumbnail": "assets/faces/hair-back/thumbs/bigode-thumb.png",
       "size": {
         "width": 600,
         "height": 800

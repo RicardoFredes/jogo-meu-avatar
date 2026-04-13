@@ -12,7 +12,7 @@
       "id": "glasses-round",
       "name": "Oculos",
       "asset": "assets/accessories/face/glasses-round-v2.svg",
-      "thumbnail": "assets/accessories/face/thumbs/thumb-glasses-round-v2.svg",
+      "thumbnail": "assets/accessories/face/thumbs/glasses-round-v2-thumb.png",
       "colorable": true,
       "colorPalette": "clothing-colors",
       "size": {
@@ -28,7 +28,7 @@
       "id": "glasses-star",
       "name": "Oculos Estrela",
       "asset": "assets/accessories/face/glasses-star-v2.svg",
-      "thumbnail": "assets/accessories/face/thumbs/thumb-glasses-star-v2.svg",
+      "thumbnail": "assets/accessories/face/thumbs/glasses-star-v2-thumb.png",
       "colorable": true,
       "colorPalette": "clothing-colors",
       "size": {
@@ -44,7 +44,7 @@
       "id": "sunglasses",
       "name": "Oculos de Sol",
       "asset": "assets/accessories/face/sunglasses-v2.svg",
-      "thumbnail": "assets/accessories/face/thumbs/thumb-sunglasses-v2.svg",
+      "thumbnail": "assets/accessories/face/thumbs/sunglasses-v2-thumb.png",
       "colorable": true,
       "colorPalette": "clothing-colors",
       "size": {

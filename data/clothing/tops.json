@@ -16,7 +16,7 @@
       "id": "tshirt",
       "name": "Camiseta",
       "asset": "assets/clothing/tops/tshirt-v3.svg",
-      "thumbnail": "assets/clothing/tops/thumbs/thumb-tshirt-v3.svg",
+      "thumbnail": "assets/clothing/tops/thumbs/tshirt-v3-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -30,7 +30,7 @@
       "id": "tanktop",
       "name": "Regata",
       "asset": "assets/clothing/tops/tanktop-v2.svg",
-      "thumbnail": "assets/clothing/tops/thumbs/thumb-tanktop-v2.svg",
+      "thumbnail": "assets/clothing/tops/thumbs/tanktop-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -44,7 +44,7 @@
       "id": "blouse",
       "name": "Blusa",
       "asset": "assets/clothing/tops/blouse-v2.svg",
-      "thumbnail": "assets/clothing/tops/thumbs/thumb-blouse-v2.svg",
+      "thumbnail": "assets/clothing/tops/thumbs/blouse-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -58,7 +58,7 @@
       "id": "hoodie",
       "name": "Moletom",
       "asset": "assets/clothing/tops/hoodie-v2.svg",
-      "thumbnail": "assets/clothing/tops/thumbs/thumb-hoodie-v2.svg",
+      "thumbnail": "assets/clothing/tops/thumbs/hoodie-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800

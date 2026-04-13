@@ -11,7 +11,7 @@
       "id": "face-round",
       "name": "Redondo",
       "asset": "assets/faces/shapes/face-round-v2.svg",
-      "thumbnail": "assets/faces/shapes/thumbs/thumb-face-round-v2.svg",
+      "thumbnail": "assets/faces/shapes/thumbs/face-round-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -25,7 +25,7 @@
       "id": "face-oval",
       "name": "Oval",
       "asset": "assets/faces/shapes/face-oval-v2.svg",
-      "thumbnail": "assets/faces/shapes/thumbs/thumb-face-oval-v2.svg",
+      "thumbnail": "assets/faces/shapes/thumbs/face-oval-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -39,7 +39,7 @@
       "id": "face-square",
       "name": "Quadrado",
       "asset": "assets/faces/shapes/face-square-v2.svg",
-      "thumbnail": "assets/faces/shapes/thumbs/thumb-face-square-v2.svg",
+      "thumbnail": "assets/faces/shapes/thumbs/face-square-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800

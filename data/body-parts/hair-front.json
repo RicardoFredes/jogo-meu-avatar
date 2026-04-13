@@ -19,7 +19,8 @@
       "offset": {
         "x": 0,
         "y": 0
-      }
+      },
+      "thumbnail": "assets/hair/front/thumbs/sem-franja-thumb.png"
     },
     {
       "id": "franja-ondulada",
@@ -33,7 +34,7 @@
         "x": 0,
         "y": 110
       },
-      "thumbnail": "assets/hair/front/thumbs/thumb-franja-ondulada.svg"
+      "thumbnail": "assets/hair/front/thumbs/franja-ondulada-thumb.png"
     },
     {
       "id": "franja-reta",
@@ -47,7 +48,7 @@
         "x": 0,
         "y": 110
       },
-      "thumbnail": "assets/hair/front/thumbs/thumb-franja-reta.svg"
+      "thumbnail": "assets/hair/front/thumbs/franja-reta-thumb.png"
     },
     {
       "id": "franja-lateral",
@@ -61,7 +62,7 @@
         "x": 0,
         "y": 110
       },
-      "thumbnail": "assets/hair/front/thumbs/thumb-franja-lateral.svg"
+      "thumbnail": "assets/hair/front/thumbs/franja-lateral-thumb.png"
     },
     {
       "id": "franja-cortina",
@@ -75,7 +76,7 @@
         "x": 0,
         "y": 110
       },
-      "thumbnail": "assets/hair/front/thumbs/thumb-franja-cortina.svg"
+      "thumbnail": "assets/hair/front/thumbs/franja-cortina-thumb.png"
     },
     {
       "id": "franja-cacheada",
@@ -89,7 +90,7 @@
         "x": 0,
         "y": 110
       },
-      "thumbnail": "assets/hair/front/thumbs/thumb-franja-cacheada.svg"
+      "thumbnail": "assets/hair/front/thumbs/franja-cacheada-thumb.png"
     }
   ]
 }

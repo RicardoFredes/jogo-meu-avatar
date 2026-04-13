@@ -31,7 +31,7 @@
           "y": -17
         }
       },
-      "thumbnail": "assets/clothing/patterns/thumbs/thumb-pattern-polkadot.svg"
+      "thumbnail": "assets/clothing/patterns/thumbs/pattern-polkadot-thumb.png"
     },
     {
       "id": "pattern-stripes",
@@ -55,7 +55,7 @@
           "y": -17
         }
       },
-      "thumbnail": "assets/clothing/patterns/thumbs/thumb-pattern-stripes.svg"
+      "thumbnail": "assets/clothing/patterns/thumbs/pattern-stripes-thumb.png"
     },
     {
       "id": "pattern-hearts",
@@ -79,7 +79,7 @@
           "y": -17
         }
       },
-      "thumbnail": "assets/clothing/patterns/thumbs/thumb-pattern-hearts.svg"
+      "thumbnail": "assets/clothing/patterns/thumbs/pattern-hearts-thumb.png"
     },
     {
       "id": "pattern-stars",
@@ -103,7 +103,7 @@
           "y": -17
         }
       },
-      "thumbnail": "assets/clothing/patterns/thumbs/thumb-pattern-stars.svg"
+      "thumbnail": "assets/clothing/patterns/thumbs/pattern-stars-thumb.png"
     }
   ]
 }

@@ -16,7 +16,7 @@
       "id": "pants",
       "name": "Calca",
       "asset": "assets/clothing/bottoms/pants-v2.svg",
-      "thumbnail": "assets/clothing/bottoms/thumbs/thumb-pants-v2.svg",
+      "thumbnail": "assets/clothing/bottoms/thumbs/pants-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -30,7 +30,7 @@
       "id": "shorts",
       "name": "Shorts",
       "asset": "assets/clothing/bottoms/shorts-v2.svg",
-      "thumbnail": "assets/clothing/bottoms/thumbs/thumb-shorts-v2.svg",
+      "thumbnail": "assets/clothing/bottoms/thumbs/shorts-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -44,7 +44,7 @@
       "id": "skirt",
       "name": "Saia",
       "asset": "assets/clothing/bottoms/skirt-v2.svg",
-      "thumbnail": "assets/clothing/bottoms/thumbs/thumb-skirt-v2.svg",
+      "thumbnail": "assets/clothing/bottoms/thumbs/skirt-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -58,7 +58,7 @@
       "id": "skirt-long",
       "name": "Saia Longa",
       "asset": "assets/clothing/bottoms/skirt-long-v2.svg",
-      "thumbnail": "assets/clothing/bottoms/thumbs/thumb-skirt-long-v2.svg",
+      "thumbnail": "assets/clothing/bottoms/thumbs/skirt-long-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800

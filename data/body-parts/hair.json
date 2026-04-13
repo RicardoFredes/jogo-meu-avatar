@@ -44,7 +44,7 @@
           }
         }
       ],
-      "thumbnail": "assets/hair/front/thumbs/thumb-long-straight.svg"
+      "thumbnail": "assets/hair/front/thumbs/long-straight-thumb.png"
     },
     {
       "id": "long-curly",
@@ -84,7 +84,7 @@
           }
         }
       ],
-      "thumbnail": "assets/hair/front/thumbs/thumb-long-curly.svg"
+      "thumbnail": "assets/hair/front/thumbs/long-curly-thumb.png"
     },
     {
       "id": "short-bob",
@@ -124,7 +124,7 @@
           }
         }
       ],
-      "thumbnail": "assets/hair/front/thumbs/thumb-short-bob.svg"
+      "thumbnail": "assets/hair/front/thumbs/short-bob-thumb.png"
     },
     {
       "id": "pigtails",
@@ -164,7 +164,7 @@
           }
         }
       ],
-      "thumbnail": "assets/hair/front/thumbs/thumb-pigtails.svg"
+      "thumbnail": "assets/hair/front/thumbs/pigtails-thumb.png"
     },
     {
       "id": "ponytail",
@@ -204,7 +204,7 @@
           }
         }
       ],
-      "thumbnail": "assets/hair/front/thumbs/thumb-ponytail.svg"
+      "thumbnail": "assets/hair/front/thumbs/ponytail-thumb.png"
     },
     {
       "id": "buns",
@@ -244,7 +244,7 @@
           }
         }
       ],
-      "thumbnail": "assets/hair/front/thumbs/thumb-buns.svg"
+      "thumbnail": "assets/hair/front/thumbs/buns-thumb.png"
     },
     {
       "id": "short-messy",
@@ -284,7 +284,7 @@
           }
         }
       ],
-      "thumbnail": "assets/hair/front/thumbs/thumb-short-messy.svg"
+      "thumbnail": "assets/hair/front/thumbs/short-messy-thumb.png"
     },
     {
       "id": "side-part",
@@ -324,7 +324,7 @@
           }
         }
       ],
-      "thumbnail": "assets/hair/front/thumbs/thumb-side-part.svg"
+      "thumbnail": "assets/hair/front/thumbs/side-part-thumb.png"
     },
     {
       "id": "buzz-cut",
@@ -364,7 +364,7 @@
           }
         }
       ],
-      "thumbnail": "assets/hair/front/thumbs/thumb-buzz-cut.svg"
+      "thumbnail": "assets/hair/front/thumbs/buzz-cut-thumb.png"
     },
     {
       "id": "faux-hawk",
@@ -404,7 +404,7 @@
           }
         }
       ],
-      "thumbnail": "assets/hair/front/thumbs/thumb-faux-hawk.svg"
+      "thumbnail": "assets/hair/front/thumbs/faux-hawk-thumb.png"
     },
     {
       "id": "curly-short",
@@ -444,7 +444,7 @@
           }
         }
       ],
-      "thumbnail": "assets/hair/front/thumbs/thumb-curly-short.svg"
+      "thumbnail": "assets/hair/front/thumbs/curly-short-thumb.png"
     },
     {
       "id": "bald",
@@ -484,7 +484,8 @@
             "y": 50
           }
         }
-      ]
+      ],
+      "thumbnail": "assets/hair/front/thumbs/bald-thumb.png"
     }
   ]
 }

@@ -12,7 +12,7 @@
       "id": "necklace",
       "name": "Colar",
       "asset": "assets/accessories/body/necklace-v2.svg",
-      "thumbnail": "assets/accessories/body/thumbs/thumb-necklace-v2.svg",
+      "thumbnail": "assets/accessories/body/thumbs/necklace-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -26,7 +26,7 @@
       "id": "bowtie",
       "name": "Gravata Borboleta",
       "asset": "assets/accessories/body/bowtie-v2.svg",
-      "thumbnail": "assets/accessories/body/thumbs/thumb-bowtie-v2.svg",
+      "thumbnail": "assets/accessories/body/thumbs/bowtie-v2-thumb.png",
       "colorable": true,
       "colorPalette": "clothing-colors",
       "size": {
@@ -42,7 +42,7 @@
       "id": "cape",
       "name": "Capa",
       "asset": "assets/accessories/body/cape-v2.svg",
-      "thumbnail": "assets/accessories/body/thumbs/thumb-cape-v2.svg",
+      "thumbnail": "assets/accessories/body/thumbs/cape-v2-thumb.png",
       "colorable": true,
       "colorPalette": "clothing-colors",
       "size": {

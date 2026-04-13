@@ -12,7 +12,7 @@
       "id": "brows-thin",
       "name": "Finas",
       "asset": "assets/faces/eyebrows/brows-thin-v2.svg",
-      "thumbnail": "assets/faces/eyebrows/thumbs/thumb-brows-thin-v2.svg",
+      "thumbnail": "assets/faces/eyebrows/thumbs/brows-thin-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -26,7 +26,7 @@
       "id": "brows-thick",
       "name": "Grossas",
       "asset": "assets/faces/eyebrows/brows-thick-v2.svg",
-      "thumbnail": "assets/faces/eyebrows/thumbs/thumb-brows-thick-v2.svg",
+      "thumbnail": "assets/faces/eyebrows/thumbs/brows-thick-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -40,7 +40,7 @@
       "id": "brows-straight",
       "name": "Retas",
       "asset": "assets/faces/eyebrows/brows-straight-v2.svg",
-      "thumbnail": "assets/faces/eyebrows/thumbs/thumb-brows-straight-v2.svg",
+      "thumbnail": "assets/faces/eyebrows/thumbs/brows-straight-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800
@@ -54,7 +54,7 @@
       "id": "brows-happy",
       "name": "Alegres",
       "asset": "assets/faces/eyebrows/brows-happy-v2.svg",
-      "thumbnail": "assets/faces/eyebrows/thumbs/thumb-brows-happy-v2.svg",
+      "thumbnail": "assets/faces/eyebrows/thumbs/brows-happy-v2-thumb.png",
       "size": {
         "width": 600,
         "height": 800

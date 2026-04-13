@@ -69,11 +69,15 @@ const App = (() => {
     document.querySelectorAll('#btn-prev-step, #btn-prev-step-desktop').forEach(btn => {
       btn.addEventListener('click', () => CharacterCreator.prevStep());
     });
-    document.getElementById('btn-creator-back').addEventListener('click', () => {
+    // Creator back buttons (desktop + mobile)
+    const creatorBackHandler = () => {
       CharacterCreator.cleanup();
       showScreen('home');
       renderHomeCharacters();
-    });
+    };
+    document.getElementById('btn-creator-back').addEventListener('click', creatorBackHandler);
+    const creatorBackMobile = document.getElementById('btn-creator-back-mobile');
+    if (creatorBackMobile) creatorBackMobile.addEventListener('click', creatorBackHandler);
 
     // Done screen
     document.getElementById('btn-go-home').addEventListener('click', () => {
@@ -90,14 +94,26 @@ const App = (() => {
     });
 
     // Wardrobe
-    document.getElementById('btn-wardrobe-back').addEventListener('click', () => {
+    // Wardrobe back buttons (desktop + mobile)
+    const wardrobeBackHandler = () => {
       showScreen('home');
       renderHomeCharacters();
-    });
+    };
+    document.getElementById('btn-wardrobe-back').addEventListener('click', wardrobeBackHandler);
+    const wardrobeBackMobile = document.getElementById('btn-wardrobe-back-mobile');
+    if (wardrobeBackMobile) wardrobeBackMobile.addEventListener('click', wardrobeBackHandler);
     document.getElementById('btn-clear-outfit').addEventListener('click', () => Wardrobe.clearOutfit());
     document.getElementById('btn-save-look').addEventListener('click', () => showNameDialog());
     document.getElementById('btn-my-looks').addEventListener('click', () => Wardrobe.showLooksSidebar());
     document.getElementById('btn-close-looks').addEventListener('click', () => Wardrobe.hideLooksSidebar());
+
+    // Mobile wardrobe action buttons (same actions, bigger buttons)
+    const clearMobile = document.getElementById('btn-clear-outfit-mobile');
+    const saveMobile = document.getElementById('btn-save-look-mobile');
+    const looksMobile = document.getElementById('btn-my-looks-mobile');
+    if (clearMobile) clearMobile.addEventListener('click', () => Wardrobe.clearOutfit());
+    if (saveMobile) saveMobile.addEventListener('click', () => showNameDialog());
+    if (looksMobile) looksMobile.addEventListener('click', () => Wardrobe.showLooksSidebar());
 
     // Dialogs
     document.getElementById('dialog-cancel').addEventListener('click', hideConfirmDialog);
