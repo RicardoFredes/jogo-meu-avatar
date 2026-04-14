@@ -31,6 +31,18 @@ html, body {
 .screen { display: none !important; }
 .screen.active { display: flex !important; }
 
+/* Every fullscreen layer (screens, mobile menu drawer, modals) pushes
+   its chrome below the iOS status bar / Dynamic Island. Tailwind ships
+   box-sizing:border-box, so backgrounds still paint edge-to-edge while
+   children start below the inset. On non-notched devices --sp-safe-top
+   is 0, so this is inert on desktop.
+   Note: elements positioned fixed *within* these wrappers (like the
+   mobile close ✕ or step dots) anchor to the viewport, not to this
+   padding — they add --sp-safe-top to their own `top` value. */
+.fixed.inset-0 {
+  padding-top: var(--sp-safe-top);
+}
+
 /* Loading animation */
 .loading-bar {
   width: 200px; height: 8px;
@@ -331,7 +343,8 @@ html, body {
 
 .mobile-close-btn {
   position: fixed;
-  top: 10px;
+  /* Add the status-bar inset so the ✕ stays tappable on notched iPhones. */
+  top: calc(10px + var(--sp-safe-top));
   left: 10px;
   z-index: var(--z-fixed-ui);
   width: 44px;
@@ -356,7 +369,7 @@ html, body {
 
 .mobile-step-dots {
   position: fixed;
-  top: 14px;
+  top: calc(14px + var(--sp-safe-top));
   left: 50%;
   transform: translateX(-50%);
   z-index: var(--z-fixed-ui);
@@ -386,7 +399,7 @@ html, body {
 
 .studio-mobile-actions {
   position: fixed;
-  top: 50px;
+  top: calc(50px + var(--sp-safe-top));
   right: var(--sp-2);
   display: flex;
   flex-direction: column;

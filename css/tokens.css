@@ -56,6 +56,10 @@
   --sp-safe-x: max(24px, env(safe-area-inset-left));
   --sp-safe-x-right: max(24px, env(safe-area-inset-right));
   --sp-safe-bottom: max(32px, env(safe-area-inset-bottom));
+  /* Top inset is only non-zero on notched/Dynamic-Island iPhones in
+     portrait. We don't want a baseline gap on desktop, so this one
+     doesn't use max() — it's exactly what iOS reports (0 elsewhere). */
+  --sp-safe-top: env(safe-area-inset-top);
 
   /* Radius */
   --radius-sm: 8px;
