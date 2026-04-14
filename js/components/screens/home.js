@@ -6,6 +6,7 @@ document.addEventListener('alpine:init', () => {
   Alpine.data('homeScreen', () => ({
     characters: [],
     thumbnails: {},
+    _fingerprints: {},
 
     init() {
       this.load();
@@ -18,9 +19,14 @@ document.addEventListener('alpine:init', () => {
     load() {
       this.characters = Storage.getCharacters();
       this.characters.forEach(char => {
-        if (!this.thumbnails[char.id]) {
+        // Fingerprint the visual state so thumbnails refresh after edits
+        // (body shape, skin color, parts, outfit).
+        const fp = JSON.stringify({ b: char.body, p: char.parts, o: char.outfit });
+        if (!this.thumbnails[char.id] || this._fingerprints[char.id] !== fp) {
+          this._fingerprints[char.id] = fp;
+          const charId = char.id;
           Renderer.renderToDataURL(char, 130).then(url => {
-            if (url) this.thumbnails = { ...this.thumbnails, [char.id]: url };
+            if (url) this.thumbnails = { ...this.thumbnails, [charId]: url };
           });
         }
       });

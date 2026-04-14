@@ -38,9 +38,12 @@ document.addEventListener('alpine:init', () => {
       if (this.baseThumbnail) return this.baseThumbnail;
       const char = this.char;
       if (!char) return null;
+      const snapshotId = this.charId;
       const copy = JSON.parse(JSON.stringify(char));
       copy.outfit = {};
       const url = await Renderer.renderToDataURL(copy, 160);
+      // Discard if the user switched to a different character while rendering.
+      if (this.charId !== snapshotId) return null;
       if (url) this.baseThumbnail = url;
       return url;
     },
@@ -51,9 +54,12 @@ document.addEventListener('alpine:init', () => {
       if (!char) return null;
       const look = (char.savedOutfits || []).find(o => o.id === lookId);
       if (!look) return null;
+      const snapshotId = this.charId;
       const copy = JSON.parse(JSON.stringify(char));
       copy.outfit = look.outfit;
       const url = await Renderer.renderToDataURL(copy, 160);
+      // Discard if the user switched to a different character while rendering.
+      if (this.charId !== snapshotId) return null;
       if (url) this.lookThumbnails = { ...this.lookThumbnails, [lookId]: url };
       return url;
     },

@@ -25,6 +25,7 @@ document.addEventListener('alpine:init', () => {
   } = {}) => ({
     _id: 'char-preview-' + (++_previewCounter),
     _stage: null,
+    _renderGen: 0,
 
     init() {
       // Give the host element a stable id so Konva can target it.
@@ -52,25 +53,36 @@ document.addEventListener('alpine:init', () => {
       const data = this.getData();
       if (!data) return;
 
+      // Stamp this render so we can detect stale async completions.
+      const gen = ++this._renderGen;
+
       // Wait one tick so x-show / DOM updates are flushed before we
       // measure the container — otherwise clientHeight/Width may still
       // be 0 (parent display:none) and the stage renders invisible.
       await this.$nextTick();
+      if (this._renderGen !== gen) return; // superseded by a newer render
 
       const area = this.$el.parentElement;
       let opts;
       if (scale === 'fit' && area) {
         const areaH = area.clientHeight - paddingPx;
         const areaW = area.clientWidth - paddingPx;
-        // Skip until layout is real; another effect run will retry.
-        if (areaH <= 0 || areaW <= 0) return;
+        if (areaH <= 0 || areaW <= 0) {
+          // Container not visible yet (e.g. screen transition in progress).
+          // Schedule a retry — no reactive change will re-fire x-effect.
+          setTimeout(() => { if (this._renderGen === gen) this.render(); }, 80);
+          return;
+        }
         // Let the renderer compute scale against the EFFECTIVE canvas
         // (which may be taller than the body shape if assets overflow).
         opts = { maxWidth: areaW, maxHeight: areaH };
       } else {
         opts = { scale };
       }
-      this._stage = await Renderer.renderToStage(this._id, data, opts);
+
+      const stage = await Renderer.renderToStage(this._id, data, opts);
+      if (this._renderGen !== gen) return; // superseded while images loaded
+      this._stage = stage;
     },
   }));
 });

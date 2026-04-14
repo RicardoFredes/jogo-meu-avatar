@@ -94,7 +94,11 @@ document.addEventListener('alpine:init', () => {
       this.activeLookId = null;
       const existing = Storage.getCharacter(charId);
       this.data = existing ? JSON.parse(JSON.stringify(existing)) : null;
-      if (this.data && !this.data.outfit) this.data.outfit = {};
+      // Always start with a clean outfit. The stored character may
+      // carry the last active look's outfit (mirrored by _persistCharacter),
+      // but the studio should begin bare — any look to edit is loaded
+      // explicitly via loadLook().
+      if (this.data) this.data.outfit = {};
     },
 
     // ---- Creator step navigation ----
